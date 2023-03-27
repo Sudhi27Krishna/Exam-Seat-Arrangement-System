@@ -2,19 +2,19 @@ import React from "react";
 
 function Login() {
     return (<div className="flex items-center justify-center h-screen">
-        <div className="py-12 px-8 shadow-md w-96 bg-emerald-300 rounded-lg">
-            <h1 className="text-2xl text-center font-semibold mb-10">LOG IN</h1>
+        <div className="py-12 px-12 shadow-2xl w-[23rem] bg-emerald-300 rounded-[20px]">
+            <h1 className="text-3xl text-center font-normal mb-10">LOG IN</h1>
             <form className="space-y-6">
                 <div>
                     <label className="block text-gray-700 font-bold mb-2" for="username">Username</label>
                     <input
-                        className="block w-full h-10 px-3 py-2 rounded-md shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                         id="username" type="text" placeholder="Enter your username" required />
                 </div>
                 <div>
                     <label className="block text-gray-700 font-bold mb-2" for="password">Password</label>
                     <input
-                        className="block w-full h-10 px-3 py-2 rounded-md shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                         id="password" type="password" placeholder="Enter your password" required />
                 </div>
                 <div className="flex justify-between items-center pt-5 pb-0">
