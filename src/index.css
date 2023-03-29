@@ -1,3 +1,50 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    @font-face {
+        font-family: "Outfit-Black";
+        src: url('/public/fonts/Outfit-Black.woff2')format('woff2'), url('/public/fonts/Outfit-Black.woff')format('woff');
+    }
+
+    @font-face {
+        font-family: "Outfit-Bold";
+        src: url('/public/fonts/Outfit-Bold.woff2')format('woff2'), url('/public/fonts/Outfit-Bold.woff')format('woff');
+    }
+
+    @font-face {
+        font-family: "Outfit-ExtraBold";
+        src: url('/public/fonts/Outfit-ExtraBold.woff2')format('woff2'), url('/public/fonts/Outfit-ExtraBold.woff')format('woff');
+    }
+
+    @font-face {
+        font-family: "Outfit-ExtraLight";
+        src: url('/public/fonts/Outfit-ExtraLight.woff2')format('woff2'), url('/public/fonts/Outfit-ExtraLight.woff')format('woff');
+    }
+
+    @font-face {
+        font-family: "Outfit-Light";
+        src: url('/public/fonts/Outfit-Light.woff2')format('woff2'), url('/public/fonts/Outfit-Light.woff')format('woff');
+    }
+
+    @font-face {
+        font-family: "Outfit-Medium";
+        src: url('/public/fonts/Outfit-Medium.woff2')format('woff2'), url('/public/fonts/Outfit-Medium.woff')format('woff');
+    }
+
+    @font-face {
+        font-family: "Outfit-Regular";
+        src: url('/public/fonts/Outfit-Regular.woff2')format('woff2'), url('/public/fonts/Outfit-Regular.woff')format('woff');
+    }
+
+    @font-face {
+        font-family: "Outfit-SemiBold";
+        src: url('/public/fonts/Outfit-SemiBold.woff2')format('woff2'), url('/public/fonts/Outfit-SemiBold.woff')format('woff');
+    }
+
+    @font-face {
+        font-family: "Outfit-Thin";
+        src: url('/public/fonts/Outfit-Thin.woff2')format('woff2'), url('/public/fonts/Outfit-Thin.woff')format('woff');
+    }
+}
