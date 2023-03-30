@@ -4,11 +4,11 @@ export default function ManageRoom() {
     return (
         <div className="bg-background flex flex-col flex-grow">
             <div class="p-8">
-                <h2 class="text-2xl font-bold mb-8">ADD ROOM</h2>
-                <form class="flex flex-col md:flex-row">
+                <h2 class="text-2xl font-Outfit-Bold mb-8 select-none">ADD ROOM</h2>
+                <form class="flex flex-col md:flex-row font-Outfit-Medium tracking-needed">
                     <div class="flex flex-col mb-4 md:mr-4">
                         <label for="room-no" class="text-gray-700 font-bold mb-2 pl-2">Room No</label>
-                        <input id="room-no" type="text" class="w-5/6 h-12 px-3 py-2 rounded-[20px] shadow-sm border-gray-300" placeholder="Room No" required />
+                        <input id="room-no" type="text" class="w-5/6 h-12 px-3 py-2 rounded-[20px] shadow-sm border-gray-300 " placeholder="Room No" required />
                     </div>
                     <div class="flex flex-col mb-4 md:mr-4">
                         <label for="floor-no" class="text-gray-700 font-bold mb-2 pl-2">Floor No</label>

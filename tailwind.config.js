@@ -12,7 +12,7 @@ module.exports = {
         'green-light': '#295D68',
         'green-dark': '#111F35',
         'green-save': '#23CA85',
-        'grey-all': '#BECCCF',
+        'grey-all': '#87A3A9',
         'red-download': '#DD7A96',
         'background': '#F2F4E7',
       },
