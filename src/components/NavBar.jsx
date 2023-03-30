@@ -21,7 +21,7 @@ function NavBar() {
                     Seat Arrangement
                 </a>
                 <div class="flex-grow"></div> {/*adds a spacer to push logout to the bottom*/}
-                <a href="/" class="font-Outfit-Medium tracking-needed text-white hover:bg-green-light py-2 pl-[5.75rem] w-full">
+                <a href="/" class="font-Outfit-Medium tracking-needed text-white hover:bg-green-light py-2 px-6 w-full">
                     Log Out
                 </a>
             </div>

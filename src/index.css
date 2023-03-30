@@ -47,4 +47,10 @@
         font-family: "Outfit-Thin";
         src: url('/public/fonts/Outfit-Thin.woff2')format('woff2'), url('/public/fonts/Outfit-Thin.woff')format('woff');
     }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 }
