@@ -2,7 +2,7 @@ import React from 'react'
 
 function NavBar() {
     return (
-        <div class="flex flex-col w-64 h-screen bg-green-medium">
+        <div class="flex flex-col w-64 min-h-screen bg-green-medium">
             <div class="flex flex-col items-center justify-center h-64">
                 <img src="https://variety.com/wp-content/uploads/2023/03/john-wick-chapter-4-keanu.jpg?w=681&h=383&crop=1" alt="john-wick" class="rounded-full w-20 h-20" />
                 <p className="text-white font-Outfit-Medium tracking-needed mt-4">JOHN WICK</p>
