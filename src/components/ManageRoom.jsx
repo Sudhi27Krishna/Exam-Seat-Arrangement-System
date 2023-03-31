@@ -1,4 +1,5 @@
 import Input from './Input';
+import DropDownInput from './DropDownInput';
 import React from 'react'
 import row from '../row';
 import Row from './Row';
@@ -7,21 +8,21 @@ export default function ManageRoom() {
     return (
         <div className="bg-background flex flex-col flex-grow">
             <div className="px-8 pt-4">
-                <h2 className="text-2xl font-bold mb-8">ADD ROOM</h2>
-                <form className="flex flex-col md:flex-row justify-evenly">
-                    <Input title="Room No" />
-                    <Input title="Floor No" />
-                    <Input title="Block" />
-                    <Input title="Total Seats" />
-                    <Input title="Default Seats" />
-                    <button className="bg-blue-500 hover:bg-blue-400 text-white font-bold py-1 px-2 my-7 mx-2 h-10 w-[5rem] rounded-[20px]" type="submit">ADD</button>
+                <h2 className="text-xl font-OB mb-8">ADD ROOM</h2>
+                <form className="flex flex-col md:flex-row justify-evenly" >
+                    <Input title="Room No" placeholder="M101" required />
+                    <DropDownInput id="branch" title="Floor No" default="G" options={['1', '2', '3', '4', '5']} required />
+                    <DropDownInput id="slot" title="Block" default="M-George" options={['Ramanujan']} required />
+                    <Input title="Total Seats" placeholder="60" required />
+                    <Input title="Default Seats" placeholder="30" required />
+                    <button className="bg-blue-500 hover:bg-blue-400 text-white font-OB py-1 px-2 my-7 mx-2 h-10 w-[5rem] rounded-[20px]" type="submit">ADD</button>
                 </form>
             </div>
             <div className="px-8 py-4">
-                <h2 className="text-2xl font-bold mb-4">AVAILABLE ROOMS</h2>
+                <h2 className="text-xl font-OB mb-4">AVAILABLE ROOMS</h2>
                 <div className="flex flex-col sm:flex-row items-center justify-between bg-gray-100 p-4 rounded-md">
                     {/* Search Bar */}
-                    <div className="flex items-center w-full sm:w-1/3 mb-2 sm:mb-0">
+                    <div className="flex items-center w-full sm:w-1/3 mb-2 sm:mb-0 sm:mr-10 lg:mr-3 font-OR">
                         <span className="text-gray-500">
                             <svg viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6">
                                 <path
@@ -34,14 +35,14 @@ export default function ManageRoom() {
                         <input
                             type="text"
                             placeholder="Search"
-                            className="ml-2 flex-1 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="ml-2 flex-1 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
                         />
                     </div>
 
                     {/* Sort By Dropdown */}
-                    <div className="w-full sm:w-1/3 sm:mx-2 mb-2 sm:mb-0">
+                    <div className="w-full sm:w-1/3 sm:mx-2 mb-2 sm:mb-0 font-OR">
                         <select
-                            className="w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="min-h-[40px] w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
                             defaultValue=""
                         >
                             <option value="" disabled hidden>
@@ -57,7 +58,7 @@ export default function ManageRoom() {
                     {/* Filter By Dropdown */}
                     <div className="w-full sm:w-1/3 sm:ml-2">
                         <select
-                            className="w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500"
+                            className="min-h-[40px] w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login font-OR"
                             defaultValue=""
                         >
                             <option value="" disabled hidden>
@@ -72,7 +73,7 @@ export default function ManageRoom() {
                 <div className="h-72 overflow-y-scroll">
                     <table className="table-auto w-full">
                         <thead className="sticky top-0">
-                            <tr className="bg-gray-500">
+                            <tr className="bg-grey-all font-OB">
                                 <th className="text-left px-4 py-2 rounded-tl-2xl rounded-bl-2xl"><input type="checkbox" /></th>
                                 <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Room No</span></th>
                                 <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Floor No</span></th>
@@ -92,11 +93,11 @@ export default function ManageRoom() {
             <div className="px-8 py-4 mt-4">
                 <div className="flex flex-row justify-between">
                     <div>
-                        <p>Total Seats Available: 2000</p>
+                        <p className="font-OR">Total Seats Available: 2000</p>
                     </div>
                     <div className="flex flex-row gap-20">
-                        <button className="bg-gray-500 hover:bg-gray-400 text-white font-bold h-10 w-[10rem] rounded-[20px]" type="submit">RESET DEFAULT</button>
-                        <button className="bg-green-500 hover:bg-green-400 text-white font-bold h-10 w-[10rem] rounded-[20px]" type="submit">SAVE</button>
+                        <button className="bg-gray-500 hover:bg-gray-400 text-white font-OB h-10 w-[10rem] rounded-[20px] mt-[-10px]" type="submit">RESET DEFAULT</button>
+                        <button className="bg-green-500 hover:bg-green-400 text-white font-OB h-10 w-[10rem] rounded-[20px] mt-[-10px]" type="submit">SAVE</button>
                     </div>
                 </div>
             </div>

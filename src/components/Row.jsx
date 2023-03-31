@@ -1,5 +1,5 @@
 import React from 'react'
-
+//row for available rooms
 export default function Row(props) {
     return (
         <tr className="bg-gray-100">
@@ -9,7 +9,7 @@ export default function Row(props) {
             <td className="px-4 py-2">{props.block}</td>
             <td className="px-4 py-2">{props.available}</td>
             <td className="px-4 py-2">{props.default}</td>
-            <td className="px-4 py-2 rounded-tr-2xl rounded-br-2xl"><button className="text-red-500 hover:text-red-700">Button</button></td>
+            <td className="px-4 py-2 rounded-tr-2xl rounded-br-2xl"><button className="text-red-500 hover:text-red-700">Delete</button></td>
         </tr>
     )
 }
