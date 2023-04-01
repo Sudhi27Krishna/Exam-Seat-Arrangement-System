@@ -7,27 +7,28 @@ import UeRow from './UeRow';
 export default function UniversityExam() {
     return (
         <div className="bg-background flex flex-col flex-grow">
+            <div className="px-8 pt-4 flex flex-row justify-between flex-wrap">
+                <div className="flex flex-row mt-6">
+                    <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT SEMESTER</span></h2>
+                    <select className="rounded-[20px] w-36 focus:outline-none focus:ring-2 ml-5 focus:ring-green-login sm:ma" defaultValue="">
+                        <option value="" disabled hidden></option>
+                        <option value="S1">Semester 1</option>
+                        <option value="S2">Semester 2</option>
+                        <option value="S3">Semester 3</option>
+                        <option value="S4">Semester 4</option>
+                        <option value="S5">Semester 5</option>
+                        <option value="S6">Semester 6</option>
+                        <option value="S7">Semester 7</option>
+                        <option value="S8">Semester 8</option>
+                    </select>
+                </div>
 
-            <div className="px-8 pt-4 flex flex-wrap justify-items-start">
-                <h2 className="text-xl font-Outfit-Bold mb-8 mt-3 ">SELECT SEMESTER</h2>
-                <select className="px-4 py-2 ml-5 h-10  mt-2 rounded-[20px] focus:outline-none focus:ring-2  focus:ring-green-login sm:ma" defaultValue="">
-                    <option value="" disabled hidden></option>
-                    <option value="S1">Semester 1</option>
-                    <option value="S2">Semester 2</option>
-                    <option value="S3">Semester 3</option>
-                    <option value="S4">Semester 4</option>
-                    <option value="S5">Semester 5</option>
-                    <option value="S6">Semester 6</option>
-                    <option value="S7">Semester 7</option>
-                    <option value="S8">Semester 8</option>
-                </select>
-                <div className="flex flex-row">
-                    <h2 className="text-xl font-Outfit-Bold mb-8 mt-3 lg:ml-56 ">EXAMINEE DETAILS</h2>
-                    <input type="file" className="px-7 mt-2 lg:mt-2 sm:mt-7 font-Outfit-Regular" />
+                <div className="flex flex-row justify-center items-baseline mt-6">
+                    <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">EXAMINEE DETAILS</span></h2>
+                    <input type="file" className="font-Outfit-Regular ml-5" />
                 </div>
             </div>
-
-            <div className="px-8 pt-4">
+            <div className="px-8 pt-6">
                 <h2 className="text-xl font-Outfit-Bold mb-8">ADD SLOTS</h2>
                 <form className="flex flex-col md:flex-row justify-around">
                     <Input title="Date" placeholder="09-09-2020" />

@@ -1,76 +1,76 @@
 const uerow = [
     {
-        id:1,
+        id: 1,
         date: "09-09-2020",
         branch: "all",
         slot: "A",
         subject: "MAT101"
     },
     {
-        id:2,
+        id: 2,
         date: "09-09-2020",
         branch: "all",
         slot: "A",
         subject: "MAT101"
     },
     {
-        id:3,
+        id: 3,
         date: "09-09-2020",
         branch: "all",
         slot: "A",
         subject: "MAT101"
     },
     {
-        id:4,
+        id: 4,
         date: "09-09-2020",
         branch: "all",
         slot: "A",
         subject: "MAT101"
     },
     {
-        id:5,
+        id: 5,
         date: "09-09-2020",
         branch: "all",
         slot: "A",
         subject: "MAT101"
     },
     {
-        id:6,
+        id: 6,
         date: "09-09-2020",
         branch: "all",
         slot: "A",
         subject: "MAT101"
     },
     {
-        id:7,
+        id: 7,
         date: "09-09-2020",
         branch: "all",
         slot: "A",
         subject: "MAT101"
     },
     {
-        id:8,
+        id: 8,
         date: "09-09-2020",
         branch: "all",
         slot: "A",
         subject: "MAT101"
     },
     {
-        id:9,
+        id: 9,
         date: "09-09-2020",
         branch: "all",
         slot: "A",
         subject: "MAT101"
     },
     {
-        id:10,
+        id: 10,
         date: "09-09-2020",
         branch: "all",
         slot: "A",
         subject: "MAT101"
     },
     {
-        id:11,
+        id: 11,
         date: "09-09-2020",
         branch: "all",
         slot: "A",
@@ -79,3 +79,4 @@ const uerow = [
 
 ]
 module.exports = uerow;
+
