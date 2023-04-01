@@ -6,13 +6,13 @@ function Login() {
             <h1 className="text-3xl text-center font-normal mb-10 font-Outfit-Medium">LOG IN</h1>
             <form className="space-y-6">
                 <div>
-                    <label className="block text-gray-700 font-Outfit-Light mb-2 " for="username">Username</label>
+                    <label className="block text-gray-700 font-Outfit-Light mb-2 " htmlFor="username">Username</label>
                     <input
                         className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                         id="username" type="text" placeholder="Enter your username" required />
                 </div>
                 <div>
-                    <label className="block text-gray-700 font-Outfit-Light mb-2" for="password">Password</label>
+                    <label className="block text-gray-700 font-Outfit-Light mb-2" htmlFor="password">Password</label>
                     <input
                         className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                         id="password" type="password" placeholder="Enter your password" required />

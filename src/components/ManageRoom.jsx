@@ -19,7 +19,7 @@ export default function ManageRoom() {
             </div>
             <div className="px-8 py-4">
                 <h2 className="text-2xl font-bold mb-4">AVAILABLE ROOMS</h2>
-                <div className="flex flex-col sm:flex-row items-center justify-between bg-gray-100 p-4 rounded-md">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-x-4 bg-gray-100 p-4 rounded-md">
                     {/* Search Bar */}
                     <div className="flex items-center w-full sm:w-1/3 mb-2 sm:mb-0">
                         <span className="text-gray-500">
@@ -83,14 +83,14 @@ export default function ManageRoom() {
                             </tr>
                         </thead>
                         <tbody>
-                            {row.map(item => <Row room={item.room} floor={item.floor} block={item.block}
+                            {row.map(item => <Row key={item.id} room={item.room} floor={item.floor} block={item.block}
                                 available={item.available} default={item.default} />)}
                         </tbody>
                     </table>
                 </div>
             </div>
             <div className="px-8 py-4 mt-4">
-                <div className="flex flex-row justify-between">
+                <div className="flex flex-row justify-between items-center">
                     <div>
                         <p>Total Seats Available: 2000</p>
                     </div>
