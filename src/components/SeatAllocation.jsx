@@ -6,9 +6,9 @@ import rooms from '../rooms';
 
 export default function SeatAllocation() {
   return (
-    <div className="bg-background flex flex-col flex-grow">
-      <div className="bg-background flex flex-row flex-grow">
-        <div className="px-8 pt-4 flex flex-col gap-y-4 flex-wrap w-1/2">
+    <div className="bg-background flex flex-col flex-grow md:w-3/4">
+      <div className="bg-background flex flex-col st:flex-row flex-grow">
+        <div className="px-8 pt-4 flex flex-col gap-y-4 flex-wrap w-full">
           <div className="flex flex-row mt-6">
             <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT DATE</span></h2>
             <select className="rounded-[20px] w-36 focus:outline-none focus:ring-2 ml-5 focus:ring-green-login sm:ma" defaultValue="">
@@ -103,7 +103,7 @@ export default function SeatAllocation() {
           </div>
         </div>
 
-        <div className="px-8 pt-4 flex flex-col flex-wrap gap-y-4 w-1/2">
+        <div className="px-8 pt-4 flex flex-col flex-wrap gap-y-4 w-full">
           <div className="flex flex-row my-6">
             <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT EXAM</span></h2>
             <select className="rounded-[20px] w-36 focus:outline-none focus:ring-2 ml-5 focus:ring-green-login sm:ma" defaultValue="">
