@@ -10,11 +10,11 @@ export default function ManageRoom() {
             <div className="px-8 pt-4">
                 <h2 className="text-xl font-Outfit-Bold mb-8">ADD ROOM</h2>
                 <form className="flex flex-col md:flex-row justify-evenly">
-                    <Input title="Room No" placeholder="M101" required />
+                    <Input input_id="room-no" title="Room No" placeholder="M101" required />
                     <DropDownInput id="branch" title="Floor No" default="G" options={['1', '2', '3', '4', '5']} required />
                     <DropDownInput id="slot" title="Block" default="M-George" options={['Ramanujan']} required />
-                    <Input title="Total Seats" placeholder="60" required />
-                    <Input title="Default Seats" placeholder="30" required />
+                    <Input input_id="total-seats" title="Total Seats" placeholder="60" required />
+                    <Input input_id="default-seats" title="Default Seats" placeholder="30" required />
                     <button className="bg-blue-500 hover:bg-blue-400 text-white font-Outfit-Bold py-1 px-2 my-7 mx-2 h-10 w-[5rem] rounded-[20px]" type="submit">ADD</button>
                 </form>
             </div>
@@ -76,7 +76,7 @@ export default function ManageRoom() {
                         </thead>
                         <tbody>
                             {row.map(item => <Row key={item.id} room={item.room} floor={item.floor} block={item.block}
-                                available={item.available} default={item.default} />)}
+                                available={item.available} initial={item.default} />)}
                         </tbody>
                     </table>
                 </div>
