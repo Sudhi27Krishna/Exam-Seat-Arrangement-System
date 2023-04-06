@@ -8,9 +8,9 @@ export default function UniversityExam() {
     return (
         <div className="bg-background flex flex-col flex-grow">
             <div className="px-8 pt-4 flex flex-row justify-between flex-wrap">
-                <div className="flex flex-row mt-6">
+                <div className="flex flex-row mt-6 items-center">
                     <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT SEMESTER</span></h2>
-                    <select className="rounded-[20px] w-36 focus:outline-none focus:ring-2 ml-5 focus:ring-green-login sm:ma" defaultValue="">
+                    <select className="h-10 px-3 py-2 ml-5 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
                         <option value="" disabled hidden></option>
                         <option value="S1">Semester 1</option>
                         <option value="S2">Semester 2</option>

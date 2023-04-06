@@ -7,8 +7,8 @@ import Row from './Row';
 export default function ManageRoom() {
     return (
         <div className="bg-background flex flex-col flex-grow">
-            <div className="px-8 pt-4">
-                <h2 className="text-xl font-Outfit-Bold mb-8">ADD ROOM</h2>
+            <div className="px-8 pt-4  mt-6">
+                <h2 className="text-xl font-Outfit-Bold mb-4">ADD ROOM</h2>
                 <form className="flex flex-col st:flex-row justify-evenly">
                     <Input input_id="room-no" title="Room No" placeholder="M101" required />
                     <DropDownInput id="branch" title="Floor No" default="G" options={['1', '2', '3', '4', '5']} required />
@@ -88,7 +88,7 @@ export default function ManageRoom() {
                     <div>
                         <p className="font-Outfit-Regular">Total Seats Available: 2000</p>
                     </div>
-                    <div className="flex flex-row gap-20">
+                    <div className="flex flex-row gap-10">
                         <button className="bg-gray-500 hover:bg-gray-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="submit">RESET DEFAULT</button>
                         <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="submit">SAVE</button>
                     </div>
