@@ -1,6 +1,6 @@
 import React from 'react';
-import uerow from '../uerow';
-import UeRow from './UeRow';
+import row from '../row';
+import AllocRow from './AllocRow';
 import SeatBox from './SeatBox';
 import rooms from '../rooms';
 
@@ -87,16 +87,16 @@ export default function SeatAllocation() {
                 <thead className="sticky top-0">
                   <tr className="bg-grey-all font-Outfit-Bold">
                     <th className="text-left px-4 py-2 rounded-tl-2xl rounded-bl-2xl"><input type="checkbox" /></th>
-                    <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Date</span></th>
-                    <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Branch</span></th>
-                    <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Slot</span></th>
-                    <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Subject</span></th>
-                    <th className="px-4 py-2 rounded-tr-2xl rounded-br-2xl"></th>
+                    <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Block</span></th>
+                    <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Floor</span></th>
+                    <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Room</span></th>
+                    <th className="text-left px-4 py-2 rounded-tr-2xl rounded-br-2xl"><span className="whitespace-nowrap">Seats</span></th>
+                    <th className="px-0 py-0 rounded-tr-2xl rounded-br-2xl"></th>
                   </tr>
                 </thead>
                 <tbody>
-                  {uerow.map(item => <UeRow key={item.id} date={item.date} branch={item.branch} slot={item.slot}
-                    subject={item.subject} />)}
+                  {row.map(item => <AllocRow key={item.id} room={item.room} floor={item.floor} block={item.block}
+                    initial={item.default} />)}
                 </tbody>
               </table>
             </div>
@@ -138,9 +138,9 @@ export default function SeatAllocation() {
           <div>
             <p className="font-Outfit-Regular">Total Seats Available: 2000</p>
           </div>
-          <div className="flex flex-row gap-20">
-            <button className="bg-gray-500 hover:bg-gray-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="submit">RESET DEFAULT</button>
+          <div className="flex flex-row gap-10">
             <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="submit">SAVE</button>
+            <button className="bg-green-medium hover:bg-green-light text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="submit">PROCEED</button>
           </div>
         </div>
       </div>
