@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 //row for exam time table
 export default function UeRow({date, branch, slot, subject}) {
     return (

@@ -28,9 +28,10 @@ export default function UniversityExam() {
                     <input type="file" className="font-Outfit-Regular ml-5" />
                 </div>
             </div>
+
             <div className="px-8 pt-6">
                 <h2 className="text-xl font-Outfit-Bold mb-8">ADD SLOTS</h2>
-                <form className="flex flex-col md:flex-row justify-around">
+                <form className="flex flex-col st:flex-row justify-around">
                     <Input input_id="date" title="Date" placeholder="09-09-2020" />
                     <DropDownInput input_id="branch" title="Branches" initial="all" options={['CSE', 'CSE-AI', 'CSE-DS', 'ECE', 'EEE', 'CIVIL', 'MECH']} />
                     <DropDownInput input_id="slot" title="Slot" initial="A" options={['B', 'C', 'D', 'E', 'F', 'G']} />
@@ -60,6 +61,7 @@ export default function UniversityExam() {
                     </table>
                 </div>
             </div>
+            
             <div className="px-8 py-4 mt-4">
                 <div className="flex flex-row justify-between items-center">
                     <div>

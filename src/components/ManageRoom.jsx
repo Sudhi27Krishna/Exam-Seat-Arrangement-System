@@ -9,7 +9,7 @@ export default function ManageRoom() {
         <div className="bg-background flex flex-col flex-grow">
             <div className="px-8 pt-4">
                 <h2 className="text-xl font-Outfit-Bold mb-8">ADD ROOM</h2>
-                <form className="flex flex-col md:flex-row justify-evenly">
+                <form className="flex flex-col st:flex-row justify-evenly">
                     <Input input_id="room-no" title="Room No" placeholder="M101" required />
                     <DropDownInput id="branch" title="Floor No" default="G" options={['1', '2', '3', '4', '5']} required />
                     <DropDownInput id="slot" title="Block" default="M-George" options={['Ramanujan']} required />
@@ -18,6 +18,7 @@ export default function ManageRoom() {
                     <button className="bg-blue-500 hover:bg-blue-400 text-white font-Outfit-Bold py-1 px-2 my-7 mx-2 h-10 w-[5rem] rounded-[20px]" type="submit">ADD</button>
                 </form>
             </div>
+
             <div className="px-8 py-4">
                 <h2 className="text-xl font-Outfit-Bold mb-4">AVAILABLE ROOMS</h2>
                 <div className="flex flex-col sm:flex-row items-center justify-between bg-gray-100 p-4 rounded-md">
@@ -81,6 +82,7 @@ export default function ManageRoom() {
                     </table>
                 </div>
             </div>
+            
             <div className="px-8 py-4 mt-4">
                 <div className="flex flex-row justify-between items-center">
                     <div>

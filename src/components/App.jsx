@@ -7,13 +7,15 @@ import SeatAllocation from "./SeatAllocation";
 
 
 function App() {
-  return (<div className="flex flex-row">
-    <NavBar />
-    {/* <ManageRoom /> */}
-    {/* <UniversityExam /> */}
-    {/* <Login /> */}
-    <SeatAllocation />
-  </div>);
+  return (
+    <div className="flex flex-row">
+      <NavBar />
+      {/* <ManageRoom /> */}
+      {/* <UniversityExam /> */}
+      {/* <Login /> */}
+      <SeatAllocation />
+    </div>
+  );
 }
 
 export default App;

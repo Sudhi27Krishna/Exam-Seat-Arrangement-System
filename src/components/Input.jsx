@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 //input as textfield
 export default function Input({ input_id, title, placeholder }) {
     return (

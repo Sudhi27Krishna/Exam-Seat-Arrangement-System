@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        st: '1239px'
+        st: '1452px'
       },
       colors: {
         'green-login': '#92DBB6',

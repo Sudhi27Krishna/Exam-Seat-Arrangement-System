@@ -16,6 +16,5 @@ export default function DropDownInput({ input_id, title, initial, options }) {
                 ))}
             </select>
         </div>
-
     );
 }

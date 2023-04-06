@@ -6,5 +6,5 @@ export default function SeatBox({ room, capacity }) {
             <p className="font-Outfit-Bold">{room}</p>
             <p className="font-Outfit-Bold text-green-save">{capacity}</p>
         </div>
-    )
+    );
 }

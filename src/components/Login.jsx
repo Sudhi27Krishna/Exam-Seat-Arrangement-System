@@ -1,6 +1,6 @@
 import React from "react";
 
-function Login() {
+export default function Login() {
     return (
         <div className="flex items-center justify-center h-screen bg-background">
             <div className="py-12 px-12 shadow-2xl w-[23rem] bg-green-login rounded-[20px]">
@@ -31,5 +31,3 @@ function Login() {
         </div>
     );
 }
-
-export default Login;
