@@ -1,20 +1,22 @@
 import React from "react";
-// import ManageRoom from "./ManageRoom";
 // import Login from "./Login";
-import NavBar from "./NavBar";
-// import UniversityExam from "./UniversityExam";
+import Layout from "./Layout";
+import Home from "./Home";
+import ManageRoom from "./ManageRoom";
+import UniversityExam from "./UniversityExam";
 import SeatAllocation from "./SeatAllocation";
-
+import { Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="flex flex-row">
-      <NavBar />
-      {/* <ManageRoom /> */}
-      {/* <UniversityExam /> */}
-      {/* <Login /> */}
-      <SeatAllocation />
-    </div>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route path="manageroom" element={<ManageRoom />} />
+        <Route path="universityexam" element={<UniversityExam />} />
+        <Route path="seatallocation" element={<SeatAllocation />} />
+      </Route>
+    </Routes>
   );
 }
 
