@@ -10,7 +10,7 @@ export default function SeatAllocation() {
       <div className="bg-background px-8 pt-4 flex flex-col st:flex-row justify-between">
         <div className="flex flex-row mt-6 items-center">
           <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT DATE</span></h2>
-          <select className="h-8 px-3 py-2 ml-5 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
+          <select className="h-10 px-3 py-2 ml-5 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
             <option value="" disabled hidden></option>
             <option value="09-09-2020">09-09-2020</option>
             <option value="09-09-2020">09-09-2020</option>
@@ -25,7 +25,7 @@ export default function SeatAllocation() {
 
         <div className="flex flex-row mt-6 items-center">
           <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT TIME</span></h2>
-          <select className="h-8 px-3 py-2 ml-6 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
+          <select className="h-10 px-3 py-2 ml-6 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
             <option value="" disabled hidden></option>
             <option value="15:00:00">15:00:00</option>
             <option value="15:00:00">15:00:00</option>
@@ -40,7 +40,7 @@ export default function SeatAllocation() {
 
         <div className="flex flex-row mt-6 items-center">
           <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT EXAM</span></h2>
-          <select className="h-8 px-3 py-2 ml-4 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
+          <select className="h-10 px-3 py-2 ml-4 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
             <option value="" disabled hidden></option>
             <option value="FLAT">FLAT</option>
             <option value="FLAT">FLAT</option>
@@ -102,17 +102,17 @@ export default function SeatAllocation() {
             <table className="table-auto w-full">
               <thead className="sticky top-0">
                 <tr className="bg-grey-all font-Outfit-Bold">
-                  <th className="text-left px-4 py-2 rounded-tl-2xl rounded-bl-2xl"><input type="checkbox" /></th>
-                  <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Block</span></th>
-                  <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Floor</span></th>
-                  <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Room</span></th>
-                  <th className="text-left px-4 py-2 rounded-tr-2xl rounded-br-2xl"><span className="whitespace-nowrap">Seats</span></th>
+                  <th className="text-center px-4 py-2 rounded-tl-2xl rounded-bl-2xl"><input type="checkbox" /></th>
+                  <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Block</span></th>
+                  <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Floor</span></th>
+                  <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Room</span></th>
+                  <th className="text-center px-4 py-2 rounded-tr-2xl rounded-br-2xl"><span className="whitespace-nowrap">Seats</span></th>
                   <th className="px-0 py-0 rounded-tr-2xl rounded-br-2xl"></th>
                 </tr>
               </thead>
               <tbody>
                 {row.map(item => <AllocRow key={item.id} room={item.room} floor={item.floor} block={item.block}
-                  initial={item.default} />)}
+                  initial={item.available} />)}
               </tbody>
             </table>
           </div>
