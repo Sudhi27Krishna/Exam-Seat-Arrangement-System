@@ -11,9 +11,9 @@ export default function NavBar() {
 
             <div className="flex flex-col items-start justify-start h-full py-5">
                 <Link to="/" className="font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full">Home</Link>
-                <Link to="manageroom" className="font-Outfit-Medium tracking-needed text-white hover:bg-green-light py-2 px-6 w-full">Manage Rooms</Link>
-                <Link to="universityexam" className="font-Outfit-Medium tracking-needed text-white hover:bg-green-light py-2 px-6 w-full">University Exams</Link>
-                <Link to="seatallocation" className="font-Outfit-Medium tracking-needed text-white hover:bg-green-light py-2 px-6 w-full">Seat Arrangement</Link>
+                <Link to="manage-room" className="font-Outfit-Medium tracking-needed text-white hover:bg-green-light py-2 px-6 w-full">Manage Rooms</Link>
+                <Link to="university-exam" className="font-Outfit-Medium tracking-needed text-white hover:bg-green-light py-2 px-6 w-full">University Exams</Link>
+                <Link to="seat-allocation" className="font-Outfit-Medium tracking-needed text-white hover:bg-green-light py-2 px-6 w-full">Seat Arrangement</Link>
                 <div className="flex-grow"></div> {/*adds a spacer to push logout to the bottom*/}
                 <a href="/" className="font-Outfit-Medium tracking-needed text-white text-center hover:bg-green-light py-2 px-6 w-full">
                     Log Out
