@@ -9,12 +9,11 @@ export default function ManageRoom() {
         <div className="bg-background flex flex-col flex-grow">
             <div className="px-8 pt-4  mt-6">
                 <h2 className="text-xl font-Outfit-Bold mb-4">ADD ROOM</h2>
-                <form className="flex flex-col st:flex-row justify-evenly">
-                    <Input input_id="room-no" title="Room No" placeholder="M101" required />
-                    <DropDownInput id="branch" title="Floor No" default="G" options={['1', '2', '3', '4', '5']} required />
-                    <DropDownInput id="slot" title="Block" default="M-George" options={['Ramanujan']} required />
-                    <Input input_id="total-seats" title="Total Seats" placeholder="60" required />
-                    <Input input_id="default-seats" title="Default Seats" placeholder="30" required />
+                <form className="flex flex-col st:flex-row justify-between">
+                    <Input input_id="room-no" title="Room No" type="text" placeholder="M101" required />
+                    <DropDownInput id="branch" title="Floor No" default="1" options={['1', '2', '3', '4', '5']} required />
+                    <DropDownInput id="slot" title="Block" default="Ramanujan" options={['M-George', 'Ramanujan']} required />
+                    <Input input_id="total-seats" title="Available Seats" type="text" placeholder="Max capacity: 30" required />
                     <button className="bg-blue-500 hover:bg-blue-400 text-white font-Outfit-Bold py-1 px-2 my-7 mx-2 h-10 w-[5rem] rounded-[20px]" type="submit">ADD</button>
                 </form>
             </div>
@@ -82,7 +81,7 @@ export default function ManageRoom() {
                     </table>
                 </div>
             </div>
-            
+
             <div className="px-8 py-4 mt-4">
                 <div className="flex flex-row justify-between items-center">
                     <div>
