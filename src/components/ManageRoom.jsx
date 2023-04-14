@@ -65,18 +65,17 @@ export default function ManageRoom() {
                     <table className="table-auto w-full">
                         <thead className="sticky top-0">
                             <tr className="bg-grey-all font-Outfit-Bold">
-                                <th className="text-left px-4 py-2 rounded-tl-2xl rounded-bl-2xl"><input type="checkbox" /></th>
-                                <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Room No</span></th>
-                                <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Floor No</span></th>
-                                <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Block</span></th>
-                                <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Available Seats</span></th>
-                                <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Default Seats</span></th>
+                                <th className="text-center px-4 py-2 rounded-tl-2xl rounded-bl-2xl"><input type="checkbox" /></th>
+                                <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Room No</span></th>
+                                <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Floor No</span></th>
+                                <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Block</span></th>
+                                <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Available Seats</span></th>
                                 <th className="px-4 py-2 rounded-tr-2xl rounded-br-2xl"></th>
                             </tr>
                         </thead>
                         <tbody>
                             {row.map(item => <Row key={item.id} room={item.room} floor={item.floor} block={item.block}
-                                available={item.available} initial={item.default} />)}
+                                available={item.available} />)}
                         </tbody>
                     </table>
                 </div>

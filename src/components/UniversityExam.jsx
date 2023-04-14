@@ -31,7 +31,7 @@ export default function UniversityExam() {
 
             <div className="px-8 pt-6">
                 <h2 className="text-xl font-Outfit-Bold mb-8">ADD SLOTS</h2>
-                <form className="flex flex-col st:flex-row justify-around">
+                <form className="flex flex-col st:flex-row justify-between">
                     <Input input_id="date" title="Date" type="date" placeholder="09-09-2020" />
                     <DropDownInput input_id="branch" title="Branches" initial="all" options={['CSE', 'CSE-AI', 'CSE-DS', 'ECE', 'EEE', 'CIVIL', 'MECH']} />
                     <DropDownInput input_id="slot" title="Slot" initial="A" options={['B', 'C', 'D', 'E', 'F', 'G']} />
@@ -46,11 +46,11 @@ export default function UniversityExam() {
                     <table className="table-auto w-full">
                         <thead className="sticky top-0">
                             <tr className="bg-grey-all font-Outfit-Bold">
-                                <th className="text-left px-4 py-2 rounded-tl-2xl rounded-bl-2xl"><input type="checkbox" /></th>
-                                <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Date</span></th>
-                                <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Branch</span></th>
-                                <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Slot</span></th>
-                                <th className="text-left px-4 py-2"><span className="whitespace-nowrap">Subject</span></th>
+                                <th className="text-center px-4 py-2 rounded-tl-2xl rounded-bl-2xl"><input type="checkbox" /></th>
+                                <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Date</span></th>
+                                <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Branch</span></th>
+                                <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Slot</span></th>
+                                <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Subject</span></th>
                                 <th className="px-4 py-2 rounded-tr-2xl rounded-br-2xl"></th>
                             </tr>
                         </thead>
@@ -62,7 +62,7 @@ export default function UniversityExam() {
                 </div>
             </div>
             
-            <div className="px-8 py-4 mt-4">
+            <div className="px-8 py-4 mt-2">
                 <div className="flex flex-row justify-between items-center">
                     <div>
                         <p className="font-Outfit-Regular">No of Exams scheduled : 7</p>
