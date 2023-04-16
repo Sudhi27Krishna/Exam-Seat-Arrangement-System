@@ -1,37 +1,36 @@
 import Input from './Input';
 import DropDownInput from './DropDownInput';
-import React, {useState} from 'react'
+import React, { useState, useRef } from 'react';
 import row from '../row';
 import Row from './Row';
 
 export default function ManageRoom() {
     const [rooms, setRooms] = useState([]);
-    const [roomNo, setRoomNo] = useState('');
-    const [floorNo, setFloorNo] = useState(1);
-    const [block, setBlock] = useState('M-George');
-    const [capacity, setCapacity] = useState(0);
+    const formRef = useRef();
+    const roomNoRef = useRef();
+    const floorNoRef = useRef('1');
+    const blockRef = useRef('M-George');
+    const capacityRef = useRef();
 
-    const handleRooms = (e) => {
+    const handleRoom = (e) => {
         e.preventDefault();
-        const newRoom = {room_no: roomNo, floor_no: Number(floorNo), block: block, capacity: Number(capacity)};
+        const newRoom = { room_no: roomNoRef.current.value, floor_no: Number(floorNoRef.current.value), block: blockRef.current.value, capacity: Number(capacityRef.current.value) };
         const allRooms = [...rooms, newRoom];
         setRooms(allRooms);
         console.log(allRooms);
-        setRoomNo('');
-        setFloorNo(1);
-        setBlock('M-George');
-        setCapacity(0);
+        formRef.current.reset();
+        roomNoRef.current.focus();
     }
 
     return (
         <div className="bg-background flex flex-col flex-grow">
             <div className="px-8 pt-4 mt-6">
                 <h2 className="text-xl font-Outfit-Bold mb-4">ADD ROOM</h2>
-                <form className="flex flex-col st:flex-row justify-between" onSubmit={handleRooms}>
-                    <Input input_id="room-no" title="Room No" value={roomNo} setValue={setRoomNo} type="text" placeholder="M101" required />
-                    <DropDownInput id="branch" title="Floor No" value={floorNo} setValue={setFloorNo} options={['1', '2', '3', '4', '5']} required />
-                    <DropDownInput id="slot" title="Block" value={block} setValue={setBlock} options={['M-George', 'Ramanujan']} required />
-                    <Input input_id="total-seats" title="Available Seats" value={capacity} setValue={setCapacity} type="text" placeholder="Max capacity: 30" required />
+                <form ref={formRef} className="flex flex-col st:flex-row justify-between" onSubmit={handleRoom}>
+                    <Input input_id="room-no" title="Room No" inputRef={roomNoRef} type="text" placeholder="M101" required />
+                    <DropDownInput id="branch" title="Floor No" inputRef={floorNoRef} options={['1', '2', '3', '4', '5']} required />
+                    <DropDownInput id="slot" title="Block" inputRef={blockRef} options={['M-George', 'Ramanujan']} required />
+                    <Input input_id="total-seats" title="Available Seats" inputRef={capacityRef} type="text" placeholder="Max capacity: 30" required />
                     <button className="bg-blue-500 hover:bg-blue-400 text-white font-Outfit-Bold py-1 px-2 my-7 mx-2 h-10 w-[5rem] rounded-[20px]" type="submit">ADD</button>
                 </form>
             </div>

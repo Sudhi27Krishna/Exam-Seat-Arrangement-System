@@ -1,6 +1,6 @@
 import React from 'react';
 //row for exam time table
-export default function UeRow({date, branch, slot, subject}) {
+export default function UeRow({ date, branch, slot, subject }) {
     return (
         <tr className="bg-gray-100">
             <td className="text-center px-4 py-2 rounded-tl-2xl rounded-bl-2xl"><input type="checkbox" /></td>
