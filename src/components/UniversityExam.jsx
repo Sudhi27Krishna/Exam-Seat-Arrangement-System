@@ -1,6 +1,6 @@
 import DropDownInput from './DropDownInput';
 import Input from './Input';
-import React from 'react'
+import React from 'react';
 import uerow from '../uerow';
 import UeRow from './UeRow';
 
