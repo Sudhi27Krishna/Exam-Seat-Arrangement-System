@@ -1,5 +1,5 @@
 import React from "react";
-// import Login from "./Login";
+import Login from "./Login";
 import Layout from "./Layout";
 import Home from "./Home";
 import ManageRoom from "./ManageRoom";
@@ -10,8 +10,9 @@ import { Route, Routes } from 'react-router-dom';
 function App() {
   return (
     <Routes>
+      <Route path="/" element={<Login />} />
       <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
+        <Route path="home" element={<Home />} />
         <Route path="manage-room" element={<ManageRoom />} />
         <Route path="university-exam" element={<UniversityExam />} />
         <Route path="seat-allocation" element={<SeatAllocation />} />
