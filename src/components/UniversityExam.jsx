@@ -1,16 +1,39 @@
 import DropDownInput from './DropDownInput';
+import React, { useState, useRef } from 'react';
 import Input from './Input';
-import React from 'react';
 import uerow from '../uerow';
 import UeRow from './UeRow';
 
 export default function UniversityExam() {
+    const [exams,setExams]=useState([])
+    const semRef=useRef('')
+    const formRef = useRef();
+    const dateRef = useRef();
+    const branchRef = useRef('CSE');
+    const slotRef = useRef('B');
+    const subRef = useRef();
+
+    const handleExams = (e) => {
+        e.preventDefault()
+        const newExam = { date: dateRef.current.value, sem:semRef.current.value, branch: branchRef.current.value, slot: slotRef.current.value, subject: subRef.current.value };
+        const allExams = [...exams, newExam];
+        setExams(allExams);
+        console.log(allExams);
+        formRef.current.reset();
+        dateRef.current.focus();
+    }
+    const opt=['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4', ' Semester 5', ' Semester 6', ' Semester 7', ' Semester 8']
+    const onOptionChangeHandler = (event) => {
+        console.log("User Selected Value - ", event.target.value)
+        console.log("User Selected Value - ", semRef.current.value)
+        
+    }
     return (
         <div className="bg-background flex flex-col flex-grow">
             <div className="px-8 pt-4 flex flex-row justify-between flex-wrap">
                 <div className="flex flex-row mt-6 items-center">
                     <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT SEMESTER</span></h2>
-                    <select className="h-10 px-3 py-2 ml-5 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
+                    {/* <select className="h-10 px-3 py-2 ml-5 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="" >
                         <option value="" disabled hidden></option>
                         <option value="S1">Semester 1</option>
                         <option value="S2">Semester 2</option>
@@ -20,7 +43,16 @@ export default function UniversityExam() {
                         <option value="S6">Semester 6</option>
                         <option value="S7">Semester 7</option>
                         <option value="S8">Semester 8</option>
-                    </select>
+                    </select> */}
+                    <select id='sem' ref={semRef} 
+                    className="h-10 px-3 py-2 ml-5 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" 
+                    defaultValue=" " 
+                    onChange={onOptionChangeHandler}
+                    >
+                        {opt.map((option, index) => {
+                        return <option key={index} >{option}</option>
+                    })}
+                    </select> 
                 </div>
 
                 <div className="flex flex-row justify-center items-baseline mt-6">
@@ -31,11 +63,11 @@ export default function UniversityExam() {
 
             <div className="px-8 pt-6">
                 <h2 className="text-xl font-Outfit-Bold mb-8">ADD SLOTS</h2>
-                <form className="flex flex-col st:flex-row justify-between">
-                    <Input input_id="date" title="Date" type="date" placeholder="09-09-2020" />
-                    <DropDownInput input_id="branch" title="Branches" initial="all" options={['CSE', 'CSE-AI', 'CSE-DS', 'ECE', 'EEE', 'CIVIL', 'MECH']} />
-                    <DropDownInput input_id="slot" title="Slot" initial="A" options={['B', 'C', 'D', 'E', 'F', 'G']} />
-                    <Input input_id="subject" title="Subject" type="text" placeholder="MAT101" />
+                <form ref={formRef} className="flex flex-col st:flex-row justify-between" onSubmit={handleExams}>
+                    <Input input_id="date" title="Date" inputRef={dateRef} type="date" placeholder="09-09-2020" />
+                    <DropDownInput input_id="branch" title="Branches" inputRef={branchRef} options={['CSE', 'CSE-AI', 'CSE-DS', 'ECE', 'EEE', 'CIVIL', 'MECH']} />
+                    <DropDownInput input_id="slot" title="Slot" inputRef={slotRef} options={['A','B', 'C', 'D', 'E', 'F', 'G']} />
+                    <Input input_id="subject" title="Subject" inputRef={subRef} type="text" placeholder="MAT101" />
                     <button className="bg-blue-500 hover:bg-blue-400 text-white font-Outfit-Bold py-1 px-2 my-7 mx-2 h-10 w-[5rem] rounded-[20px]" type="submit">ADD</button>
                 </form>
             </div>
