@@ -8,13 +8,13 @@ export default function ManageRoom() {
     const [rooms, setRooms] = useState([]);
     const formRef = useRef();
     const roomNoRef = useRef();
-    const floorNoRef = useRef('1');
-    const blockRef = useRef('M-George');
+    const floorNoRef = useRef();
+    const blockRef = useRef();
     const capacityRef = useRef();
 
     const handleRoom = (e) => {
         e.preventDefault();
-        const newRoom = { room_no: roomNoRef.current.value, floor_no: Number(floorNoRef.current.value), block: blockRef.current.value, capacity: Number(capacityRef.current.value) };
+        const newRoom = { room_no: roomNoRef.current.value, floor_no: Number(floorNoRef.current.options[floorNoRef.current.selectedIndex].value), block: blockRef.current.options[blockRef.current.selectedIndex].value, capacity: Number(capacityRef.current.value) };
         const allRooms = [...rooms, newRoom];
         setRooms(allRooms);
         console.log(allRooms);
