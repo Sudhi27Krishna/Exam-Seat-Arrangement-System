@@ -19,8 +19,7 @@ export default function Login() {
                             className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                             id="password" type="password" placeholder="Enter your password" required />
                     </div>
-                    <div className="flex justify-between items-center pt-5 pb-0">
-                        <a className="text-gray-700 hover:text-gray-500" href="/">Forgot password?</a>
+                    <div className="flex justify-center items-center pt-5 ">
                         <Link to="home"><button
                             className="bg-green-medium hover:bg-green-light text-white font-Outfit-Bold py-2 px-4 rounded-[20px] focus:outline-none focus:shadow-outline"
                             type="submit">
@@ -29,6 +28,15 @@ export default function Login() {
                         </Link>
                     </div>
                 </form>
+                <div className="flex items-center justify-center mt-3 gap-2">
+                    <p>
+                        Don't have an account?
+                    </p>
+                    <span className="block hover:text-blue-600">
+                        <Link to="register">Sign Up</Link>
+                    </span>
+                </div>
+
             </div>
         </div>
     );
