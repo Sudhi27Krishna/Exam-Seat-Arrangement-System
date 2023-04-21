@@ -7,17 +7,23 @@ import ManageRoom from "./ManageRoom";
 import UniversityExam from "./UniversityExam";
 import SeatAllocation from "./SeatAllocation";
 import { Route, Routes } from 'react-router-dom';
+import RequireAuth from "./RequireAuth";
 
 function App() {
   return (
     <Routes>
+      {/* public routes */}
       <Route path="/" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/" element={<Layout />}>
-        <Route path="home" element={<Home />} />
-        <Route path="manage-room" element={<ManageRoom />} />
-        <Route path="university-exam" element={<UniversityExam />} />
-        <Route path="seat-allocation" element={<SeatAllocation />} />
+
+      {/* Protection needed routes */}
+      <Route element={<RequireAuth />}>
+        <Route path="/" element={<Layout />}>
+          <Route path="home" element={<Home />} />
+          <Route path="manage-room" element={<ManageRoom />} />
+          <Route path="university-exam" element={<UniversityExam />} />
+          <Route path="seat-allocation" element={<SeatAllocation />} />
+        </Route>
       </Route>
     </Routes>
   );
