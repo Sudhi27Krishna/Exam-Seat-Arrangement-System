@@ -2,13 +2,14 @@ import { useRef, useState, useEffect } from "react";
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from './api/axios';
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = '/register';
 
 const Register = () => {
+    const location = useLocation();
     const userRef = useRef();
     const errRef = useRef();
 
@@ -55,15 +56,13 @@ const Register = () => {
         }
         try {
             const response = await axios.post(REGISTER_URL,
-                JSON.stringify({ user, pwd }),
+                { user: user, pwd: pwd },
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 }
             );
             console.log(response?.data);
-            console.log(response?.accessToken);
-            console.log(JSON.stringify(response))
             setSuccess(true);
             //clear state and controlled inputs
             //need value attrib on inputs for this
@@ -86,17 +85,12 @@ const Register = () => {
         <div className="flex items-center justify-center h-screen bg-background">
             <div className="py-12 px-12 shadow-2xl w-[23rem] bg-green-login rounded-[20px]">
                 {success ? (
-                    <section>
-                        <h1 className="text-3xl text-center font-normal mb-10 font-Outfit-Medium">Success!</h1>
-                        <p>
-                            <Link to="/">Sign In</Link>
-                        </p>
-                    </section>
+                    <Navigate to='/' state={{from: location}} replace />
                 ) : (
                     <section>
                         <p ref={errRef} className={errMsg ? "text-red-600 font-Outfit-SemiBold mb-2 p-2" : "absolute left-[-9999px]"} aria-live="assertive">{errMsg}</p>
                         <h1 className="text-3xl text-center font-normal mb-10 font-Outfit-Medium">REGISTER</h1>
-                        <form onSubmit={handleSubmit} className="space-y-6">
+                        <form onSubmit={(e) => handleSubmit(e)} className="space-y-6">
                             <div>
                                 <label htmlFor="username" className="block text-gray-700 font-Outfit-Light mb-2 ">
                                     Username:
@@ -176,10 +170,9 @@ const Register = () => {
                             </div>
 
                             <div className="flex items-center justify-center pt-5">
-                                <Link to="/">
-                                    <button type="submit" className=" bg-green-medium hover:bg-green-light text-white font-Outfit-Bold py-2 px-4 rounded-[20px] focus:outline-none focus:shadow-outline"
-                                        disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up</button>
-                                </Link>
+                                <button type="submit" className=" bg-green-medium hover:bg-green-light text-white font-Outfit-Bold py-2 px-4 rounded-[20px] focus:outline-none focus:shadow-outline"
+                                    disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up
+                                </button>
                             </div>
                         </form>
                         <div className="flex items-center justify-center mt-3 gap-2">
