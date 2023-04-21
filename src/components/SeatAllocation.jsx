@@ -1,16 +1,32 @@
 import AllocRow from './AllocRow';
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import rooms from '../rooms';
 import row from '../row';
 import SeatBox from './SeatBox';
 
 export default function SeatAllocation() {
+  const [schedules, setSchedules] = useState([]);
+  const formRef = useRef();
+  const dateRef = useRef();
+  const timeRef = useRef();
+  const examRef = useRef();
+
+  const handleSchedule = (e) => {
+    e.preventDefault()
+    const newSchedule = { date: dateRef.current.options[dateRef.current.selectedIndex].value,  time: timeRef.current.options[timeRef.current.selectedIndex].value, exam: examRef.current.options[examRef.current.selectedIndex].value };
+    const allSchedules = [...schedules, newSchedule];
+    setSchedules(allSchedules);
+    console.log(allSchedules);
+    formRef.current.reset();
+    dateRef.current.focus();
+}
+
   return (
     <div className="bg-background flex flex-col flex-grow md:w-3/4">
       <div className="bg-background px-8 pt-4 flex flex-col st:flex-row justify-between">
         <div className="flex flex-row mt-6 items-center">
           <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT DATE</span></h2>
-          <select className="h-10 px-3 py-2 ml-5 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
+          <select ref={dateRef} className="h-10 px-3 py-2 ml-5 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
             <option value="" disabled hidden></option>
             <option value="09-09-2020">09-09-2020</option>
             <option value="09-09-2020">09-09-2020</option>
@@ -25,7 +41,7 @@ export default function SeatAllocation() {
 
         <div className="flex flex-row mt-6 items-center">
           <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT TIME</span></h2>
-          <select className="h-10 px-3 py-2 ml-6 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
+          <select ref={timeRef} className="h-10 px-3 py-2 ml-6 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
             <option value="" disabled hidden></option>
             <option value="15:00:00">15:00:00</option>
             <option value="15:00:00">15:00:00</option>
@@ -40,7 +56,7 @@ export default function SeatAllocation() {
 
         <div className="flex flex-row mt-6 items-center">
           <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT EXAM</span></h2>
-          <select className="h-10 px-3 py-2 ml-4 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
+          <select ref={examRef} className="h-10 px-3 py-2 ml-4 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
             <option value="" disabled hidden></option>
             <option value="FLAT">FLAT</option>
             <option value="FLAT">FLAT</option>
