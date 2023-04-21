@@ -3,9 +3,13 @@ import DropDownInput from './DropDownInput';
 import React, { useState, useRef } from 'react';
 import row from '../row';
 import Row from './Row';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
+
+const url = '/manage-room';
 
 export default function ManageRoom() {
     const [rooms, setRooms] = useState([]);
+    const axiosPrivate = useAxiosPrivate();
     const formRef = useRef();
     const roomNoRef = useRef();
     const floorNoRef = useRef();
@@ -15,11 +19,32 @@ export default function ManageRoom() {
     const handleRoom = (e) => {
         e.preventDefault();
         const newRoom = { room_no: roomNoRef.current.value, floor_no: Number(floorNoRef.current.options[floorNoRef.current.selectedIndex].value), block: blockRef.current.options[blockRef.current.selectedIndex].value, capacity: Number(capacityRef.current.value) };
-        const allRooms = [...rooms, newRoom];
-        setRooms(allRooms);
-        console.log(allRooms);
+
+        let isMounted = true;
+        const controller = new AbortController();
+
+        const postRooms = async () => {
+            try {
+                const response = await axiosPrivate.post(url, newRoom, {
+                    signal: controller.signal
+                });
+                console.log(response.data);
+                isMounted && setRooms(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        postRooms();
+        
+        console.log(rooms);
         formRef.current.reset();
         roomNoRef.current.focus();
+
+        return () => {
+            isMounted = false;
+            controller.abort();
+        }
     }
 
     return (
