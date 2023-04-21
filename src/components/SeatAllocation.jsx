@@ -30,7 +30,7 @@ export default function SeatAllocation() {
       <div className="bg-background px-8 pt-4 flex flex-col st:flex-row justify-between">
         <div className="flex flex-row mt-6 items-center">
           <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT DATE</span></h2>
-          <select ref={dateRef} className="h-10 px-3 py-2 ml-5 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
+          <select ref={dateRef} className="h-10 px-3 py-2 ml-5 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login">
             <option value="09-09-2021">09-09-2021</option>
             <option value="09-09-2022">09-09-2022</option>
             <option value="09-09-2023">09-09-2023</option>
@@ -44,21 +44,21 @@ export default function SeatAllocation() {
 
         <div className="flex flex-row mt-6 items-center">
           <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT TIME</span></h2>
-          <select ref={timeRef} className="h-10 px-3 py-2 ml-6 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
+          <select ref={timeRef} className="h-10 px-3 py-2 ml-6 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login">
             <option value="15:00:00">15:00:00</option>
-            <option value="15:00:00">16:00:00</option>
-            <option value="15:00:00">17:00:00</option>
-            <option value="15:00:00">18:00:00</option>
-            <option value="15:00:00">19:00:00</option>
-            <option value="15:00:00">20:00:00</option>
-            <option value="15:00:00">21:00:00</option>
-            <option value="15:00:00">22:00:00</option>
+            <option value="16:00:00">16:00:00</option>
+            <option value="17:00:00">17:00:00</option>
+            <option value="18:00:00">18:00:00</option>
+            <option value="19:00:00">19:00:00</option>
+            <option value="20:00:00">20:00:00</option>
+            <option value="21:00:00">21:00:00</option>
+            <option value="22:00:00">22:00:00</option>
           </select>
         </div>
 
         <div className="flex flex-row mt-6 items-center">
           <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT EXAM</span></h2>
-          <select ref={examRef} className="h-10 px-3 py-2 ml-4 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
+          <select ref={examRef} className="h-10 px-3 py-2 ml-4 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login">
             <option value="FLAT">FLAT</option>
             <option value="OS">OS</option>
             <option value="SS">SS</option>
