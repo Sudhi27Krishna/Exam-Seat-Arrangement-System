@@ -1,4 +1,3 @@
-import React from 'react';
 
 export default function AllocRow({ block, floor, room, initial }) {
     return (

@@ -1,7 +1,6 @@
 import Input from './Input';
 import DropDownInput from './DropDownInput';
-import React, { useState, useRef } from 'react';
-import row from '../row';
+import { useState, useRef, useEffect } from 'react';
 import Row from './Row';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 
@@ -9,6 +8,7 @@ const url = '/manage-room';
 
 export default function ManageRoom() {
     const [rooms, setRooms] = useState([]);
+    const [rows, setRows] = useState([]);
     const axiosPrivate = useAxiosPrivate();
     const formRef = useRef();
     const roomNoRef = useRef();
@@ -28,7 +28,6 @@ export default function ManageRoom() {
                 const response = await axiosPrivate.post(url, newRoom, {
                     signal: controller.signal
                 });
-                console.log(response.data);
                 isMounted && setRooms(response.data);
             } catch (error) {
                 console.log(error);
@@ -36,8 +35,7 @@ export default function ManageRoom() {
         }
 
         postRooms();
-        
-        console.log(rooms);
+
         formRef.current.reset();
         roomNoRef.current.focus();
 
@@ -45,6 +43,53 @@ export default function ManageRoom() {
             isMounted = false;
             controller.abort();
         }
+    }
+
+    useEffect(() => {
+        let isMounted = true;
+        const controller = new AbortController();
+
+        const getRooms = async () => {
+            try {
+                const response = await axiosPrivate.get(url, {
+                    signal: controller.signal
+                });
+                isMounted && setRows(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        getRooms();
+
+        return () => {
+            isMounted = false;
+            controller.abort();
+        }
+    }, [rooms]);
+
+    const handleDelete = (room) => {
+        let isMounted = true;
+        const controller = new AbortController();
+
+        const deleteRoom = async () => {
+            try {
+                await axiosPrivate.delete(`/manage-room/${room}`, {
+                    signal: controller.signal
+                });
+                isMounted && setRows(prev => prev.filter(item => item.room_no !== room));
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        deleteRoom();
+
+        return () => {
+            isMounted = false;
+            controller.abort();
+        }
+
     }
 
     return (
@@ -116,8 +161,8 @@ export default function ManageRoom() {
                             </tr>
                         </thead>
                         <tbody>
-                            {row.map(item => <Row key={item.id} room={item.room} floor={item.floor} block={item.block}
-                                available={item.available} />)}
+                            {rows.map(item => <Row key={item._id} room={item.room_no} floor={item.floor_no} block={item.block}
+                                available={item.capacity} handleDelete={handleDelete} />)}
                         </tbody>
                     </table>
                 </div>

@@ -1,5 +1,5 @@
 import AllocRow from './AllocRow';
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import rooms from '../rooms';
 import row from '../row';
 import SeatBox from './SeatBox';

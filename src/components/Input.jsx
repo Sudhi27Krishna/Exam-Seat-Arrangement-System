@@ -1,4 +1,3 @@
-import React from "react";
 
 export default function Input({ input_id, title, inputRef, type, placeholder }) {
     return (
