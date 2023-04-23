@@ -1,4 +1,3 @@
-import React from "react";
 
 //input as drop down
 export default function DropDownInput({ input_id, title, inputRef, options }) {
