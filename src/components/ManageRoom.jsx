@@ -74,7 +74,7 @@ export default function ManageRoom() {
 
         const deleteRoom = async () => {
             try {
-                await axiosPrivate.delete(`/manage-room/${room}`, {
+                await axiosPrivate.delete(url.concat(`/${room}`), {
                     signal: controller.signal
                 });
                 isMounted && setRows(prev => prev.filter(item => item.room_no !== room));
@@ -89,7 +89,6 @@ export default function ManageRoom() {
             isMounted = false;
             controller.abort();
         }
-
     }
 
     return (
