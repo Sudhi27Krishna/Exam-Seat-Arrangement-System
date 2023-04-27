@@ -173,7 +173,7 @@ export default function ManageRoom() {
                         <p className="font-Outfit-Regular">Total Seats Available: 2000</p>
                     </div>
                     <div className="flex flex-row gap-10">
-                        <button className="bg-gray-500 hover:bg-gray-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="submit">RESET DEFAULT</button>
+                        <button className="bg-gray-500 hover:bg-gray-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="submit">CLEAR ALL</button>
                         <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="submit">SAVE</button>
                     </div>
                 </div>
