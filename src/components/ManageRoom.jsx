@@ -7,7 +7,6 @@ import useAxiosPrivate from '../hooks/useAxiosPrivate';
 const url = '/manage-room';
 
 export default function ManageRoom() {
-    const [rooms, setRooms] = useState([]);
     const [rows, setRows] = useState([]);
     const axiosPrivate = useAxiosPrivate();
     const formRef = useRef();
@@ -25,10 +24,10 @@ export default function ManageRoom() {
 
         const postRooms = async () => {
             try {
-                const response = await axiosPrivate.post(url, newRoom, {
+                await axiosPrivate.post(url, newRoom, {
                     signal: controller.signal
                 });
-                isMounted && setRooms(response.data);
+                isMounted && setRows(prev => [...prev, newRoom]);
             } catch (error) {
                 console.log(error);
             }
@@ -66,7 +65,7 @@ export default function ManageRoom() {
             isMounted = false;
             controller.abort();
         }
-    }, [rooms]);
+    }, [axiosPrivate]);
 
     const handleDelete = (room) => {
         let isMounted = true;
