@@ -52,7 +52,7 @@ export default function UniversityExam() {
                     <Input input_id="date" title="Date" inputRef={dateRef} type="date" placeholder="09-09-2020" />
                     <DropDownInput input_id="branch" title="Branches" inputRef={branchRef} options={['CSE', 'CSE-AI', 'CSE-DS', 'ECE', 'EEE', 'CIVIL', 'MECH']} />
                     <DropDownInput input_id="slot" title="Slot" inputRef={slotRef} options={['A', 'B', 'C', 'D', 'E', 'F', 'G']} />
-                    <Input input_id="subject" title="Subject" inputRef={subRef} type="text" placeholder="MAT101" />
+                    <DropDownInput input_id="subject" title="Subject" inputRef={subRef} options={['HUT300', 'HUT310']} />
                     <button className="bg-blue-500 hover:bg-blue-400 text-white font-Outfit-Bold py-1 px-2 my-7 mx-2 h-10 w-[5rem] rounded-[20px]" type="submit">ADD</button>
                 </form>
             </div>
