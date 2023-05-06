@@ -1,5 +1,5 @@
 import DropDownInput from './DropDownInput';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Input from './Input';
 import uerow from '../uerow';
 import UeRow from './UeRow';
@@ -29,12 +29,11 @@ export default function UniversityExam() {
         dateRef.current.focus();
     }
 
-    const handleSlot = (inputRef) => {
-        console.log(inputRef.value);
+    const handleSlot = () => {
         let isMounted = true;
         const controller = new AbortController();
 
-        const subInfo = { sem: Number(semRef.current.options[semRef.current.selectedIndex].value), branch: branchRef.current.value, slot: inputRef.value }
+        const subInfo = { sem: Number(semRef.current.options[semRef.current.selectedIndex].value), branch: branchRef.current.value, slot: slotRef.current.value }
 
         console.log(subInfo);
 
@@ -61,12 +60,43 @@ export default function UniversityExam() {
         }
     }
 
+    useEffect(() => {
+        let isMounted = true;
+        const controller = new AbortController();
+
+        const subInfo = { sem: Number(semRef.current.options[semRef.current.selectedIndex].value), branch: branchRef.current.value, slot: slotRef.current.value }
+
+        console.log(subInfo);
+
+        const getSubcode = async () => {
+            try {
+                const response = await axiosPrivate.get(url, {
+                    params: subInfo,
+                    signal: controller.signal
+                });
+                if (isMounted) {
+                    console.log(response.data);
+                    setSubArray(response.data);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        getSubcode();
+
+        return () => {
+            isMounted = false;
+            controller.abort();
+        }
+    },[axiosPrivate])
+
     return (
         <div className="bg-background flex flex-col flex-grow">
             <div className="px-8 pt-4 flex flex-row justify-between flex-wrap">
                 <div className="flex flex-row mt-6 items-center">
                     <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT SEMESTER</span></h2>
-                    <select ref={semRef} className="h-10 px-3 py-2 ml-5 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login">
+                    <select ref={semRef} className="h-10 px-3 py-2 ml-5 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login" onChange={handleSlot}>
                         <option value="1">Semester 1</option>
                         <option value="2">Semester 2</option>
                         <option value="3">Semester 3</option>
@@ -89,7 +119,7 @@ export default function UniversityExam() {
                 <form ref={formRef} className="flex flex-col st:flex-row justify-between" onSubmit={handleExams}>
                     <Input input_id="date" title="Date" inputRef={dateRef} type="date" placeholder="09-09-2020" />
                     <DropDownInput input_id="time" title="Time" inputRef={timeRef} options={['FN', 'AN']} />
-                    <DropDownInput input_id="branch" title="Branches" inputRef={branchRef} options={['CS', 'CC', 'CE', 'EC', 'EE', 'CA', 'ME']} />
+                    <DropDownInput input_id="branch" title="Branches" inputRef={branchRef} options={['CS', 'CC', 'CE', 'EC', 'EE', 'CA', 'ME']} isTarget handleSlot={handleSlot} />
                     <DropDownInput input_id="slot" title="Slot" inputRef={slotRef} options={['A', 'B', 'C', 'D', 'E', 'F', 'G']} isTarget handleSlot={handleSlot} />
                     <DropDownInput input_id="subject" title="Subject" inputRef={subRef} options={subArray} />
                     <button className="bg-blue-500 hover:bg-blue-400 text-white font-Outfit-Bold py-1 px-2 my-7 mx-2 h-10 w-[5rem] rounded-[20px]" type="submit">ADD</button>
