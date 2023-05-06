@@ -86,7 +86,8 @@ export default function UniversityExam() {
                     <div>
                         <p className="font-Outfit-Regular">No of Exams scheduled : 7</p>
                     </div>
-                    <div className="flex flex-row gap-20">
+                    <div className="flex flex-row gap-10">
+                        <button className="bg-gray-500 hover:bg-gray-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="submit">CLEAR ALL</button>
                         <button className="bg-green-500 hover:bg-green-400 text-white font-bold h-10 w-[10rem] rounded-[20px] font-Outfit-Bold" type="submit">SAVE</button>
                     </div>
                 </div>

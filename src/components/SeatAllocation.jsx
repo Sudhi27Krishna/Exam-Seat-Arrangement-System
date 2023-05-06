@@ -119,8 +119,7 @@ export default function SeatAllocation() {
             <table className="table-auto w-full">
               <thead className="sticky top-0">
                 <tr className="bg-grey-all font-Outfit-Bold">
-                  <th className="text-center px-4 py-2 rounded-tl-2xl rounded-bl-2xl"><input type="checkbox" /></th>
-                  <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Block</span></th>
+                  <th className="text-center px-4 py-2 rounded-tl-2xl rounded-bl-2xl"><span className="whitespace-nowrap">Block</span></th>
                   <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Floor</span></th>
                   <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Room</span></th>
                   <th className="text-center px-4 py-2 rounded-tr-2xl rounded-br-2xl"><span className="whitespace-nowrap">Seats</span></th>
