@@ -3,9 +3,13 @@ import { useState, useRef } from 'react';
 import Input from './Input';
 import uerow from '../uerow';
 import UeRow from './UeRow';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
+
+const url = '/university-exam';
 
 export default function UniversityExam() {
     const [exams, setExams] = useState([]);
+    const axiosPrivate = useAxiosPrivate();
     const semRef = useRef();
     const formRef = useRef();
     const dateRef = useRef();
@@ -13,15 +17,48 @@ export default function UniversityExam() {
     const branchRef = useRef();
     const slotRef = useRef();
     const subRef = useRef();
+    const [subArray, setSubArray] = useState([]);
 
     const handleExams = (e) => {
         e.preventDefault()
-        const newExam = { date: dateRef.current.value, time: timeRef.current.value, sem: semRef.current.options[semRef.current.selectedIndex].value, branch: branchRef.current.value, slot: slotRef.current.value, subject: subRef.current.value };
+        const newExam = { date: dateRef.current.value, time: timeRef.current.value, sem: Number(semRef.current.options[semRef.current.selectedIndex].value), branch: branchRef.current.value, slot: slotRef.current.value, subject: subRef.current.value };
         const allExams = [...exams, newExam];
         setExams(allExams);
         console.log(allExams);
         formRef.current.reset();
         dateRef.current.focus();
+    }
+
+    const handleSlot = (inputRef) => {
+        console.log(inputRef.value);
+        let isMounted = true;
+        const controller = new AbortController();
+
+        const subInfo = { sem: Number(semRef.current.options[semRef.current.selectedIndex].value), branch: branchRef.current.value, slot: inputRef.value }
+
+        console.log(subInfo);
+
+        const getSubcode = async () => {
+            try {
+                const response = await axiosPrivate.get(url, {
+                    params: subInfo,
+                    signal: controller.signal
+                });
+                if (isMounted) {
+                    console.log(response.data);
+                    setSubArray(response.data);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+        getSubcode();
+
+        return () => {
+            isMounted = false;
+            controller.abort();
+        }
     }
 
     return (
@@ -30,14 +67,14 @@ export default function UniversityExam() {
                 <div className="flex flex-row mt-6 items-center">
                     <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT SEMESTER</span></h2>
                     <select ref={semRef} className="h-10 px-3 py-2 ml-5 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login">
-                        <option value="S1">Semester 1</option>
-                        <option value="S2">Semester 2</option>
-                        <option value="S3">Semester 3</option>
-                        <option value="S4">Semester 4</option>
-                        <option value="S5">Semester 5</option>
-                        <option value="S6">Semester 6</option>
-                        <option value="S7">Semester 7</option>
-                        <option value="S8">Semester 8</option>
+                        <option value="1">Semester 1</option>
+                        <option value="2">Semester 2</option>
+                        <option value="3">Semester 3</option>
+                        <option value="4">Semester 4</option>
+                        <option value="5">Semester 5</option>
+                        <option value="6">Semester 6</option>
+                        <option value="7">Semester 7</option>
+                        <option value="8">Semester 8</option>
                     </select>
                 </div>
 
@@ -52,9 +89,9 @@ export default function UniversityExam() {
                 <form ref={formRef} className="flex flex-col st:flex-row justify-between" onSubmit={handleExams}>
                     <Input input_id="date" title="Date" inputRef={dateRef} type="date" placeholder="09-09-2020" />
                     <DropDownInput input_id="time" title="Time" inputRef={timeRef} options={['FN', 'AN']} />
-                    <DropDownInput input_id="branch" title="Branches" inputRef={branchRef} options={['CSE', 'CSE-AI', 'CSE-DS', 'ECE', 'EEE', 'CIVIL', 'MECH']} />
-                    <DropDownInput input_id="slot" title="Slot" inputRef={slotRef} options={['A', 'B', 'C', 'D', 'E', 'F', 'G']} />
-                    <DropDownInput input_id="subject" title="Subject" inputRef={subRef} options={['HUT300', 'HUT310']} />
+                    <DropDownInput input_id="branch" title="Branches" inputRef={branchRef} options={['CS', 'CC', 'CE', 'EC', 'EE', 'CA', 'ME']} />
+                    <DropDownInput input_id="slot" title="Slot" inputRef={slotRef} options={['A', 'B', 'C', 'D', 'E', 'F', 'G']} isTarget handleSlot={handleSlot} />
+                    <DropDownInput input_id="subject" title="Subject" inputRef={subRef} options={subArray} />
                     <button className="bg-blue-500 hover:bg-blue-400 text-white font-Outfit-Bold py-1 px-2 my-7 mx-2 h-10 w-[5rem] rounded-[20px]" type="submit">ADD</button>
                 </form>
             </div>
