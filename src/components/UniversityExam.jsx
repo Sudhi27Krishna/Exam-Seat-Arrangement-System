@@ -9,13 +9,14 @@ export default function UniversityExam() {
     const semRef = useRef();
     const formRef = useRef();
     const dateRef = useRef();
+    const timeRef = useRef();
     const branchRef = useRef();
     const slotRef = useRef();
     const subRef = useRef();
 
     const handleExams = (e) => {
         e.preventDefault()
-        const newExam = { date: dateRef.current.value, sem: semRef.current.options[semRef.current.selectedIndex].value, branch: branchRef.current.value, slot: slotRef.current.value, subject: subRef.current.value };
+        const newExam = { date: dateRef.current.value, time: timeRef.current.value, sem: semRef.current.options[semRef.current.selectedIndex].value, branch: branchRef.current.value, slot: slotRef.current.value, subject: subRef.current.value };
         const allExams = [...exams, newExam];
         setExams(allExams);
         console.log(allExams);
@@ -50,6 +51,7 @@ export default function UniversityExam() {
                 <h2 className="text-xl font-Outfit-Bold mb-8">ADD SLOTS</h2>
                 <form ref={formRef} className="flex flex-col st:flex-row justify-between" onSubmit={handleExams}>
                     <Input input_id="date" title="Date" inputRef={dateRef} type="date" placeholder="09-09-2020" />
+                    <DropDownInput input_id="time" title="Time" inputRef={timeRef} options={['FN', 'AN']} />
                     <DropDownInput input_id="branch" title="Branches" inputRef={branchRef} options={['CSE', 'CSE-AI', 'CSE-DS', 'ECE', 'EEE', 'CIVIL', 'MECH']} />
                     <DropDownInput input_id="slot" title="Slot" inputRef={slotRef} options={['A', 'B', 'C', 'D', 'E', 'F', 'G']} />
                     <DropDownInput input_id="subject" title="Subject" inputRef={subRef} options={['HUT300', 'HUT310']} />
@@ -63,8 +65,8 @@ export default function UniversityExam() {
                     <table className="table-auto w-full">
                         <thead className="sticky top-0">
                             <tr className="bg-grey-all font-Outfit-Bold">
-                                <th className="text-center px-4 py-2 rounded-tl-2xl rounded-bl-2xl"><input type="checkbox" /></th>
-                                <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Date</span></th>
+                                <th className="text-center px-4 py-2 rounded-tl-2xl rounded-bl-2xl"><span className="whitespace-nowrap">Date</span></th>
+                                <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Time</span></th>
                                 <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Branch</span></th>
                                 <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Slot</span></th>
                                 <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Subject</span></th>
@@ -72,7 +74,7 @@ export default function UniversityExam() {
                             </tr>
                         </thead>
                         <tbody>
-                            {uerow.map(item => <UeRow key={item.id} date={item.date} branch={item.branch} slot={item.slot}
+                            {uerow.map(item => <UeRow key={item.id} date={item.date} time={item.time} branch={item.branch} slot={item.slot}
                                 subject={item.subject} />)}
                         </tbody>
                     </table>

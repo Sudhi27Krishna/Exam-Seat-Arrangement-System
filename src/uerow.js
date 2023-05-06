@@ -2,6 +2,7 @@ const uerow = [
     {
         id: 1,
         date: "09-09-2020",
+        time: "FN",
         branch: "all",
         slot: "A",
         subject: "MAT101"
@@ -9,6 +10,7 @@ const uerow = [
     {
         id: 2,
         date: "09-09-2020",
+        time: "FN",
         branch: "all",
         slot: "A",
         subject: "MAT101"
@@ -16,6 +18,7 @@ const uerow = [
     {
         id: 3,
         date: "09-09-2020",
+        time: "FN",
         branch: "all",
         slot: "A",
         subject: "MAT101"
@@ -23,6 +26,7 @@ const uerow = [
     {
         id: 4,
         date: "09-09-2020",
+        time: "FN",
         branch: "all",
         slot: "A",
         subject: "MAT101"
@@ -30,6 +34,7 @@ const uerow = [
     {
         id: 5,
         date: "09-09-2020",
+        time: "FN",
         branch: "all",
         slot: "A",
         subject: "MAT101"
@@ -37,6 +42,7 @@ const uerow = [
     {
         id: 6,
         date: "09-09-2020",
+        time: "FN",
         branch: "all",
         slot: "A",
         subject: "MAT101"
@@ -44,6 +50,7 @@ const uerow = [
     {
         id: 7,
         date: "09-09-2020",
+        time: "FN",
         branch: "all",
         slot: "A",
         subject: "MAT101"
@@ -51,6 +58,7 @@ const uerow = [
     {
         id: 8,
         date: "09-09-2020",
+        time: "FN",
         branch: "all",
         slot: "A",
         subject: "MAT101"
@@ -58,6 +66,7 @@ const uerow = [
     {
         id: 9,
         date: "09-09-2020",
+        time: "FN",
         branch: "all",
         slot: "A",
         subject: "MAT101"
@@ -65,6 +74,7 @@ const uerow = [
     {
         id: 10,
         date: "09-09-2020",
+        time: "FN",
         branch: "all",
         slot: "A",
         subject: "MAT101"
@@ -72,6 +82,7 @@ const uerow = [
     {
         id: 11,
         date: "09-09-2020",
+        time: "FN",
         branch: "all",
         slot: "A",
         subject: "MAT101"
