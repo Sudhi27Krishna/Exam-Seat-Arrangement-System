@@ -22,7 +22,6 @@ export default function SeatAllocation() {
     dateRef.current.value = 'default';
     timeRef.current.value = 'default';
     examRef.current.value = 'default';
-    dateRef.current.value = 'default';
   }, [schedules]);
 
   return (
