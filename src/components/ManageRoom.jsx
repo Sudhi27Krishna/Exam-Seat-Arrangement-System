@@ -14,6 +14,7 @@ export default function ManageRoom() {
     const floorNoRef = useRef();
     const blockRef = useRef();
     const capacityRef = useRef();
+    let totalCapacity = rows.reduce((total, obj) => total + obj.capacity, 0);
 
     const handleRoom = (e) => {
         e.preventDefault();
@@ -168,7 +169,7 @@ export default function ManageRoom() {
             <div className="px-8 py-4 mt-4">
                 <div className="flex flex-row justify-between items-center">
                     <div>
-                        <p className="font-Outfit-Regular">Total Seats Available: 2000</p>
+                        <p className="font-Outfit-Regular">Total Seats Available: {totalCapacity}</p>
                     </div>
                     <div className="flex flex-row gap-10">
                         <button className="bg-gray-500 hover:bg-gray-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="submit">CLEAR ALL</button>

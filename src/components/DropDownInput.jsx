@@ -3,7 +3,7 @@
 export default function DropDownInput({ input_id, title, inputRef, options, isTarget, handleSlot }) {
     const handleChange = () => {
         if (isTarget) {
-            handleSlot(inputRef.current);
+            handleSlot();
         }
     }
 
