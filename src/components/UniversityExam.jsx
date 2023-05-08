@@ -4,6 +4,7 @@ import Input from './Input';
 // import uerow from '../uerow';
 import UeRow from './UeRow';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import { useNavigate } from 'react-router-dom';
 
 const url = '/university-exam';
 
@@ -18,6 +19,7 @@ export default function UniversityExam() {
     const slotRef = useRef();
     const subRef = useRef();
     const [subArray, setSubArray] = useState([]);
+    const navigate = useNavigate();
 
     const handleSchedule = (e) => {
         e.preventDefault()
@@ -150,6 +152,19 @@ export default function UniversityExam() {
         }
     }
 
+    const handleClearall = () => {
+        const confirmBox = window.confirm(
+            "Do you want to clear the entire table in this page ?"
+        )
+        if (confirmBox === true) {
+            console.log("Entire table deleted");
+        }
+    }
+
+    const handleNext = () => {
+        navigate('/seat-allocation')
+    }
+
     return (
         <div className="bg-background flex flex-col flex-grow">
             <div className="px-8 pt-4 flex flex-row justify-between flex-wrap">
@@ -213,8 +228,8 @@ export default function UniversityExam() {
                         <p className="font-Outfit-Regular">No of Exams scheduled : {exams.length}</p>
                     </div>
                     <div className="flex flex-row gap-10">
-                        <button className="bg-gray-500 hover:bg-gray-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="submit">CLEAR ALL</button>
-                        <button className="bg-green-500 hover:bg-green-400 text-white font-bold h-10 w-[10rem] rounded-[20px] font-Outfit-Bold" type="submit">SAVE</button>
+                        <button className="bg-gray-500 hover:bg-gray-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" onClick={handleClearall}>CLEAR ALL</button>
+                        <button className="bg-green-500 hover:bg-green-400 text-white font-bold h-10 w-[10rem] rounded-[20px] font-Outfit-Bold" onClick={handleNext}>NEXT</button>
                     </div>
                 </div>
             </div>
