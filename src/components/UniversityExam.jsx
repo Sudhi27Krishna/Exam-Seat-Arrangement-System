@@ -182,7 +182,7 @@ export default function UniversityExam() {
                     </select>
                 </div>
 
-                <div className="flex flex-row justify-center items-baseline mt-6">
+                <div className="flex flex-row justify-center items-center mt-6">
                     <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">EXAMINEE DETAILS</span></h2>
                     <input type="file" className="font-Outfit-Regular ml-5" />
                 </div>
