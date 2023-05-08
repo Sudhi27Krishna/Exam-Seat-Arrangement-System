@@ -156,7 +156,7 @@ export default function UniversityExam() {
         const confirmBox = window.confirm(
             "Do you want to clear the entire table in this page ?"
         )
-        if (confirmBox === true) {
+        if (confirmBox) {
             console.log("Entire table deleted");
         }
     }
