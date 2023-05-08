@@ -3,6 +3,7 @@ import DropDownInput from './DropDownInput';
 import { useState, useRef, useEffect } from 'react';
 import Row from './Row';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import { useNavigate } from 'react-router-dom';
 
 const url = '/manage-room';
 
@@ -14,6 +15,7 @@ export default function ManageRoom() {
     const floorNoRef = useRef();
     const blockRef = useRef();
     const capacityRef = useRef();
+    const navigate = useNavigate();
     let totalCapacity = rows.reduce((total, obj) => total + obj.capacity, 0);
 
     const handleRoom = (e) => {
@@ -89,6 +91,19 @@ export default function ManageRoom() {
             isMounted = false;
             controller.abort();
         }
+    }
+
+    const handleClearall = () => {
+        const confirmBox = window.confirm(
+            "Do you want to clear the entire table in this page ?"
+        )
+        if (confirmBox) {
+            console.log("Entire table deleted");
+        }
+    }
+
+    const handleNext = () => {
+        navigate('/university-exam')
     }
 
     return (
@@ -172,8 +187,8 @@ export default function ManageRoom() {
                         <p className="font-Outfit-Regular">Total Seats Available: {totalCapacity}</p>
                     </div>
                     <div className="flex flex-row gap-10">
-                        <button className="bg-gray-500 hover:bg-gray-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="submit">CLEAR ALL</button>
-                        <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="submit">SAVE</button>
+                        <button className="bg-gray-500 hover:bg-gray-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" onClick={handleClearall}>CLEAR ALL</button>
+                        <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" onClick={handleNext}>NEXT</button>
                     </div>
                 </div>
             </div>
