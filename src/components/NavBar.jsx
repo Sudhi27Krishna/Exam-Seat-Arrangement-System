@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function NavBar() {
     return (
@@ -9,14 +9,30 @@ export default function NavBar() {
             </div>
 
             <div className="flex flex-col items-start justify-start h-full py-5">
-                <Link to="home" className="font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full">Home</Link>
-                <Link to="manage-room" className="font-Outfit-Medium tracking-needed text-white hover:bg-green-light py-2 px-6 w-full">Manage Rooms</Link>
-                <Link to="university-exam" className="font-Outfit-Medium tracking-needed text-white hover:bg-green-light py-2 px-6 w-full">University Exams</Link>
-                <Link to="seat-allocation" className="font-Outfit-Medium tracking-needed text-white hover:bg-green-light py-2 px-6 w-full">Seat Arrangement</Link>
+                <NavLink to="home" className={({ isActive, isPending }) =>
+                    isPending ? "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full" :
+                        isActive ? "font-Outfit-Medium tracking-needed text-white bg-green-dark hover:bg-green-light  py-2 px-6 w-full" :
+                            "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full"
+                }>Home</NavLink>
+                <NavLink to="manage-room" className={({ isActive, isPending }) =>
+                    isPending ? "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full" :
+                        isActive ? "font-Outfit-Medium tracking-needed text-white bg-green-dark hover:bg-green-light  py-2 px-6 w-full" :
+                            "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full"
+                }>Manage Rooms</NavLink>
+                <NavLink to="university-exam" className={({ isActive, isPending }) =>
+                    isPending ? "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full" :
+                        isActive ? "font-Outfit-Medium tracking-needed text-white bg-green-dark hover:bg-green-light  py-2 px-6 w-full" :
+                            "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full"
+                }>University Exams</NavLink>
+                <NavLink to="seat-allocation" className={({ isActive, isPending }) =>
+                    isPending ? "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full" :
+                        isActive ? "font-Outfit-Medium tracking-needed text-white bg-green-dark hover:bg-green-light  py-2 px-6 w-full" :
+                            "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full"
+                }>Seat Arrangement</NavLink>
                 <div className="flex-grow"></div> {/*adds a spacer to push logout to the bottom*/}
-                <Link to="/" className="font-Outfit-Medium tracking-needed text-white text-center hover:bg-green-light py-2 px-6 w-full">
+                <NavLink to="/" className="font-Outfit-Medium tracking-needed text-white text-center hover:bg-green-light py-2 px-6 w-full">
                     Log Out
-                </Link>
+                </NavLink>
             </div>
         </div>
     );
