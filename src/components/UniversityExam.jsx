@@ -24,8 +24,6 @@ export default function UniversityExam() {
     const handleSchedule = (e) => {
         e.preventDefault()
         const newExam = { date: dateRef.current.value, time: timeRef.current.value, sem: Number(semRef.current.options[semRef.current.selectedIndex].value), branch: branchRef.current.value, slot: slotRef.current.value, subcode: subRef.current.value };
-        // const allExams = [...exams, newExam];
-        // setExams(allExams);
         formRef.current.reset();
         dateRef.current.focus();
 
@@ -34,11 +32,10 @@ export default function UniversityExam() {
 
         const postSchedule = async () => {
             try {
-                await axiosPrivate.post(url, newExam, {
+                const response = await axiosPrivate.post(url, newExam, {
                     signal: controller.signal
                 });
-                isMounted && setExams(prev => [...prev, newExam]);
-                console.log(exams);
+                isMounted && setExams(prev => [...prev, response.data]);
             } catch (error) {
                 console.log(error);
             }
@@ -216,7 +213,7 @@ export default function UniversityExam() {
                             </tr>
                         </thead>
                         <tbody>
-                            {exams.map(item => <UeRow key={item._id} id={item._id} date={item.date} time={item.time} sem={item.sem} branch={item.branch} slot={item.slot} subject={item.subcode} handleDelete={handleDelete} />)}
+                            {exams.map(item => <UeRow key={item._id} id={item._id} date={item.date} time={item.time} sem={item.sem} branch={item.branch} slot={item.slot} subcode={item.subcode} handleDelete={handleDelete} />)}
                         </tbody>
                     </table>
                 </div>
