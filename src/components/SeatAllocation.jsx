@@ -79,10 +79,10 @@ export default function SeatAllocation() {
       <div className="bg-background px-8 pt-4 mt-1 flex flex-col st:flex-row flex-grow justify-between">
         <div className="py-4 st:w-full">
           <h2 className="text-xl font-Outfit-Bold mb-4">SELECTED EXAM HALLS</h2>
-          <div className="flex flex-row justify-between items-center bg-gray-100 px-4 py-3 rounded-t-2xl ">
-            <div className={`flex ${isHalfWidth ? "flex-col" : "flex-row"}`}>
+          <div className="flex flex-row justify-between items-center bg-gray-100 px-4 py-3 rounded-t-2xl">
+            <div className={`w-1/2 flex ${isHalfWidth ? "flex-col" : "flex-row"}`}>
               {/* Search Bar */}
-              <div className="mr-4 flex flex-row items-center w-full ">
+              <div className="mr-4 flex flex-row items-center w-full">
                 <span className="text-gray-500">
                   <svg viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6">
                     <path
@@ -111,9 +111,9 @@ export default function SeatAllocation() {
               </div>
             </div>
             <div className={`flex ${isHalfWidth ? "flex-col" : "flex-row"} sm:w-1/2 sm:ml-2 w-1/2 justify-center items-center gap-x-4 mr-8 pl-4`}>
-              <p className={`${isHalfWidth ? "mt-4" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Total Rooms : 100</span></p>
-              <p className={`${isHalfWidth ? "mt-4" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Available Seats : 3000</span></p>
-              <p className={`${isHalfWidth ? "mt-4" : ""} font-Outfit-Regular text-green-500`}><span className="whitespace-nowrap">Seats selected: 550</span></p>
+              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Total Rooms : 100</span></p>
+              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Available Seats : 3000</span></p>
+              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular text-green-500`}><span className="whitespace-nowrap">Seats selected: 550</span></p>
             </div>
           </div>
           <div className="bg-gray-100 h-[21.5rem] overflow-y-scroll rounded-b-2xl p-4">
