@@ -59,7 +59,7 @@ export default function Login() {
 
 
     return (
-        <div className="flex items-center justify-center h-screen bg-background">
+        <div className="flex items-center justify-center h-screen bg-login-signup">
             <div className="py-12 px-12 shadow-2xl w-[23rem] bg-green-login rounded-[20px]">
                 <h1 className="text-3xl text-center font-normal mb-10 font-Outfit-Medium">LOG IN</h1>
                 <div className="flex items-center justify-center">

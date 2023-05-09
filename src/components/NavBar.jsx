@@ -11,22 +11,22 @@ export default function NavBar() {
             <div className="flex flex-col items-start justify-start h-full py-5">
                 <NavLink to="home" className={({ isActive, isPending }) =>
                     isPending ? "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full" :
-                        isActive ? "font-Outfit-Medium tracking-needed text-white bg-green-dark hover:bg-green-light  py-2 px-6 w-full" :
+                        isActive ? "font-Outfit-Medium tracking-needed text-white bg-green-dark  py-2 px-6 w-full" :
                             "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full"
                 }>Home</NavLink>
                 <NavLink to="manage-room" className={({ isActive, isPending }) =>
                     isPending ? "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full" :
-                        isActive ? "font-Outfit-Medium tracking-needed text-white bg-green-dark hover:bg-green-light  py-2 px-6 w-full" :
+                        isActive ? "font-Outfit-Medium tracking-needed text-white bg-green-dark  py-2 px-6 w-full" :
                             "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full"
                 }>Manage Rooms</NavLink>
                 <NavLink to="university-exam" className={({ isActive, isPending }) =>
                     isPending ? "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full" :
-                        isActive ? "font-Outfit-Medium tracking-needed text-white bg-green-dark hover:bg-green-light  py-2 px-6 w-full" :
+                        isActive ? "font-Outfit-Medium tracking-needed text-white bg-green-dark  py-2 px-6 w-full" :
                             "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full"
                 }>University Exams</NavLink>
                 <NavLink to="seat-allocation" className={({ isActive, isPending }) =>
                     isPending ? "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full" :
-                        isActive ? "font-Outfit-Medium tracking-needed text-white bg-green-dark hover:bg-green-light  py-2 px-6 w-full" :
+                        isActive ? "font-Outfit-Medium tracking-needed text-white bg-green-dark  py-2 px-6 w-full" :
                             "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full"
                 }>Seat Arrangement</NavLink>
                 <div className="flex-grow"></div> {/*adds a spacer to push logout to the bottom*/}

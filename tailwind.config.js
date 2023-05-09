@@ -33,6 +33,10 @@ module.exports = {
         'Outfit-Bold': "Outfit-Bold",
         'Outfit-ExtraBold': "Outfit-ExtraBold",
         'Outfit-Black': "Outfit-Black",
+      },
+
+      backgroundImage: {
+        'login-signup': "url('/src/assets/bgimage.jpg')",
       }
     },
   },
