@@ -79,48 +79,44 @@ export default function SeatAllocation() {
       <div className="bg-background px-8 pt-4 mt-1 flex flex-col st:flex-row flex-grow justify-between">
         <div className="py-4 st:w-full">
           <h2 className="text-xl font-Outfit-Bold mb-4">SELECTED EXAM HALLS</h2>
-          <div className="flex flex-row justify-between items-center bg-gray-100 px-4 py-3 border rounded-2xl mb-4">
-            <div className="flex flex-col sm:flex-row items-center justify-between sm:w-1/2">
-              <div className={`flex ${isHalfWidth ? "flex-col" : "flex-row"}`}>
-                {/* Search Bar */}
-                <div className="mr-4">
-                  <label htmlFor="search" className="mr-4">Search:</label>
-                  <input
-                    type="text"
-                    id="search"
-                    className="border p-2 flex-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
-                    placeholder="Search..."
-                  />
-                </div>
+          <div className="flex flex-row justify-between items-center bg-gray-100 px-4 py-3 rounded-t-2xl ">
+            <div className={`flex ${isHalfWidth ? "flex-col" : "flex-row"}`}>
+              {/* Search Bar */}
+              <div className="mr-4 flex flex-row items-center w-full ">
+                <span className="text-gray-500">
+                  <svg viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6">
+                    <path
+                      fillRule="evenodd"
+                      d="M8.5 15a6.5 6.5 0 100-13 6.5 6.5 0 000 13zm5.057-1.54l4.442 4.442a1 1 0 11-1.414 1.414l-4.442-4.442a7 7 0 111.414-1.414z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <input
+                  type="text"
+                  id="search"
+                  className="border p-2 ml-2 flex-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
+                  placeholder="Search..."
+                />
+              </div>
 
-                {/* Sort By Dropdown */}
-                <div className={`mr-4 ${isHalfWidth ? "mt-4" : ""}`}>
-                  <label htmlFor="sort-by" className="mr-4">Sort By:</label>
-                  <select id="sort-by" className="border p-2 flex-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login">
-                    <option value="name">Name</option>
-                    <option value="price">Price</option>
-                    <option value="date">Date</option>
-                  </select>
-                </div>
-
-                {/* Filter By Dropdown */}
-                <div className={`${isHalfWidth ? "mt-4" : ""}`}>
-                  <label htmlFor="filter-by" className="mr-4">Filter By:</label>
-                  <select id="filter-by" className="border p-2 flex-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login">
-                    <option value="all">All</option>
-                    <option value="featured">Featured</option>
-                    <option value="popular">Popular</option>
-                  </select>
-                </div>
+              {/* Filter By Dropdown */}
+              <div className={`${isHalfWidth ? "mt-4" : ""} flex flex-row items-center`}>
+                <label htmlFor="filter-by" className="mr-4"><span className="whitespace-nowrap font-Outfit-Regular">Filter By:</span></label>
+                <select id="filter-by" className="border p-2 flex-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login ">
+                  <option value="all">All</option>
+                  <option value="featured">Featured</option>
+                  <option value="popular">Popular</option>
+                </select>
               </div>
             </div>
             <div className={`flex ${isHalfWidth ? "flex-col" : "flex-row"} sm:w-1/2 sm:ml-2 w-1/2 justify-center items-center gap-x-4 mr-8 pl-4`}>
-              <p className={`${isHalfWidth ? "mt-4" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Seats Selected: 2000</span></p>
-              <p className={`${isHalfWidth ? "mt-4" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Seats Not Selected: 2000</span></p>
-              <p className={`${isHalfWidth ? "mt-4" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Seats Not Available: 2000</span></p>
+              <p className={`${isHalfWidth ? "mt-4" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Total Rooms : 100</span></p>
+              <p className={`${isHalfWidth ? "mt-4" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Available Seats : 3000</span></p>
+              <p className={`${isHalfWidth ? "mt-4" : ""} font-Outfit-Regular text-green-500`}><span className="whitespace-nowrap">Seats selected: 550</span></p>
             </div>
           </div>
-          <div className="bg-gray-100 h-[21rem] overflow-y-scroll border rounded-2xl p-4">
+          <div className="bg-gray-100 h-[21.5rem] overflow-y-scroll rounded-b-2xl p-4">
             {rooms.map(item => <SeatBox key={item.id} room={item.room} capacity={item.capacity} />)}
           </div>
         </div>
@@ -129,7 +125,7 @@ export default function SeatAllocation() {
       <div className="px-8 py-4 my-2">
         <div className="flex flex-row justify-between items-center">
           <div>
-            <p className="font-Outfit-Regular">Total Seats Available: 2000 (1899 Regular + 111 Supplymentary)</p>
+            <p className="font-Outfit-Regular">Total  Participants : 2000 (1899 Regular + 111 Supplymentary)</p>
           </div>
           <div className="flex flex-row gap-10">
             <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button" onClick={handleSchedule}>SAVE</button>
