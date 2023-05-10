@@ -1,6 +1,26 @@
 import { NavLink } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
+
+const url = '/logout';
 
 export default function NavBar() {
+    const axiosPrivate = useAxiosPrivate();
+    const { auth, setAuth } = useAuth();
+
+    const handleLogout = async () => {
+        try {
+            await axiosPrivate.get(url, {
+                withCredentials: true
+            });
+            auth.accessToken = "";
+            setAuth(auth);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <div className="flex flex-col w-64 min-h-screen bg-green-medium">
             <div className="flex flex-col items-center justify-center h-64">
@@ -30,7 +50,7 @@ export default function NavBar() {
                             "font-Outfit-Medium tracking-needed text-white hover:bg-green-light  py-2 px-6 w-full"
                 }>Seat Arrangement</NavLink>
                 <div className="flex-grow"></div> {/*adds a spacer to push logout to the bottom*/}
-                <NavLink to="/" className="font-Outfit-Medium tracking-needed text-white text-center hover:bg-green-light py-2 px-6 w-full">
+                <NavLink to="/" onClick={handleLogout} className="font-Outfit-Medium tracking-needed text-white text-center hover:bg-green-light py-2 px-6 w-full">
                     Log Out
                 </NavLink>
             </div>
