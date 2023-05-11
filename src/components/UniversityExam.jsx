@@ -27,6 +27,8 @@ export default function UniversityExam() {
         formRef.current.reset();
         dateRef.current.focus();
 
+        console.log(newExam);
+
         let isMounted = true;
         const controller = new AbortController();
 
