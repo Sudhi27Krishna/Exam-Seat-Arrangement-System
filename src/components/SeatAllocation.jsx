@@ -12,6 +12,7 @@ export default function SeatAllocation() {
   const [exams, setExams] = useState([]);
   const [dates, setDates] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [selectedRooms, setSelectedRooms] = useState([]);
   const dateRef = useRef();
   const timeRef = useRef();
   const examRef = useRef();
@@ -21,6 +22,10 @@ export default function SeatAllocation() {
   window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
 
   const isHalfWidth = (windowWidth <= 1384);
+
+  const handleRooms = () => {
+    console.log(selectedRooms, selectedRooms.length);
+  }
 
   const handleExams = () => {
     let isMounted = true;
@@ -103,8 +108,8 @@ export default function SeatAllocation() {
 
         <div className="flex flex-row mt-6 items-center">
           <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT TIME</span></h2>
-          <select ref={timeRef} onChange={handleExams} className="h-10 px-3 py-2 ml-6 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login">
-            <option value="FN" selected>FN</option>
+          <select ref={timeRef} defaultValue={"FN"} onChange={handleExams} className="h-10 px-3 py-2 ml-6 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login">
+            <option value="FN">FN</option>
             <option value="AN">AN</option>
           </select>
         </div>
@@ -158,7 +163,7 @@ export default function SeatAllocation() {
             </div>
           </div>
           <div className="bg-gray-100 h-[21.5rem] overflow-y-scroll rounded-b-2xl p-4">
-            {rooms.map(item => <SeatBox key={item.room_no} room={item.room_no} capacity={item.capacity} />)}
+            {rooms.map(item => <SeatBox key={item.room_no} room={item.room_no} capacity={item.capacity} setSelectedRooms={setSelectedRooms} />)}
           </div>
         </div>
       </div>
@@ -169,7 +174,7 @@ export default function SeatAllocation() {
             <p className="font-Outfit-Regular">Total  Participants : 2000 (1899 Regular + 111 Supplymentary)</p>
           </div>
           <div className="flex flex-row gap-10">
-            <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button">SAVE</button>
+            <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button" onClick={handleRooms}>SAVE</button>
             <button className="bg-green-medium hover:bg-green-light text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button">PROCEED</button>
           </div>
         </div>
