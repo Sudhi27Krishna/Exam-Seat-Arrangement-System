@@ -81,6 +81,18 @@ export default function SeatAllocation() {
           signal: controller.signal
         });
         isMounted && setDates(response.data);
+        const init_date = response.data[0];
+        try {
+          const response = await axiosPrivate.get(url.concat('/get-exams'), {
+            params: { date: init_date, time: "FN" },
+            signal: controller.signal
+          });
+          console.log(response.data);
+          isMounted && setExams(response.data);
+        }
+        catch (error) {
+          console.log(error);
+        }
       } catch (error) {
         console.log(error);
       }
@@ -94,7 +106,7 @@ export default function SeatAllocation() {
     }
   }, [axiosPrivate]);
 
-  
+
 
   return (
     <div className="bg-background flex flex-col flex-grow md:w-3/4">
