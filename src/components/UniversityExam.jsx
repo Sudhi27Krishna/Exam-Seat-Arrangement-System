@@ -21,6 +21,40 @@ export default function UniversityExam() {
     const [subArray, setSubArray] = useState([]);
     const navigate = useNavigate();
 
+    const handleFiles = () => {
+        const controller = new AbortController();
+
+        const sendFiles = async () => {
+            const myFiles = document.getElementById('myFiles').files;
+            console.log(myFiles);
+
+            const formData = new FormData();
+
+            Object.keys(myFiles).forEach(key => {
+                formData.append(myFiles.item(key).name, myFiles.item(key));
+            });
+
+            console.log(formData);
+
+            try {
+                const response = await axiosPrivate.post(url.concat("/file-upload"), formData, {
+                    signal: controller.signal,
+                    headers: { "Content-Type": "multipart/form-data" }
+                });
+                console.log(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
+
+        sendFiles();
+
+        return () => {
+            controller.abort();
+        }
+    }
+
     const handleSchedule = (e) => {
         e.preventDefault()
         const newExam = { date: dateRef.current.value, time: timeRef.current.value, sem: Number(semRef.current.options[semRef.current.selectedIndex].value), branch: branchRef.current.value, slot: slotRef.current.value, subcode: subRef.current.value };
@@ -183,7 +217,8 @@ export default function UniversityExam() {
 
                 <div className="flex flex-row justify-center items-center mt-6">
                     <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">EXAMINEE DETAILS</span></h2>
-                    <input type="file" className="font-Outfit-Regular ml-5" />
+                    <input type="file" id="myFiles" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" multiple className="font-Outfit-Regular ml-5" />
+                    <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" onClick={handleFiles}>UPLOAD FILE</button>
                 </div>
             </div>
 
