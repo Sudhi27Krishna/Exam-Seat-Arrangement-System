@@ -17,6 +17,7 @@ export default function SeatAllocation() {
   const timeRef = useRef();
   const examRef = useRef();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  let totalCapacity = rooms.reduce((total, obj) => total + obj.capacity, 0);
 
   // Update the window width state when the window is resized
   window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
@@ -169,9 +170,9 @@ export default function SeatAllocation() {
               </div>
             </div>
             <div className={`flex ${isHalfWidth ? "flex-col" : "flex-row"} sm:w-1/2 sm:ml-2 w-1/2 justify-center items-center gap-x-4 mr-8 pl-4`}>
-              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Total Rooms : 100</span></p>
-              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Available Seats : 3000</span></p>
-              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular text-green-500`}><span className="whitespace-nowrap">Seats selected: 550</span></p>
+              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Total Rooms : {rooms.length}</span></p>
+              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Available Seats : {totalCapacity}</span></p>
+              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular text-green-500`}><span className="whitespace-nowrap">Rooms selected: {selectedRooms.length}</span></p>
             </div>
           </div>
           <div className="bg-gray-100 h-[21.5rem] overflow-y-scroll rounded-b-2xl p-4">
@@ -183,7 +184,7 @@ export default function SeatAllocation() {
       <div className="px-8 py-4 my-2">
         <div className="flex flex-row justify-between items-center">
           <div>
-            <p className="font-Outfit-Regular">Total  Participants : 2000 (1899 Regular + 111 Supplymentary)</p>
+            <p className="font-Outfit-Regular">Total Participants : 2000 (1899 Regular + 111 Supplymentary)</p>
           </div>
           <div className="flex flex-row gap-10">
             <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button" onClick={handleRooms}>SAVE</button>
