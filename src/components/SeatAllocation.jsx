@@ -10,6 +10,7 @@ const url = '/seat-allocation';
 export default function SeatAllocation() {
   const axiosPrivate = useAxiosPrivate();
   const [exams, setExams] = useState([]);
+  const [details, setDetails] = useState([]);
   const [dates, setDates] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [selectedRooms, setSelectedRooms] = useState([]);
@@ -24,8 +25,30 @@ export default function SeatAllocation() {
 
   const isHalfWidth = (windowWidth <= 1384);
 
-  const handleRooms = () => {
+  const handleRooms = async () => {
+    let isMounted = true;
+    const controller = new AbortController();
+
+    const date = dateRef.current.options[dateRef.current.selectedIndex].value;
+    const time = timeRef.current.options[timeRef.current.selectedIndex].value;
+    const payload = { date, time, rooms: selectedRooms, details };
+
+    try {
+      const response = await axiosPrivate.post(url.concat("/allocation"), payload, {
+        signal: controller.signal
+      });
+      isMounted && console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+
+    console.log(details);
     console.log(selectedRooms, selectedRooms.length);
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    }
   }
 
   const handleExams = () => {
@@ -43,8 +66,11 @@ export default function SeatAllocation() {
           params: examInfo,
           signal: controller.signal
         });
-        console.log(response.data);
-        isMounted && setExams(response.data);
+        const { exams, details } = response.data;
+        if (isMounted) {
+          setExams(exams);
+          setDetails(details);
+        }
       }
       catch (error) {
         console.log(error);
@@ -88,8 +114,11 @@ export default function SeatAllocation() {
             params: { date: init_date, time: "FN" },
             signal: controller.signal
           });
-          console.log(response.data);
-          isMounted && setExams(response.data);
+          const { exams, details } = response.data;
+          if (isMounted) {
+            setExams(exams);
+            setDetails(details);
+          }
         }
         catch (error) {
           console.log(error);
