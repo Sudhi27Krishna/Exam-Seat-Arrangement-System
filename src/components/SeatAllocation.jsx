@@ -31,7 +31,17 @@ export default function SeatAllocation() {
 
     const date = dateRef.current.options[dateRef.current.selectedIndex].value;
     const time = timeRef.current.options[timeRef.current.selectedIndex].value;
-    const payload = { date, time, rooms: selectedRooms, details };
+    const payload = {
+      date,
+      time,
+      rooms: rooms.reduce((acc, { room_no, capacity }) => {
+        if (selectedRooms.includes(room_no)) {
+          acc.push({ room_no, capacity });
+        }
+        return acc;
+      }, []),
+      details
+    };
 
     try {
       const response = await axiosPrivate.post(url.concat("/allocation"), payload, {
