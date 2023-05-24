@@ -116,6 +116,19 @@ const Register = () => {
                     </div>
 
                     <div>
+                        <label htmlFor="username" className="block text-gray-700 font-Outfit-Light mb-2 ">
+                            Email:
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            autoComplete="off"
+                            required
+                            className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                        />
+                    </div>
+
+                    <div>
                         <label htmlFor="password" className="block text-gray-700 font-Outfit-Light mb-2 ">
                             Password:
                             <FontAwesomeIcon icon={faCheck} className={validPwd ? "text-green-500 ml-3" : "collapse"} />
