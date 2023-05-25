@@ -81,14 +81,14 @@ const Register = () => {
 
     return (
         <div className="flex items-center justify-center h-screen bg-login-signup">
-            <div className="py-12 px-12 shadow-2xl w-[23rem] bg-green-login rounded-[20px]">
+            <div className="py-12 px-12 shadow-2xl w-[25rem] bg-green-login rounded-[20px]">
                 <h1 className="text-3xl text-center font-normal mb-10 font-Outfit-Medium">REGISTER</h1>
                 <div className="flex items-center justify-center">
                     <p ref={errRef} className={errMsg ? "text-red-600 font-Outfit-SemiBold mb-2" : "absolute left-[-9999px]"} aria-live="assertive">{errMsg}</p>
                 </div>
-                <form onSubmit={(e) => handleSubmit(e)} className="space-y-6">
+                <form onSubmit={(e) => handleSubmit(e)} className="space-y-3">
                     <div>
-                        <label htmlFor="username" className="block text-gray-700 font-Outfit-Light mb-2 ">
+                        <label htmlFor="username" className="block text-gray-700 font-Outfit-Light mb-2">
                             Username:
                             <FontAwesomeIcon icon={faCheck} className={validName ? "text-green-500 ml-3" : "collapse"} />
                             <FontAwesomeIcon icon={faTimes} className={validName || !user ? "collapse" : "text-red-500 "} />
@@ -116,7 +116,7 @@ const Register = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="username" className="block text-gray-700 font-Outfit-Light mb-2 ">
+                        <label htmlFor="username" className="block text-gray-700 font-Outfit-Light mb-2">
                             Email:
                         </label>
                         <input
@@ -129,7 +129,7 @@ const Register = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="password" className="block text-gray-700 font-Outfit-Light mb-2 ">
+                        <label htmlFor="password" className="block text-gray-700 font-Outfit-Light mb-2">
                             Password:
                             <FontAwesomeIcon icon={faCheck} className={validPwd ? "text-green-500 ml-3" : "collapse"} />
                             <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "collapse" : "text-red-500 ml-1"} />
@@ -155,7 +155,7 @@ const Register = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="confirm_pwd" className="block text-gray-700 font-Outfit-Light mb-2 ">
+                        <label htmlFor="confirm_pwd" className="block text-gray-700 font-Outfit-Light mb-2">
                             Confirm Password:
                             <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "text-green-500 ml-3" : "collapse"} />
                             <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "collapse" : "text-red-500 ml-1"} />
@@ -178,7 +178,7 @@ const Register = () => {
                         </p>
                     </div>
 
-                    <div className="flex items-center justify-center pt-5">
+                    <div className="flex items-center justify-center pt-2">
                         <button type="submit" className=" bg-green-medium hover:bg-green-light text-white font-Outfit-Bold py-2 px-4 rounded-[20px] focus:outline-none focus:shadow-outline"
                             disabled={!validName || !validPwd || !validMatch ? true : false}>Sign Up
                         </button>
