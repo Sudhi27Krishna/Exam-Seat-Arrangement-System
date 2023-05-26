@@ -15,8 +15,8 @@ function Home() {
                 <div className="bg-green-save flex-1 flex items-center px-16 py-7 drop-shadow-lg rounded-br-3xl">
                     <p className="font-Outfit-ExtraBold text-5xl text-white tracking-wide leading-snug drop-shadow-lg">Managing exams, made easier</p>
                 </div>
-                <div className="bg-background flex-none flex items-center px-16 py-3">
-                    <img src={people} className="h-36" alt="sitting" />
+                <div className={`bg-background flex-none flex items-center py-3 ${isReqWidth ? "px-3" : "px-16"}`}>
+                    <img src={people} className={`${isReqWidth ? "h-0" : "h-36"}`} alt="sitting" />
                 </div>
             </div>
 
