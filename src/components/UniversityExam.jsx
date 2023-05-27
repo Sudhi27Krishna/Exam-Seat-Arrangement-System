@@ -21,11 +21,47 @@ export default function UniversityExam() {
     const [subArray, setSubArray] = useState([]);
     const navigate = useNavigate();
 
+    const handleFiles = () => {
+        const controller = new AbortController();
+
+        const sendFiles = async () => {
+            const myFiles = document.getElementById('myFiles').files;
+            console.log(myFiles);
+
+            const formData = new FormData();
+
+            Object.keys(myFiles).forEach(key => {
+                formData.append(myFiles.item(key).name, myFiles.item(key));
+            });
+
+            console.log(formData);
+
+            try {
+                const response = await axiosPrivate.post(url.concat("/file-upload"), formData, {
+                    signal: controller.signal,
+                    headers: { "Content-Type": "multipart/form-data" }
+                });
+                console.log(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+
+        }
+
+        sendFiles();
+
+        return () => {
+            controller.abort();
+        }
+    }
+
     const handleSchedule = (e) => {
         e.preventDefault()
         const newExam = { date: dateRef.current.value, time: timeRef.current.value, sem: Number(semRef.current.options[semRef.current.selectedIndex].value), branch: branchRef.current.value, slot: slotRef.current.value, subcode: subRef.current.value };
         formRef.current.reset();
         dateRef.current.focus();
+
+        console.log(newExam);
 
         let isMounted = true;
         const controller = new AbortController();
@@ -181,7 +217,8 @@ export default function UniversityExam() {
 
                 <div className="flex flex-row justify-center items-center mt-6">
                     <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">EXAMINEE DETAILS</span></h2>
-                    <input type="file" className="font-Outfit-Regular ml-5" />
+                    <input type="file" id="myFiles" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" multiple className="font-Outfit-Regular ml-5" />
+                    <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" onClick={handleFiles}>UPLOAD FILE</button>
                 </div>
             </div>
 
@@ -190,7 +227,7 @@ export default function UniversityExam() {
                 <form ref={formRef} className="flex flex-col st:flex-row justify-between" onSubmit={handleSchedule}>
                     <Input input_id="date" title="Date" inputRef={dateRef} type="date" placeholder="09-09-2020" />
                     <DropDownInput input_id="time" title="Time" inputRef={timeRef} options={['FN', 'AN']} />
-                    <DropDownInput input_id="branch" title="Branches" inputRef={branchRef} options={['CS', 'CC', 'CE', 'EC', 'EE', 'CA', 'ME']} isTarget handleSlot={handleSlot} />
+                    <DropDownInput input_id="branch" title="Branches" inputRef={branchRef} options={['CS', 'CC', 'CA', 'AD', 'CE', 'EC', 'EE', 'ME']} isTarget handleSlot={handleSlot} />
                     <DropDownInput input_id="slot" title="Slot" inputRef={slotRef} options={['A', 'B', 'C', 'D', 'E', 'F', 'G']} isTarget handleSlot={handleSlot} />
                     <DropDownInput input_id="subject" title="Subject" inputRef={subRef} options={subArray} />
                     <button className="bg-blue-500 hover:bg-blue-400 text-white font-Outfit-Bold py-1 px-2 my-7 mx-2 h-10 w-[5rem] rounded-[20px]" type="submit">ADD</button>

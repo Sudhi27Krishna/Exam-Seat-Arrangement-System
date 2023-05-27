@@ -1,77 +1,175 @@
 // import AllocRow from './AllocRow';
 import { useState, useRef, useEffect } from 'react';
-import rooms from '../rooms';
+// import rooms from '../rooms';
 // import row from '../row';
 import SeatBox from './SeatBox';
+import useAxiosPrivate from '../hooks/useAxiosPrivate';
+
+const url = '/seat-allocation';
 
 export default function SeatAllocation() {
-  const [schedules, setSchedules] = useState([]);
+  const axiosPrivate = useAxiosPrivate();
+  const [exams, setExams] = useState([]);
+  const [details, setDetails] = useState([]);
+  const [dates, setDates] = useState([]);
+  const [rooms, setRooms] = useState([]);
+  const [selectedRooms, setSelectedRooms] = useState([]);
   const dateRef = useRef();
   const timeRef = useRef();
   const examRef = useRef();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  let totalCapacity = rooms.reduce((total, obj) => total + obj.capacity, 0);
 
   // Update the window width state when the window is resized
   window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
 
   const isHalfWidth = (windowWidth <= 1384);
 
-  const handleSchedule = (e) => {
-    e.preventDefault()
-    const newSchedule = { date: dateRef.current.options[dateRef.current.selectedIndex].value, time: timeRef.current.options[timeRef.current.selectedIndex].value, exam: examRef.current.options[examRef.current.selectedIndex].value };
-    const allSchedules = [...schedules, newSchedule];
-    setSchedules(allSchedules);
-    console.log(allSchedules);
+  const handleRooms = async () => {
+    let isMounted = true;
+    const controller = new AbortController();
+
+    const date = dateRef.current.options[dateRef.current.selectedIndex].value;
+    const time = timeRef.current.options[timeRef.current.selectedIndex].value;
+    const payload = {
+      date,
+      time,
+      rooms: rooms.reduce((acc, { room_no, capacity }) => {
+        if (selectedRooms.includes(room_no)) {
+          acc.push({ room_no, capacity });
+        }
+        return acc;
+      }, []),
+      details
+    };
+
+    try {
+      const response = await axiosPrivate.post(url.concat("/allocation"), payload, {
+        signal: controller.signal
+      });
+      isMounted && console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+
+    console.log(details);
+    console.log(selectedRooms, selectedRooms.length);
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    }
+  }
+
+  const handleExams = () => {
+    let isMounted = true;
+    const controller = new AbortController();
+
+    const date = dateRef.current.options[dateRef.current.selectedIndex].value;
+    const time = timeRef.current.options[timeRef.current.selectedIndex].value;
+
+    const examInfo = { date, time };
+
+    const getExams = async () => {
+      try {
+        const response = await axiosPrivate.get(url.concat('/get-exams'), {
+          params: examInfo,
+          signal: controller.signal
+        });
+        const { exams, details } = response.data;
+        if (isMounted) {
+          setExams(exams);
+          setDetails(details);
+        }
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
+
+    getExams();
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    }
   }
 
   useEffect(() => {
-    dateRef.current.value = 'default';
-    timeRef.current.value = 'default';
-    examRef.current.value = 'default';
-  }, [schedules]);
+    let isMounted = true;
+    const controller = new AbortController();
+
+    const getRooms = async () => {
+      try {
+        const response = await axiosPrivate.get(url.concat('/get-rooms'), {
+          signal: controller.signal
+        });
+        isMounted && setRooms(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    getRooms();
+
+    const getDates = async () => {
+      try {
+        const response = await axiosPrivate.get(url.concat("/dates"), {
+          signal: controller.signal
+        });
+        isMounted && setDates(response.data);
+        const init_date = response.data[0];
+        try {
+          const response = await axiosPrivate.get(url.concat('/get-exams'), {
+            params: { date: init_date, time: "FN" },
+            signal: controller.signal
+          });
+          const { exams, details } = response.data;
+          if (isMounted) {
+            setExams(exams);
+            setDetails(details);
+          }
+        }
+        catch (error) {
+          console.log(error);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    isMounted && getDates();
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    }
+  }, [axiosPrivate]);
+
+
 
   return (
     <div className="bg-background flex flex-col flex-grow md:w-3/4">
       <div className="bg-background px-8 pt-4 flex flex-col st:flex-row justify-between">
         <div className="flex flex-row mt-6 items-center">
           <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT DATE</span></h2>
-          <select ref={dateRef} className="h-10 px-3 py-2 ml-5 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login">
-            <option value="09-09-2021">09-09-2021</option>
-            <option value="09-09-2022">09-09-2022</option>
-            <option value="09-09-2023">09-09-2023</option>
-            <option value="09-09-2024">09-09-2024</option>
-            <option value="09-09-2025">09-09-2025</option>
-            <option value="09-09-2026">09-09-2026</option>
-            <option value="09-09-2027">09-09-2027</option>
-            <option value="09-09-2028">09-09-2028</option>
+          <select ref={dateRef} onChange={handleExams} className="h-10 px-3 py-2 ml-5 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login">
+            {dates.map(item => <option key={item} value={item}>{item}</option>)}
           </select>
         </div>
 
         <div className="flex flex-row mt-6 items-center">
           <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT TIME</span></h2>
-          <select ref={timeRef} className="h-10 px-3 py-2 ml-6 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login">
-            <option value="15:00:00">15:00:00</option>
-            <option value="16:00:00">16:00:00</option>
-            <option value="17:00:00">17:00:00</option>
-            <option value="18:00:00">18:00:00</option>
-            <option value="19:00:00">19:00:00</option>
-            <option value="20:00:00">20:00:00</option>
-            <option value="21:00:00">21:00:00</option>
-            <option value="22:00:00">22:00:00</option>
+          <select ref={timeRef} defaultValue={"FN"} onChange={handleExams} className="h-10 px-3 py-2 ml-6 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login">
+            <option value="FN">FN</option>
+            <option value="AN">AN</option>
           </select>
         </div>
 
         <div className="flex flex-row mt-6 items-center">
           <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT EXAM</span></h2>
           <select ref={examRef} className="h-10 px-3 py-2 ml-4 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login">
-            <option value="FLAT">FLAT</option>
-            <option value="OS">OS</option>
-            <option value="SS">SS</option>
-            <option value="CN">CN</option>
-            <option value="CGIP">CGIP</option>
-            <option value="DBMS">DBMS</option>
-            <option value="OOP">OOP</option>
-            <option value="DS">DS</option>
+            {exams.map(item => <option key={item} value={item}>{item}</option>)}
           </select>
         </div>
       </div>
@@ -111,13 +209,13 @@ export default function SeatAllocation() {
               </div>
             </div>
             <div className={`flex ${isHalfWidth ? "flex-col" : "flex-row"} sm:w-1/2 sm:ml-2 w-1/2 justify-center items-center gap-x-4 mr-8 pl-4`}>
-              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Total Rooms : 100</span></p>
-              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Available Seats : 3000</span></p>
-              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular text-green-500`}><span className="whitespace-nowrap">Seats selected: 550</span></p>
+              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Total Rooms : {rooms.length}</span></p>
+              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Available Seats : {totalCapacity}</span></p>
+              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular text-green-500`}><span className="whitespace-nowrap">Rooms selected: {selectedRooms.length}</span></p>
             </div>
           </div>
           <div className="bg-gray-100 h-[21.5rem] overflow-y-scroll rounded-b-2xl p-4">
-            {rooms.map(item => <SeatBox key={item.id} room={item.room} capacity={item.capacity} />)}
+            {rooms.map(item => <SeatBox key={item.room_no} room={item.room_no} capacity={item.capacity} setSelectedRooms={setSelectedRooms} />)}
           </div>
         </div>
       </div>
@@ -125,10 +223,10 @@ export default function SeatAllocation() {
       <div className="px-8 py-4 my-2">
         <div className="flex flex-row justify-between items-center">
           <div>
-            <p className="font-Outfit-Regular">Total  Participants : 2000 (1899 Regular + 111 Supplymentary)</p>
+            <p className="font-Outfit-Regular">Total Participants : 2000 (1899 Regular + 111 Supplymentary)</p>
           </div>
           <div className="flex flex-row gap-10">
-            <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button" onClick={handleSchedule}>SAVE</button>
+            <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button" onClick={handleRooms}>SAVE</button>
             <button className="bg-green-medium hover:bg-green-light text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button">PROCEED</button>
           </div>
         </div>
