@@ -14,6 +14,7 @@ export default function SeatAllocation() {
   const [dates, setDates] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [selectedRooms, setSelectedRooms] = useState([]);
+  const [bookedRooms, setBookedRooms] = useState([]);
   const dateRef = useRef();
   const timeRef = useRef();
   const examRef = useRef();
@@ -52,8 +53,8 @@ export default function SeatAllocation() {
       console.log(error);
     }
 
-    console.log(details);
-    console.log(selectedRooms, selectedRooms.length);
+    // console.log(details);
+    // console.log(selectedRooms, selectedRooms.length);
 
     return () => {
       isMounted = false;
@@ -80,6 +81,21 @@ export default function SeatAllocation() {
         if (isMounted) {
           setExams(exams);
           setDetails(details);
+        }
+
+        const bookedRoomsResponse = await axiosPrivate.get(url.concat('/get-booked-rooms'), {
+          params: { date, time },
+          signal: controller.signal
+        });
+
+        if (isMounted) {
+          if (bookedRooms !== undefined) {
+            setBookedRooms(bookedRoomsResponse.data);
+            console.log(bookedRooms);
+          }
+          else {
+            setBookedRooms([]);
+          }
         }
       }
       catch (error) {
@@ -114,24 +130,35 @@ export default function SeatAllocation() {
 
     const getDates = async () => {
       try {
-        const response = await axiosPrivate.get(url.concat("/dates"), {
+        const dateResponse = await axiosPrivate.get(url.concat("/dates"), {
           signal: controller.signal
         });
-        isMounted && setDates(response.data);
-        const init_date = response.data[0];
-        try {
-          const response = await axiosPrivate.get(url.concat('/get-exams'), {
-            params: { date: init_date, time: "FN" },
-            signal: controller.signal
-          });
-          const { exams, details } = response.data;
-          if (isMounted) {
-            setExams(exams);
-            setDetails(details);
-          }
+        isMounted && setDates(dateResponse.data);
+        const init_date = dateResponse.data[0];
+
+        const examsResponse = await axiosPrivate.get(url.concat('/get-exams'), {
+          params: { date: init_date, time: "FN" },
+          signal: controller.signal
+        });
+        const { exams, details } = examsResponse.data;
+        if (isMounted) {
+          setExams(exams);
+          setDetails(details);
         }
-        catch (error) {
-          console.log(error);
+
+        const bookedRoomsResponse = await axiosPrivate.get(url.concat('/get-booked-rooms'), {
+          params: { date: init_date, time: "FN" },
+          signal: controller.signal
+        });
+
+        if (isMounted) {
+          if (bookedRooms !== undefined) {
+            setBookedRooms(bookedRoomsResponse.data);
+            // console.log(bookedRooms);
+          }
+          else {
+            setBookedRooms([]);
+          }
         }
       } catch (error) {
         console.log(error);
@@ -145,8 +172,6 @@ export default function SeatAllocation() {
       controller.abort();
     }
   }, [axiosPrivate]);
-
-
 
   return (
     <div className="bg-background flex flex-col flex-grow md:w-3/4">
@@ -210,12 +235,12 @@ export default function SeatAllocation() {
             </div>
             <div className={`flex ${isHalfWidth ? "flex-col" : "flex-row"} sm:w-1/2 sm:ml-2 w-1/2 justify-center items-center gap-x-4 mr-8 pl-4`}>
               <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Total Rooms : {rooms.length}</span></p>
-              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Available Seats : {totalCapacity}</span></p>
-              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular text-green-500`}><span className="whitespace-nowrap">Rooms selected: {selectedRooms.length}</span></p>
+              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Available Seats : {bookedRooms.length > 0 ? 0 : totalCapacity}</span></p>
+              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular text-green-500`}><span className="whitespace-nowrap">Rooms selected: {bookedRooms.length > 0 ? bookedRooms.length : selectedRooms.length}</span></p>
             </div>
           </div>
           <div className="bg-gray-100 h-[21.5rem] overflow-y-scroll rounded-b-2xl p-4">
-            {rooms.map(item => <SeatBox key={item.room_no} room={item.room_no} capacity={item.capacity} setSelectedRooms={setSelectedRooms} />)}
+            {rooms.map(item => <SeatBox key={item.room_no} room={item.room_no} capacity={item.capacity} setSelectedRooms={setSelectedRooms} bookedRooms={bookedRooms} />)}
           </div>
         </div>
       </div>

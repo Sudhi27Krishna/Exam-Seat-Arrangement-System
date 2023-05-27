@@ -114,7 +114,7 @@ export default function ManageRoom() {
                     <Input input_id="room-no" title="Room No" inputRef={roomNoRef} type="text" placeholder="M101" required />
                     <DropDownInput id="branch" title="Floor No" inputRef={floorNoRef} options={['1', '2', '3', '4', '5']} required />
                     <DropDownInput id="slot" title="Block" inputRef={blockRef} options={['M-George', 'Ramanujan']} required />
-                    <Input input_id="total-seats" title="Available Seats" inputRef={capacityRef} type="text" placeholder="Max capacity: 30" required />
+                    <Input input_id="total-seats" title="Available Seats" inputRef={capacityRef} type="text" placeholder="30" required />
                     <button className="bg-blue-500 hover:bg-blue-400 text-white font-Outfit-Bold py-1 px-2 my-7 mx-2 h-10 w-[5rem] rounded-[20px]" type="submit">ADD</button>
                 </form>
             </div>
