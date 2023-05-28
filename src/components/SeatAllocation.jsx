@@ -26,6 +26,17 @@ export default function SeatAllocation() {
 
   const isHalfWidth = (windowWidth <= 1384);
 
+  const handleExcels = async () => {
+    try {
+      await axiosPrivate.get(url.concat('/send-excels'), {
+        withCredentials: true
+      });
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+
   const handleRooms = async () => {
     let isMounted = true;
     const controller = new AbortController();
@@ -53,8 +64,7 @@ export default function SeatAllocation() {
       console.log(error);
     }
 
-    // console.log(details);
-    // console.log(selectedRooms, selectedRooms.length);
+    window.location.reload();
 
     return () => {
       isMounted = false;
@@ -246,13 +256,10 @@ export default function SeatAllocation() {
       </div>
 
       <div className="px-8 py-4 my-2">
-        <div className="flex flex-row justify-between items-center">
-          <div>
-            <p className="font-Outfit-Regular">Total Participants : 2000 (1899 Regular + 111 Supplymentary)</p>
-          </div>
+        <div className="flex flex-row justify-end items-center">
           <div className="flex flex-row gap-10">
-            <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button" onClick={handleRooms}>SAVE</button>
-            <button className="bg-green-medium hover:bg-green-light text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button">PROCEED</button>
+            <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button" onClick={handleRooms}>ARRANGE</button>
+            <button className="bg-green-medium hover:bg-green-light text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button" onClick={handleExcels}>RECIEVE MAIL</button>
           </div>
         </div>
       </div>
