@@ -12,6 +12,7 @@ const Register = () => {
     const navigate = useNavigate();
     const userRef = useRef();
     const errRef = useRef();
+    const emailRef = useRef();
 
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
@@ -53,8 +54,9 @@ const Register = () => {
             setErrMsg("Invalid Entry");
             return;
         }
+        const email = emailRef.current.value;
         try {
-            const response = await axios.post(REGISTER_URL, JSON.stringify({ user, pwd }),
+            const response = await axios.post(REGISTER_URL, JSON.stringify({ user, email, pwd }),
                 {
                     headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
@@ -122,6 +124,7 @@ const Register = () => {
                         <input
                             type="email"
                             id="email"
+                            ref={emailRef}
                             autoComplete="off"
                             required
                             className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
