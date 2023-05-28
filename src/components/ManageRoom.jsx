@@ -17,6 +17,11 @@ export default function ManageRoom() {
     const capacityRef = useRef();
     const navigate = useNavigate();
     let totalCapacity = rows.reduce((total, obj) => total + obj.capacity, 0);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
+
+    const isHalfWidth = (windowWidth <= 1384);
 
     const handleRoom = (e) => {
         e.preventDefault();
@@ -109,8 +114,8 @@ export default function ManageRoom() {
     return (
         <div className="bg-background flex flex-col flex-grow">
             <div className="px-8 pt-4 mt-6">
-                <h2 className="text-xl font-Outfit-Bold mb-4">ADD ROOM</h2>
-                <form ref={formRef} className="flex flex-col st:flex-row justify-between" onSubmit={handleRoom}>
+                <h2 className="text-xl font-Outfit-Bold mb-3">ADD ROOM</h2>
+                <form ref={formRef} className={`flex ${isHalfWidth ? "flex-col" : "flex-row"} justify-between`} onSubmit={handleRoom}>
                     <Input input_id="room-no" title="Room No" inputRef={roomNoRef} type="text" placeholder="M101" required />
                     <DropDownInput id="branch" title="Floor No" inputRef={floorNoRef} options={['1', '2', '3', '4', '5']} required />
                     <DropDownInput id="slot" title="Block" inputRef={blockRef} options={['M-George', 'Ramanujan']} required />
@@ -120,11 +125,11 @@ export default function ManageRoom() {
             </div>
 
             <div className="px-8 py-4">
-                <h2 className="text-xl font-Outfit-Bold mb-4">AVAILABLE ROOMS</h2>
-                <div className="flex flex-col sm:flex-row items-center justify-between bg-gray-100 p-4 rounded-md">
+                <h2 className="text-xl font-Outfit-Bold mb-3">AVAILABLE ROOMS</h2>
+                <div className={`flex flex-wrap items-center bg-gray-100 p-4 rounded-md font-Outfit-Regular`}>
                     {/* Search Bar */}
-                    <div className="flex items-center w-full sm:w-1/3 mb-2 sm:mb-0 sm:mr-10 lg:mr-3 font-Outfit-Regular">
-                        <span className="text-gray-500">
+                    <div className="flex-grow flex flex-row items-center">
+                        <span className="ml-2 text-gray-500 flex-none">
                             <svg viewBox="0 0 20 20" fill="currentColor" className="w-6 h-6">
                                 <path
                                     fillRule="evenodd"
@@ -136,33 +141,41 @@ export default function ManageRoom() {
                         <input
                             type="text"
                             placeholder="Search"
-                            className="ml-2 flex-1 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
+                            className="w-full p-2 mx-2 my-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
                         />
                     </div>
+                    <div className="flex-grow flex flex-row">
+                        {/* Sort By Dropdown */}
+                        <div className="flex-grow flex flex-row items-center ">
+                            <p className="ml-2 whitespace-nowrap">Sort By :</p>
+                            <select className="w-full p-[10.4px] m-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
+                                defaultValue="">
+                                <option value="" disabled hidden></option>
+                                <option value="floor_asc">Floor (0 - 5)</option>
+                                <option value="floor_desc">Floor (5 - 0)</option>
+                                <option value="latest">Latest (New - Old)</option>
+                                <option value="Oldest">Oldest (Old - New)</option>
+                            </select>
+                        </div>
 
-                    {/* Sort By Dropdown */}
-                    <div className="w-full sm:w-1/3 sm:mx-2 mb-2 sm:mb-0 font-Outfit-Regular">
-                        <select className="min-h-[40px] w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
-                            defaultValue="">
-                            <option value="" disabled hidden>Sort By</option>
-                            <option value="name_asc">Name (A - Z)</option>
-                            <option value="name_desc">Name (Z - A)</option>
-                            <option value="date_asc">Date (Old - New)</option>
-                            <option value="date_desc">Date (New - Old)</option>
-                        </select>
-                    </div>
-
-                    {/* Filter By Dropdown */}
-                    <div className="w-full sm:w-1/3 sm:ml-2">
-                        <select className="min-h-[40px] w-full px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login font-Outfit-Regular" defaultValue="">
-                            <option value="" disabled hidden>Filter By</option>
-                            <option value="category_1">Category 1</option>
-                            <option value="category_2">Category 2</option>
-                            <option value="category_3">Category 3</option>
-                        </select>
+                        {/* Filter By Dropdown */}
+                        <div className="flex-grow flex flex-row items-center">
+                            <p className="ml-2 whitespace-nowrap">Filter By :</p>
+                            <select className="w-full p-[10.4px] m-1 mr-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
+                                <option value="" disabled hidden></option>
+                                <option value="category_R">Ramanujan Block</option>
+                                <option value="category_M">M-George Block</option>
+                                <option value="category_0">Ground Floor</option>
+                                <option value="category_1">First Floor</option>
+                                <option value="category_2">Second Floor</option>
+                                <option value="category_3">Third Floor</option>
+                                <option value="category_4">Fourth Floor</option>
+                                <option value="category_5">Fifth Floor</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div className="h-72 overflow-y-scroll">
+                <div className="h-72 overflow-y-auto">
                     <table className="table-auto w-full">
                         <thead className="sticky top-0">
                             <tr className="bg-grey-all font-Outfit-Bold">
@@ -192,6 +205,6 @@ export default function ManageRoom() {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
