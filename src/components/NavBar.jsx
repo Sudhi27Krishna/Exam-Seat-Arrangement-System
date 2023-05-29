@@ -38,7 +38,7 @@ export default function NavBar() {
             <div className="flex flex-col h-64 ">
                 <img src={expand ? menucollapse : menu} alt="menu" className={`h-8 w-8 self-end cursor-pointer p-1 m-3`} onClick={handleExpand} title={`${expand ? "Collapse Navbar" : "Expand Navbar"}`} />
                 <img src="https://i1.sndcdn.com/avatars-1izkebM3cqeF0hcO-uo8bjQ-t500x500.jpg" alt="giga-chad" className={`${expand ? "rounded-full w-20 h-20 m-4 self-center" : "absolute left-[-999px]"}`} />
-                <p className={`${expand ? "text-white font-Outfit-Medium tracking-needed mx-4 mb-4 self-center" : "absolute left-[-999px]"}`}>GIGA CHAD</p>
+                <p className={`${expand ? "text-white font-Outfit-Medium tracking-needed mx-4 mb-4 self-center" : "absolute left-[-999px]"}`}>{auth.user}</p>
             </div>
 
             <div className="flex flex-col h-full py-5">
