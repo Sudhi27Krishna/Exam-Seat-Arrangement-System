@@ -41,8 +41,9 @@ export default function UniversityExam() {
                     signal: controller.signal,
                     headers: { "Content-Type": "multipart/form-data" }
                 });
-                console.log(response.data);
+                alert(response.data.message + " excel file successfully uploaded");
             } catch (error) {
+                alert("Excel file upload unsuccessful");
                 console.log(error);
             }
 
@@ -228,7 +229,7 @@ export default function UniversityExam() {
                     <Input input_id="date" title="Date" inputRef={dateRef} type="date" placeholder="09-09-2020" />
                     <DropDownInput input_id="time" title="Time" inputRef={timeRef} options={['FN', 'AN']} />
                     <DropDownInput input_id="branch" title="Branches" inputRef={branchRef} options={['CS', 'CC', 'CA', 'AD', 'CE', 'EC', 'EE', 'ME']} isTarget handleSlot={handleSlot} />
-                    <DropDownInput input_id="slot" title="Slot" inputRef={slotRef} options={['A', 'B', 'C', 'D', 'E', 'F', 'G']} isTarget handleSlot={handleSlot} />
+                    <DropDownInput input_id="slot" title="Slot" inputRef={slotRef} options={['A', 'B', 'C', 'D', 'E', 'F']} isTarget handleSlot={handleSlot} />
                     <DropDownInput input_id="subject" title="Subject" inputRef={subRef} options={subArray} />
                     <button className="bg-blue-500 hover:bg-blue-400 text-white font-Outfit-Bold py-1 px-2 my-7 mx-2 h-10 w-[5rem] rounded-[20px]" type="submit">ADD</button>
                 </form>

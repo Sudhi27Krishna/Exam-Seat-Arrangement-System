@@ -31,6 +31,7 @@ export default function SeatAllocation() {
       await axiosPrivate.get(url.concat('/send-excels'), {
         withCredentials: true
       });
+      alert("Email sent successfully");
     }
     catch (error) {
       console.log(error);
@@ -38,7 +39,6 @@ export default function SeatAllocation() {
   }
 
   const handleRooms = async () => {
-    let isMounted = true;
     const controller = new AbortController();
 
     const date = dateRef.current.options[dateRef.current.selectedIndex].value;
@@ -56,18 +56,16 @@ export default function SeatAllocation() {
     };
 
     try {
-      const response = await axiosPrivate.post(url.concat("/allocation"), payload, {
+      await axiosPrivate.post(url.concat("/allocation"), payload, {
         signal: controller.signal
       });
-      isMounted && console.log(response.data);
+      alert("Arrangement successful for exams on " + date + " " + time);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
 
-    window.location.reload();
-
     return () => {
-      isMounted = false;
       controller.abort();
     }
   }
@@ -202,7 +200,7 @@ export default function SeatAllocation() {
         </div>
 
         <div className="flex flex-row mt-6 items-center">
-          <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT EXAM</span></h2>
+          <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">EXAMS SCHEDULED</span></h2>
           <select ref={examRef} className="h-10 px-3 py-2 ml-4 rounded-[20px] shadow-sm border-gray-300 min-w-[200px] focus:outline-none focus:ring-2 focus:ring-green-login">
             {exams.map(item => <option key={item} value={item}>{item}</option>)}
           </select>
@@ -259,7 +257,7 @@ export default function SeatAllocation() {
         <div className="flex flex-row justify-end items-center">
           <div className="flex flex-row gap-10">
             <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button" onClick={handleRooms}>ARRANGE</button>
-            <button className="bg-green-medium hover:bg-green-light text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button" onClick={handleExcels}>RECIEVE MAIL</button>
+            <button className="bg-green-medium hover:bg-green-light text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button" onClick={handleExcels}>RECEIVE MAIL</button>
           </div>
         </div>
       </div>
