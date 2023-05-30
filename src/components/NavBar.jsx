@@ -9,6 +9,7 @@ import room from '../assets/room.png';
 import exam from '../assets/exam.png';
 import seat from '../assets/seat.png';
 import logout from '../assets/logout.png';
+import profile from '../assets/profile.png';
 const url = '/logout';
 
 export default function NavBar() {
@@ -35,10 +36,13 @@ export default function NavBar() {
 
     return (
         <div className={`flex flex-col min-h-screen bg-green-medium ${expand ? "w-64" : "w-14 flex-none"}`}>
-            <div className="flex flex-col h-64 ">
+            <div className="flex flex-col h-48 ml-2 select-none">
                 <img src={expand ? menucollapse : menu} alt="menu" className={`h-8 w-8 self-end cursor-pointer p-1 m-3`} onClick={handleExpand} title={`${expand ? "Collapse Navbar" : "Expand Navbar"}`} />
-                <img src="https://i1.sndcdn.com/avatars-1izkebM3cqeF0hcO-uo8bjQ-t500x500.jpg" alt="giga-chad" className={`${expand ? "rounded-full w-20 h-20 m-4 self-center" : "absolute left-[-999px]"}`} />
-                <p className={`${expand ? "text-white font-Outfit-Medium tracking-needed mx-4 mb-4 self-center" : "absolute left-[-999px]"}`}>{auth.user}</p>
+                <div className="flex flex-row ">
+                    <img src={profile} alt="profile" className={`${expand ? "rounded-full w-10 h-10 m-4 self-center" : "rounded-full w-7 h-7 ml-1 mr-4 my-1 self-center rotate-90"}`} />
+                    <p className={`${expand ? "mr-7 text-white font-Outfit-Medium tracking-needed self-center truncate ... " : " absolute left-[-999px]"}`}>{auth.user}</p>
+                </div>
+                <hr class="border-t border-green-light ml-5 mr-7"></hr>
             </div>
 
             <div className="flex flex-col h-full py-5">
