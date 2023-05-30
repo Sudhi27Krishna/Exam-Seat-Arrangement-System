@@ -182,7 +182,7 @@ export default function SeatAllocation() {
   }, [axiosPrivate]);
 
   return (
-    <div className="bg-background flex flex-col flex-grow md:w-3/4">
+    <div className="bg-background flex flex-col flex-grow md:w-5/6">
       <div className="bg-background px-8 pt-4 flex flex-col st:flex-row justify-between">
         <div className="flex flex-row mt-6 items-center">
           <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT DATE</span></h2>

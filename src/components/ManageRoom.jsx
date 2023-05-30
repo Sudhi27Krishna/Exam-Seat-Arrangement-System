@@ -112,7 +112,7 @@ export default function ManageRoom() {
     }
 
     return (
-        <div className="bg-background flex flex-col flex-grow">
+        <div className="bg-background flex flex-col flex-grow md:w-5/6">
             <div className="px-8 pt-4 mt-6">
                 <h2 className="text-xl font-Outfit-Bold mb-3">ADD ROOM</h2>
                 <form ref={formRef} className={`flex ${isHalfWidth ? "flex-col" : "flex-row"} justify-between`} onSubmit={handleRoom}>

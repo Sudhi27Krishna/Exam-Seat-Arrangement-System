@@ -9,7 +9,7 @@ function Home() {
     window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
     const isReqWidth = (windowWidth <= 1000);
     return (
-        <div className="flex flex-col bg-background flex-grow md:w-3/4">
+        <div className="flex flex-col bg-background flex-grow md:w-5/6">
 
             <div className="flex-auto flex">
                 <div className="bg-green-save flex-1 flex items-center px-16 py-7 drop-shadow-lg rounded-br-3xl">

@@ -200,7 +200,7 @@ export default function UniversityExam() {
     }
 
     return (
-        <div className="bg-background flex flex-col flex-grow">
+        <div className="bg-background flex flex-col flex-grow md:w-5/6">
             <div className="px-8 pt-4 flex flex-row justify-between flex-wrap">
                 <div className="flex flex-row mt-6 items-center">
                     <h2 className="text-xl font-Outfit-Bold"><span className="whitespace-nowrap">SELECT SEMESTER</span></h2>
@@ -224,7 +224,7 @@ export default function UniversityExam() {
             </div>
 
             <div className="px-8 pt-6">
-                <h2 className="text-xl font-Outfit-Bold mb-8">ADD SLOTS</h2>
+                <h2 className="text-xl font-Outfit-Bold mb-3">ADD SLOTS</h2>
                 <form ref={formRef} className="flex flex-col st:flex-row justify-between" onSubmit={handleSchedule}>
                     <Input input_id="date" title="Date" inputRef={dateRef} type="date" placeholder="09-09-2020" />
                     <DropDownInput input_id="time" title="Time" inputRef={timeRef} options={['FN', 'AN']} />
@@ -237,7 +237,7 @@ export default function UniversityExam() {
 
             <div className="px-8 py-4">
                 <h2 className="text-xl font-Outfit-Bold mb-4">EXAM SCHEDULES</h2>
-                <div className="h-72 overflow-y-scroll">
+                <div className="h-72 overflow-y-auto">
                     <table className="table-auto w-full">
                         <thead className="sticky top-0">
                             <tr className="bg-grey-all font-Outfit-Bold">
