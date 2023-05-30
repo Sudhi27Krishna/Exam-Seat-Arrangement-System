@@ -223,7 +223,7 @@ export default function UniversityExam() {
                 </div>
             </div>
 
-            <div className="px-8 pt-6">
+            <div className="px-8 pt-6 my-1">
                 <h2 className="text-xl font-Outfit-Bold mb-3">ADD SLOTS</h2>
                 <form ref={formRef} className="flex flex-col st:flex-row justify-between" onSubmit={handleSchedule}>
                     <Input input_id="date" title="Date" inputRef={dateRef} type="date" placeholder="09-09-2020" />
@@ -235,7 +235,7 @@ export default function UniversityExam() {
                 </form>
             </div>
 
-            <div className="px-8 py-4">
+            <div className="px-8 py-5">
                 <h2 className="text-xl font-Outfit-Bold mb-4">EXAM SCHEDULES</h2>
                 <div className="h-72 overflow-y-auto">
                     <table className="table-auto w-full">
@@ -257,7 +257,7 @@ export default function UniversityExam() {
                 </div>
             </div>
 
-            <div className="px-8 py-4 mt-2">
+            <div className="px-8 py-4 mt-3">
                 <div className="flex flex-row justify-between items-center">
                     <div>
                         <p className="font-Outfit-Regular">No of Exams scheduled : {exams.length}</p>
