@@ -40,7 +40,7 @@ export default function NavBar() {
                 <img src={expand ? menucollapse : menu} alt="menu" className={`h-8 w-8 self-end cursor-pointer p-1 m-3`} onClick={handleExpand} title={`${expand ? "Collapse Navbar" : "Expand Navbar"}`} />
                 <div className="flex flex-row ">
                     <img src={profile} alt="profile" className={`${expand ? "rounded-full w-10 h-10 m-4 self-center" : "rounded-full w-7 h-7 ml-1 mr-4 my-1 self-center rotate-90"}`} />
-                    <p className={`${expand ? "mr-7 text-white font-Outfit-Medium tracking-needed self-center truncate ... " : " absolute left-[-999px]"}`}>{auth.user}</p>
+                    <p className={`${expand ? "mr-7 text-white font-Outfit-Medium tracking-needed self-center uppercase truncate ... " : " absolute left-[-999px]"}`}>{auth.user}</p>
                 </div>
                 <hr class="border-t border-green-light ml-5 mr-7"></hr>
             </div>
