@@ -15,10 +15,11 @@ export default function SeatAllocation() {
   const [rooms, setRooms] = useState([]);
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [bookedRooms, setBookedRooms] = useState([]);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [studentsCount, setStudentsCount] = useState();
   const dateRef = useRef();
   const timeRef = useRef();
   const examRef = useRef();
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   let totalCapacity = rooms.reduce((total, obj) => total + obj.capacity, 0);
 
   // Update the window width state when the window is resized
@@ -85,10 +86,11 @@ export default function SeatAllocation() {
           params: examInfo,
           signal: controller.signal
         });
-        const { exams, details } = response.data;
+        const { exams, details, totalStudents } = response.data;
         if (isMounted) {
           setExams(exams);
           setDetails(details);
+          setStudentsCount(totalStudents);
         }
 
         const bookedRoomsResponse = await axiosPrivate.get(url.concat('/get-booked-rooms'), {
@@ -148,10 +150,11 @@ export default function SeatAllocation() {
           params: { date: init_date, time: "FN" },
           signal: controller.signal
         });
-        const { exams, details } = examsResponse.data;
+        const { exams, details, totalStudents } = examsResponse.data;
         if (isMounted) {
           setExams(exams);
           setDetails(details);
+          setStudentsCount(totalStudents);
         }
 
         const bookedRoomsResponse = await axiosPrivate.get(url.concat('/get-booked-rooms'), {
@@ -257,7 +260,10 @@ export default function SeatAllocation() {
       </div>
 
       <div className="px-8 py-4 my-2">
-        <div className="flex flex-row justify-end items-center">
+        <div className="flex flex-row justify-between items-center">
+          <div>
+            <p className="font-Outfit-Regular">Total Participants : {studentsCount}</p>
+          </div>
           <div className="flex flex-row gap-10">
             <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button" onClick={handleRooms}>ARRANGE</button>
             <button className="bg-green-medium hover:bg-green-light text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button" onClick={handleExcels}>RECEIVE MAIL</button>
