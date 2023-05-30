@@ -48,28 +48,28 @@ export default function NavBar() {
             <div className="flex flex-col h-full py-5">
                 <NavLink to="home" className={({ isActive }) => isActive ? "bg-green-dark py-2 w-full flex flex-row" : "hover:bg-green-light py-2 w-full flex flex-row"}>
                     <p className={`font-Outfit-Medium tracking-needed text-white ${expand ? "mx-6" : "absolute left-[-999px]"}`}>Home</p>
-                    <img src={home} alt="collapse" className={`${expand ? "absolute left-[-999px]" : "h-7 w-7 ml-3 mr-4 my-1"}`} title="home" />
+                    <img src={home} alt="H" className={`${expand ? "absolute left-[-999px]" : "h-7 w-7 ml-3 mr-4 my-1"}`} title="home" />
                 </NavLink>
 
                 <NavLink to="manage-room" className={({ isActive }) => isActive ? " bg-green-dark py-2 w-full flex flex-row" : "hover:bg-green-light py-2 w-full flex flex-row"}>
                     <p className={`font-Outfit-Medium tracking-needed text-white ${expand ? "mx-6" : "absolute left-[-999px]"}`}>Manage Rooms</p>
-                    <img src={room} alt="collapse" className={`${expand ? "absolute left-[-999px]" : "h-7 w-7 ml-[14px] mr-4 my-1"}`} title="Manage Rooms" />
+                    <img src={room} alt="MR" className={`${expand ? "absolute left-[-999px]" : "h-7 w-7 ml-[14px] mr-4 my-1"}`} title="Manage Rooms" />
                 </NavLink>
 
                 <NavLink to="university-exam" className={({ isActive }) => isActive ? " bg-green-dark py-2 w-full flex flex-row" : "hover:bg-green-light py-2 w-full flex flex-row"}>
                     <p className={`font-Outfit-Medium tracking-needed text-white ${expand ? "mx-6" : "absolute left-[-999px]"}`}>University Exams</p>
-                    <img src={exam} alt="collapse" className={`${expand ? "absolute left-[-999px]" : "h-7 w-7 ml-[14px] mr-4 my-1"}`} title="University Exams" />
+                    <img src={exam} alt="UE" className={`${expand ? "absolute left-[-999px]" : "h-7 w-7 ml-[14px] mr-4 my-1"}`} title="University Exams" />
                 </NavLink>
 
                 <NavLink to="seat-allocation" className={({ isActive }) => isActive ? " bg-green-dark py-2 w-full flex flex-row" : "hover:bg-green-light py-2 w-full flex flex-row"}>
                     <p className={`font-Outfit-Medium tracking-needed text-white ${expand ? "mx-6" : "absolute left-[-999px]"}`}>Seat Allocation</p>
-                    <img src={seat} alt="collapse" className={`${expand ? "absolute left-[-999px]" : "h-7 w-7 ml-3 mr-4 my-1"}`} title="Seat Allocation" />
+                    <img src={seat} alt="SA" className={`${expand ? "absolute left-[-999px]" : "h-7 w-7 ml-3 mr-4 my-1"}`} title="Seat Allocation" />
                 </NavLink>
 
                 <div className="flex-grow"></div> {/*adds a spacer to push logout to the bottom*/}
                 <NavLink to="/" onClick={handleLogout} className="text-center hover:bg-green-light py-2 w-full">
                     <p className={`font-Outfit-Medium tracking-needed text-white ${expand ? "mx-6" : "absolute left-[-999px]"}`}>Log Out</p>
-                    <img src={logout} alt="collapse" className={`${expand ? "absolute left-[-999px]" : "h-7 w-7 mx-4"}`} title="Log Out" />
+                    <img src={logout} alt="LO" className={`${expand ? "absolute left-[-999px]" : "h-7 w-7 mx-4"}`} title="Log Out" />
                 </NavLink>
             </div>
         </div>
