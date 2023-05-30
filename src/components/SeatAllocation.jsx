@@ -209,8 +209,8 @@ export default function SeatAllocation() {
 
       <div className="bg-background px-8 pt-4 mt-1 flex flex-col st:flex-row flex-grow justify-between">
         <div className="py-4 st:w-full">
-          <h2 className="text-xl font-Outfit-Bold mb-4">SELECTED EXAM HALLS</h2>
-          <div className="flex flex-row justify-between items-center bg-gray-100 px-4 py-3 rounded-t-2xl">
+          <h2 className="text-xl font-Outfit-Bold mb-4">SELECT EXAM HALLS</h2>
+          <div className="flex flex-row justify-between items-center bg-gray-100 px-4 py-3 rounded-t-2xl font-Outfit-Regular">
             <div className={`w-1/2 flex ${isHalfWidth ? "flex-col" : "flex-row"}`}>
               {/* Search Bar */}
               <div className="mr-4 flex flex-row items-center w-full">
@@ -226,18 +226,21 @@ export default function SeatAllocation() {
                 <input
                   type="text"
                   id="search"
-                  className="border p-2 ml-2 flex-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
-                  placeholder="Search..."
+                  className="p-2 ml-2 flex-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
+                  placeholder="Search"
                 />
               </div>
 
-              {/* Filter By Dropdown */}
+              {/* Sort By Dropdown */}
               <div className={`${isHalfWidth ? "mt-4" : ""} flex flex-row items-center`}>
-                <label htmlFor="filter-by" className="mr-4"><span className="whitespace-nowrap font-Outfit-Regular">Filter By:</span></label>
-                <select id="filter-by" className="border p-2 flex-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login ">
-                  <option value="all">All</option>
-                  <option value="featured">Featured</option>
-                  <option value="popular">Popular</option>
+                <label htmlFor="sort-by" className="mr-4"><span className="whitespace-nowrap font-Outfit-Regular">Sort By:</span></label>
+                <select id="sort-by" className="min-w-[156px] h-10 p-2 flex-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login " defaultValue="">
+                  <option value="" disabled hidden></option>
+                  <option value="leastrooms">Least Rooms</option>
+                  <option value="mostrooms">Most Rooms</option>
+                  <option value="floor_asc">Floor (0 - 5)</option>
+                  <option value="floor_desc">Floor (5 - 0)</option>
+                  <option value="rblockfirst">R-Block First</option>
                 </select>
               </div>
             </div>
@@ -247,7 +250,7 @@ export default function SeatAllocation() {
               <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular text-green-500`}><span className="whitespace-nowrap">Rooms selected: {bookedRooms.length > 0 ? bookedRooms.length : selectedRooms.length}</span></p>
             </div>
           </div>
-          <div className="bg-gray-100 h-[21.5rem] overflow-y-scroll rounded-b-2xl p-4">
+          <div className="bg-gray-100 h-[21.5rem] overflow-y-auto rounded-b-2xl p-4">
             {rooms.map(item => <SeatBox key={item.room_no} room={item.room_no} capacity={item.capacity} setSelectedRooms={setSelectedRooms} bookedRooms={bookedRooms} />)}
           </div>
         </div>
