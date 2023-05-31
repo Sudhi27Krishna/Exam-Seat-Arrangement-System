@@ -16,6 +16,18 @@ export default function NavBar() {
     const axiosPrivate = useAxiosPrivate();
     const { auth, setAuth } = useAuth();
     const [expand, setExpand] = useState(true);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    window.addEventListener("resize", () => handleWidth());
+    window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
+
+    const handleWidth = () => {
+        if (windowWidth < 996) {
+            setExpand(false);
+        } else {
+            setExpand(true);
+        }
+    }
 
     const handleExpand = () => {
         setExpand(!expand);
@@ -35,7 +47,7 @@ export default function NavBar() {
     }
 
     return (
-        <div className={`flex flex-col min-h-screen bg-green-medium ${expand ? "w-64" : "w-14 flex-none"}`}>
+        <div className={`whitespace-nowrap flex flex-col min-h-screen bg-green-medium ${expand ? "w-64" : "w-14 flex-none"}`}>
             <div className="flex flex-col h-48 ml-2 select-none">
                 <img src={expand ? menucollapse : menu} alt="menu" className={`h-8 w-8 self-end cursor-pointer p-1 m-3`} onClick={handleExpand} title={`${expand ? "Collapse Navbar" : "Expand Navbar"}`} />
                 <div className="flex flex-row ">
