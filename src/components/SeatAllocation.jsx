@@ -15,17 +15,11 @@ export default function SeatAllocation() {
   const [rooms, setRooms] = useState([]);
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [bookedRooms, setBookedRooms] = useState([]);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [studentsCount, setStudentsCount] = useState();
   const dateRef = useRef();
   const timeRef = useRef();
   const examRef = useRef();
   let totalCapacity = rooms.reduce((total, obj) => total + obj.capacity, 0);
-
-  // Update the window width state when the window is resized
-  window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
-
-  const isHalfWidth = (windowWidth <= 1384);
 
   const handleExcels = async () => {
     setLoading(true);
@@ -217,11 +211,11 @@ export default function SeatAllocation() {
         </div>
       </div>
 
-      <div className="bg-background px-8 pt-4 mt-1 flex flex-col st:flex-row flex-grow justify-between">
-        <div className="py-4 st:w-full">
-          <h2 className="text-xl font-Outfit-Bold mb-4">SELECT EXAM HALLS</h2>
-          <div className="flex flex-row justify-between items-center bg-gray-100 px-4 py-3 rounded-t-2xl font-Outfit-Regular">
-            <div className={`w-1/2 flex ${isHalfWidth ? "flex-col" : "flex-row"}`}>
+      <div className="flex flex-col m-8 mt-10">
+        <h2 className="text-xl font-Outfit-Bold mb-4">SELECT EXAM HALLS</h2>
+        <div className="flex flex-row hw:flex-col st:mb-3">
+          <div className="flex-grow flex flex-col">
+            <div className="flex flex-row justify-between items-center bg-gray-100 px-4 py-3 rounded-t-2xl font-Outfit-Regular">
               {/* Search Bar */}
               <div className="mr-4 flex flex-row items-center w-full">
                 <span className="text-gray-500">
@@ -240,11 +234,11 @@ export default function SeatAllocation() {
                   placeholder="Search"
                 />
               </div>
-
               {/* Sort By Dropdown */}
-              <div className={`${isHalfWidth ? "mt-4" : ""} flex flex-row items-center`}>
-                <label htmlFor="sort-by" className="mr-4"><span className="whitespace-nowrap font-Outfit-Regular">Sort By:</span></label>
-                <select id="sort-by" className="min-w-[156px] h-10 p-2 flex-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login " defaultValue="">
+              <div className="flex-grow flex flex-row items-center ">
+                <p className="ml-2 whitespace-nowrap">Sort By :</p>
+                <select className="min-w-[156px] p-[10.4px] m-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
+                  defaultValue="">
                   <option value="" disabled hidden></option>
                   <option value="leastrooms">Least Rooms</option>
                   <option value="mostrooms">Most Rooms</option>
@@ -254,27 +248,34 @@ export default function SeatAllocation() {
                 </select>
               </div>
             </div>
-            <div className={`flex ${isHalfWidth ? "flex-col" : "flex-row"} sm:w-1/2 sm:ml-2 w-1/2 justify-center items-center gap-x-4 mr-8 pl-4`}>
-              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Total Rooms : {rooms.length}</span></p>
-              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular`}><span className="whitespace-nowrap">Available Seats : {bookedRooms.length > 0 ? 0 : totalCapacity}</span></p>
-              <p className={`${isHalfWidth ? "mt-4 pl-8 self-start" : ""} font-Outfit-Regular text-green-500`}><span className="whitespace-nowrap">Rooms selected: {bookedRooms.length > 0 ? bookedRooms.length : selectedRooms.length}</span></p>
+            <div className="bg-gray-100 h-[21.5rem] overflow-y-auto rounded-b-2xl p-4 w-full ">
+              {loading ? (<ThreeCircles
+                height="100"
+                width="100"
+                color="#4fa94d"
+                wrapperStyle={{
+                  "display": "flex",
+                  "justify-content": "center",
+                  "align-items": "center",
+                  "position": "relative",
+                  "top": "80px"
+                }}
+                visible={true}
+              />) : (rooms.map(item => <SeatBox key={item.room_no} room={item.room_no} capacity={item.capacity} setSelectedRooms={setSelectedRooms} bookedRooms={bookedRooms} />))
+              }
             </div>
           </div>
-          <div className="bg-gray-100 h-[21.5rem] overflow-y-auto rounded-b-2xl p-4">
-            {loading ? (<ThreeCircles
-              height="100"
-              width="100"
-              color="#4fa94d"
-              wrapperStyle={{
-                "display": "flex",
-                "justify-content": "center",
-                "align-items": "center",
-                "position": "relative",
-                "top": "80px"
-              }}
-              visible={true}
-            />) : (rooms.map(item => <SeatBox key={item.room_no} room={item.room_no} capacity={item.capacity} setSelectedRooms={setSelectedRooms} bookedRooms={bookedRooms} />))
-            }
+          <div className="border border-black border-opacity-50 h-full min-w-[300px] self-center rounded-lg flex flex-col ml-5 hw:w-full hw:mx-4 hw:mt-2">
+            {/* room for exam statistics */}
+            <h1 className="p-6 font-Outfit-Bold text-xl"> STATISTICS </h1>
+            <hr class="border-t border-black border-opacity-50 ml-5 mr-7"></hr>
+            <ul className="pl-3 hw:pb-5 mt-4 font-Outfit-Regular">
+              <li className="p-3">Total Rooms : {rooms.length}</li>
+              <li className="p-3">Available Seats : {bookedRooms.length > 0 ? 0 : totalCapacity}</li>
+              <li className="p-3">Rooms selected : {bookedRooms.length > 0 ? bookedRooms.length : selectedRooms.length}</li>
+              <li className="p-3">Seats Selected : </li>
+              <li className="p-3">Total Participants : {studentsCount}</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -282,7 +283,6 @@ export default function SeatAllocation() {
       <div className="px-8 py-4 my-2">
         <div className="flex flex-row justify-between items-center">
           <div>
-            <p className="font-Outfit-Regular">Total Participants : {studentsCount}</p>
           </div>
           <div className="flex flex-row gap-10">
             <button className="bg-green-500 hover:bg-green-400 text-white font-Outfit-Bold h-10 w-[10rem] rounded-[20px]" type="button" onClick={handleRooms}>ARRANGE</button>

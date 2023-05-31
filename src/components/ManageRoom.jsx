@@ -19,11 +19,6 @@ export default function ManageRoom() {
     const capacityRef = useRef();
     const navigate = useNavigate();
     let totalCapacity = rows.reduce((total, obj) => total + obj.capacity, 0);
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-    window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
-
-    const isHalfWidth = (windowWidth <= 1384);
 
     const handleRoom = (e) => {
         e.preventDefault();
@@ -123,7 +118,7 @@ export default function ManageRoom() {
         <div className="bg-background flex flex-col flex-grow md:w-5/6">
             <div className="px-8 pt-4 mt-6">
                 <h2 className="text-xl font-Outfit-Bold mb-3">ADD ROOM</h2>
-                <form ref={formRef} className={`flex ${isHalfWidth ? "flex-col" : "flex-row"} justify-between`} onSubmit={handleRoom}>
+                <form ref={formRef} className="flex hw:flex-col flex-row justify-between" onSubmit={handleRoom}>
                     <Input input_id="room-no" title="Room No" inputRef={roomNoRef} type="text" placeholder="M101" required />
                     <DropDownInput id="branch" title="Floor No" inputRef={floorNoRef} options={['1', '2', '3', '4', '5']} required />
                     <DropDownInput id="slot" title="Block" inputRef={blockRef} options={['M-George', 'Ramanujan']} required />
