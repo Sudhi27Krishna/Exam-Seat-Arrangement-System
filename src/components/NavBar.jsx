@@ -9,7 +9,7 @@ import room from '../assets/room.png';
 import exam from '../assets/exam.png';
 import seat from '../assets/seat.png';
 import logout from '../assets/logout.png';
-import profile from '../assets/profile.png';
+// import profile from '../assets/profile.png';
 const url = '/logout';
 
 export default function NavBar() {

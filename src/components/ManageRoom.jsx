@@ -4,10 +4,12 @@ import { useState, useRef, useEffect } from 'react';
 import Row from './Row';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { useNavigate } from 'react-router-dom';
+import { ThreeCircles } from 'react-loader-spinner'
 
 const url = '/manage-room';
 
 export default function ManageRoom() {
+    const [loading, setLoading] = useState(true);
     const [rows, setRows] = useState([]);
     const axiosPrivate = useAxiosPrivate();
     const formRef = useRef();
@@ -25,17 +27,20 @@ export default function ManageRoom() {
 
     const handleRoom = (e) => {
         e.preventDefault();
+        setLoading(true);
         const newRoom = { room_no: roomNoRef.current.value, floor_no: Number(floorNoRef.current.options[floorNoRef.current.selectedIndex].value), block: blockRef.current.options[blockRef.current.selectedIndex].value, capacity: Number(capacityRef.current.value) };
 
         let isMounted = true;
         const controller = new AbortController();
 
         const postRooms = async () => {
+            setLoading(true);
             try {
                 await axiosPrivate.post(url, newRoom, {
                     signal: controller.signal
                 });
                 isMounted && setRows(prev => [...prev, newRoom]);
+                setLoading(false);
             } catch (error) {
                 console.log(error);
             }
@@ -62,6 +67,7 @@ export default function ManageRoom() {
                     signal: controller.signal
                 });
                 isMounted && setRows(response.data);
+                setLoading(false);
             } catch (error) {
                 console.log(error);
             }
@@ -76,6 +82,7 @@ export default function ManageRoom() {
     }, [axiosPrivate]);
 
     const handleDelete = (room) => {
+        setLoading(true);
         let isMounted = true;
         const controller = new AbortController();
 
@@ -85,6 +92,7 @@ export default function ManageRoom() {
                     signal: controller.signal
                 });
                 isMounted && setRows(prev => prev.filter(item => item.room_no !== room));
+                setLoading(false);
             } catch (error) {
                 console.log(error);
             }
@@ -187,8 +195,22 @@ export default function ManageRoom() {
                             </tr>
                         </thead>
                         <tbody>
-                            {rows.map(item => <Row key={item._id} room={item.room_no} floor={item.floor_no} block={item.block}
-                                available={item.capacity} handleDelete={handleDelete} />)}
+                            {loading ? (<ThreeCircles
+                                height="100"
+                                width="100"
+                                color="#4fa94d"
+                                wrapperStyle={{
+                                    "display": "flex",
+                                    "justify-content": "center",
+                                    "align-items": "center",
+                                    "position": "relative",
+                                    "left": "450px",
+                                    "top": "90px"
+                                }}
+                                visible={true}
+                            />) : (rows.map(item => <Row key={item._id} room={item.room_no} floor={item.floor_no} block={item.block}
+                                available={item.capacity} handleDelete={handleDelete} />))
+                            }
                         </tbody>
                     </table>
                 </div>

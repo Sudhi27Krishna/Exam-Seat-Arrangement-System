@@ -1,14 +1,14 @@
-// import AllocRow from './AllocRow';
 import { useState, useRef, useEffect } from 'react';
-// import rooms from '../rooms';
-// import row from '../row';
 import SeatBox from './SeatBox';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
+import { ThreeCircles } from 'react-loader-spinner'
+
 
 const url = '/seat-allocation';
 
 export default function SeatAllocation() {
   const axiosPrivate = useAxiosPrivate();
+  const [loading, setLoading] = useState(true);
   const [exams, setExams] = useState([]);
   const [details, setDetails] = useState([]);
   const [dates, setDates] = useState([]);
@@ -28,10 +28,12 @@ export default function SeatAllocation() {
   const isHalfWidth = (windowWidth <= 1384);
 
   const handleExcels = async () => {
+    setLoading(true);
     try {
       await axiosPrivate.get(url.concat('/send-excels'), {
         withCredentials: true
       });
+      setLoading(false);
       alert("Email sent successfully");
     }
     catch (error) {
@@ -40,6 +42,7 @@ export default function SeatAllocation() {
   }
 
   const handleRooms = async () => {
+    setLoading(true);
     const controller = new AbortController();
 
     const date = dateRef.current.options[dateRef.current.selectedIndex].value;
@@ -60,6 +63,7 @@ export default function SeatAllocation() {
       await axiosPrivate.post(url.concat("/allocation"), payload, {
         signal: controller.signal
       });
+      setLoading(false);
       alert("Arrangement successful for exams on " + date + " " + time);
       window.location.reload();
     } catch (error) {
@@ -72,6 +76,7 @@ export default function SeatAllocation() {
   }
 
   const handleExams = () => {
+    setLoading(true);
     let isMounted = true;
     const controller = new AbortController();
 
@@ -102,6 +107,7 @@ export default function SeatAllocation() {
           if (bookedRooms !== undefined) {
             setBookedRooms(bookedRoomsResponse.data);
             console.log(bookedRooms);
+            setLoading(false);
           }
           else {
             setBookedRooms([]);
@@ -166,6 +172,7 @@ export default function SeatAllocation() {
           if (bookedRooms !== undefined) {
             setBookedRooms(bookedRoomsResponse.data);
             // console.log(bookedRooms);
+            setLoading(false);
           }
           else {
             setBookedRooms([]);
@@ -182,7 +189,7 @@ export default function SeatAllocation() {
       isMounted = false;
       controller.abort();
     }
-  }, [axiosPrivate]);
+  }, []);
 
   return (
     <div className="bg-background flex flex-col flex-grow md:w-5/6">
@@ -254,7 +261,20 @@ export default function SeatAllocation() {
             </div>
           </div>
           <div className="bg-gray-100 h-[21.5rem] overflow-y-auto rounded-b-2xl p-4">
-            {rooms.map(item => <SeatBox key={item.room_no} room={item.room_no} capacity={item.capacity} setSelectedRooms={setSelectedRooms} bookedRooms={bookedRooms} />)}
+            {loading ? (<ThreeCircles
+              height="100"
+              width="100"
+              color="#4fa94d"
+              wrapperStyle={{
+                "display": "flex",
+                "justify-content": "center",
+                "align-items": "center",
+                "position": "relative",
+                "top": "80px"
+              }}
+              visible={true}
+            />) : (rooms.map(item => <SeatBox key={item.room_no} room={item.room_no} capacity={item.capacity} setSelectedRooms={setSelectedRooms} bookedRooms={bookedRooms} />))
+            }
           </div>
         </div>
       </div>
