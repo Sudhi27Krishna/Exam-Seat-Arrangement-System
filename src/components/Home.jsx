@@ -4,6 +4,7 @@ import people from '../assets/people.png';
 import addroom from '../assets/addroom.png';
 import calendar from '../assets/calendar.png';
 import allocate from '../assets/allocate.png';
+
 function Home() {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
