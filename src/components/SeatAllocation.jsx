@@ -19,6 +19,7 @@ export default function SeatAllocation() {
   const dateRef = useRef();
   const timeRef = useRef();
   const examRef = useRef();
+  const [seatSelected, setSeatSelected] = useState(0);
   let totalCapacity = rooms.reduce((total, obj) => total + obj.capacity, 0);
 
   const handleExcels = async () => {
@@ -57,7 +58,6 @@ export default function SeatAllocation() {
       await axiosPrivate.post(url.concat("/allocation"), payload, {
         signal: controller.signal
       });
-      setLoading(false);
       alert("Arrangement successful for exams on " + date + " " + time);
       window.location.reload();
     } catch (error) {
@@ -261,7 +261,7 @@ export default function SeatAllocation() {
                   "top": "80px"
                 }}
                 visible={true}
-              />) : (rooms.map(item => <SeatBox key={item.room_no} room={item.room_no} capacity={item.capacity} setSelectedRooms={setSelectedRooms} bookedRooms={bookedRooms} />))
+              />) : (rooms.map(item => <SeatBox key={item.room_no} room={item.room_no} capacity={item.capacity} setSelectedRooms={setSelectedRooms} setSeatSelected={setSeatSelected} bookedRooms={bookedRooms} />))
               }
             </div>
           </div>
@@ -271,9 +271,9 @@ export default function SeatAllocation() {
             <hr class="border-t border-black border-opacity-50 ml-5 mr-7"></hr>
             <ul className="pl-3 hw:pb-5 mt-4 font-Outfit-Regular">
               <li className="p-3">Total Rooms : {rooms.length}</li>
-              <li className="p-3">Available Seats : {bookedRooms.length > 0 ? 0 : totalCapacity}</li>
+              <li className="p-3">Available Seats : {bookedRooms.length > 0 ? 0 : totalCapacity - seatSelected}</li>
               <li className="p-3">Rooms selected : {bookedRooms.length > 0 ? bookedRooms.length : selectedRooms.length}</li>
-              <li className="p-3">Seats Selected : </li>
+              <li className="p-3">Seats Selected : {seatSelected} </li>
               <li className="p-3">Total Participants : {studentsCount}</li>
             </ul>
           </div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-export default function SeatBox({ room, capacity, setSelectedRooms, bookedRooms }) {
+export default function SeatBox({ room, capacity, setSelectedRooms, setSeatSelected, bookedRooms }) {
     const [isChecked, setIsChecked] = useState(false);
 
     const handleChange = () => {
@@ -7,10 +7,12 @@ export default function SeatBox({ room, capacity, setSelectedRooms, bookedRooms 
         if (!isChecked) {
             console.log(room);
             setSelectedRooms(prev => [...prev, room]);
+            setSeatSelected(prev => prev + capacity);
         }
         else {
             console.log(room);
             setSelectedRooms(prev => prev.filter(item => item !== room));
+            setSeatSelected(prev => prev - capacity);
         }
     };
     return (
