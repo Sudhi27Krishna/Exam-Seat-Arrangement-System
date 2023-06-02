@@ -245,7 +245,7 @@ export default function UniversityExam() {
 
             <div className="px-8 py-5">
                 <h2 className="text-xl font-Outfit-Bold mb-4">EXAM SCHEDULES</h2>
-                <div className="h-72 overflow-y-auto">
+                <div className="h-72 overflow-y-auto relative">
                     <table className="table-auto w-full">
                         <thead className="sticky top-0">
                             <tr className="bg-grey-all font-Outfit-Bold">
@@ -260,16 +260,13 @@ export default function UniversityExam() {
                         </thead>
                         <tbody>
                             {loading ? (<ThreeCircles
-                                height="100"
-                                width="100"
-                                color="#4fa94d"
+                                height="65"
+                                width="65"
+                                color="#23ca85"
                                 wrapperStyle={{
-                                    "display": "flex",
-                                    "justify-content": "center",
-                                    "align-items": "center",
-                                    "position": "relative",
-                                    "left": "450px",
-                                    "top": "90px"
+                                    "position": "absolute",
+                                    "left": "48%",
+                                    "top": "48%"
                                 }}
                                 visible={true}
                             />) : (exams.map(item => <UeRow key={item._id} id={item._id} date={item.date} time={item.time} sem={item.sem} branch={item.branch} slot={item.slot} subcode={item.subcode} handleDelete={handleDelete} />))

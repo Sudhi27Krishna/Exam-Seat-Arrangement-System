@@ -214,7 +214,7 @@ export default function SeatAllocation() {
       <div className="flex flex-col m-8 mt-10">
         <h2 className="text-xl font-Outfit-Bold mb-4">SELECT EXAM HALLS</h2>
         <div className="flex flex-row hw:flex-col st:mb-3">
-          <div className="flex-grow flex flex-col">
+          <div className="flex-grow flex flex-col relative">
             <div className="flex flex-row justify-between items-center bg-gray-100 px-4 py-3 rounded-t-2xl font-Outfit-Regular">
               {/* Search Bar */}
               <div className="mr-4 flex flex-row items-center w-full">
@@ -248,17 +248,15 @@ export default function SeatAllocation() {
                 </select>
               </div>
             </div>
-            <div className="bg-gray-100 h-[21.5rem] overflow-y-auto rounded-b-2xl p-4 w-full ">
+            <div className="bg-gray-100 h-[21.5rem] overflow-y-auto rounded-b-2xl p-4 w-full">
               {loading ? (<ThreeCircles
-                height="100"
-                width="100"
-                color="#4fa94d"
+                height="65"
+                width="65"
+                color="#23ca85"
                 wrapperStyle={{
-                  "display": "flex",
-                  "justify-content": "center",
-                  "align-items": "center",
-                  "position": "relative",
-                  "top": "80px"
+                  "position": "absolute",
+                  "left": "45%",
+                  "top": "40%"
                 }}
                 visible={true}
               />) : (rooms.map(item => <SeatBox key={item.room_no} room={item.room_no} capacity={item.capacity} setSelectedRooms={setSelectedRooms} setSeatSelected={setSeatSelected} bookedRooms={bookedRooms} />))
