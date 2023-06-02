@@ -272,8 +272,8 @@ export default function SeatAllocation() {
             <ul className="pl-3 hw:pb-5 mt-4 font-Outfit-Regular">
               <li className="p-3">Total Rooms : {rooms.length}</li>
               <li className="p-3">Available Seats : {bookedRooms.length > 0 ? 0 : totalCapacity - seatSelected}</li>
-              <li className={`p-3 ${seatSelected < studentsCount && seatSelected !== 0 ? "text-red-500" : ""} ${seatSelected < studentsCount ? "" : "text-green-save"}`}>Rooms Selected : {bookedRooms.length > 0 ? bookedRooms.length : selectedRooms.length}</li>
-              <li className={`p-3 ${seatSelected < studentsCount && seatSelected !== 0 ? "text-red-500" : ""} ${seatSelected < studentsCount ? "" : "text-green-save"}`}>Seats Selected : {seatSelected}</li>
+              <li className={`p-3 ${seatSelected < studentsCount && seatSelected !== 0 ? "text-red-500" : ""} ${seatSelected < studentsCount ? "" : "text-green-save"} `}>Rooms Selected : {bookedRooms.length > 0 ? bookedRooms.length : selectedRooms.length}</li>
+              <li className={`p-3 ${seatSelected < studentsCount && seatSelected !== 0 ? "text-red-500" : ""} ${seatSelected < studentsCount ? "" : "text-green-save"} `}>Seats Selected : {seatSelected} </li>
               <li className="p-3">Total Participants : {studentsCount}</li>
             </ul>
           </div>
