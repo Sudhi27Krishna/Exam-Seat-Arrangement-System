@@ -178,7 +178,7 @@ export default function ManageRoom() {
                         </div>
                     </div>
                 </div>
-                <div className="h-72 overflow-y-auto relative">
+                <div className="h-72 overflow-y-auto">
                     <table className="table-auto w-full">
                         <thead className="sticky top-0">
                             <tr className="bg-grey-all font-Outfit-Bold">
@@ -191,13 +191,16 @@ export default function ManageRoom() {
                         </thead>
                         <tbody>
                             {loading ? (<ThreeCircles
-                                height="65"
-                                width="65"
-                                color="#23ca85"
+                                height="100"
+                                width="100"
+                                color="#4fa94d"
                                 wrapperStyle={{
-                                    "position": "absolute",
-                                    "left": "48%",
-                                    "top": "48%"
+                                    "display": "flex",
+                                    "justify-content": "center",
+                                    "align-items": "center",
+                                    "position": "relative",
+                                    "left": "450px",
+                                    "top": "90px"
                                 }}
                                 visible={true}
                             />) : (rows.map(item => <Row key={item._id} room={item.room_no} floor={item.floor_no} block={item.block}
