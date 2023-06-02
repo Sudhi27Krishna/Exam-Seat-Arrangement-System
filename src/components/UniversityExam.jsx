@@ -1,7 +1,7 @@
 import DropDownInput from './DropDownInput';
 import { useState, useRef, useEffect } from 'react';
 import Input from './Input';
-// import uerow from '../uerow';
+import { ThreeCircles } from 'react-loader-spinner'
 import UeRow from './UeRow';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const url = '/university-exam';
 
 export default function UniversityExam() {
+    const [loading, setLoading] = useState(true);
     const [exams, setExams] = useState([]);
     const axiosPrivate = useAxiosPrivate();
     const semRef = useRef();
@@ -22,6 +23,7 @@ export default function UniversityExam() {
     const navigate = useNavigate();
 
     const handleFiles = () => {
+        setLoading(true);
         const controller = new AbortController();
 
         const sendFiles = async () => {
@@ -41,6 +43,7 @@ export default function UniversityExam() {
                     signal: controller.signal,
                     headers: { "Content-Type": "multipart/form-data" }
                 });
+                setLoading(false);
                 alert(response.data.message + " excel file successfully uploaded");
             } catch (error) {
                 alert("Excel file upload unsuccessful");
@@ -57,7 +60,8 @@ export default function UniversityExam() {
     }
 
     const handleSchedule = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        setLoading(true);
         const newExam = { date: dateRef.current.value, time: timeRef.current.value, sem: Number(semRef.current.options[semRef.current.selectedIndex].value), branch: branchRef.current.value, slot: slotRef.current.value, subcode: subRef.current.value };
         formRef.current.reset();
         dateRef.current.focus();
@@ -73,6 +77,7 @@ export default function UniversityExam() {
                     signal: controller.signal
                 });
                 isMounted && setExams(prev => [...prev, response.data]);
+                setLoading(false);
             } catch (error) {
                 console.log(error);
             }
@@ -150,6 +155,7 @@ export default function UniversityExam() {
                     signal: controller.signal
                 });
                 isMounted && setExams(response.data);
+                setLoading(false);
             } catch (error) {
                 console.log(error);
             }
@@ -164,6 +170,7 @@ export default function UniversityExam() {
     }, [axiosPrivate])
 
     const handleDelete = (id) => {
+        setLoading(true);
         let isMounted = true;
         const controller = new AbortController();
 
@@ -173,6 +180,7 @@ export default function UniversityExam() {
                     signal: controller.signal
                 });
                 isMounted && setExams(prev => prev.filter(item => item._id !== id));
+                setLoading(false);
             } catch (error) {
                 console.log(error);
             }
@@ -223,7 +231,7 @@ export default function UniversityExam() {
                 </div>
             </div>
 
-            <div className="px-8 pt-6">
+            <div className="px-8 pt-6 my-1">
                 <h2 className="text-xl font-Outfit-Bold mb-3">ADD SLOTS</h2>
                 <form ref={formRef} className="flex flex-col st:flex-row justify-between" onSubmit={handleSchedule}>
                     <Input input_id="date" title="Date" inputRef={dateRef} type="date" placeholder="09-09-2020" />
@@ -235,7 +243,7 @@ export default function UniversityExam() {
                 </form>
             </div>
 
-            <div className="px-8 py-4">
+            <div className="px-8 py-5">
                 <h2 className="text-xl font-Outfit-Bold mb-4">EXAM SCHEDULES</h2>
                 <div className="h-72 overflow-y-auto">
                     <table className="table-auto w-full">
@@ -251,13 +259,27 @@ export default function UniversityExam() {
                             </tr>
                         </thead>
                         <tbody>
-                            {exams.map(item => <UeRow key={item._id} id={item._id} date={item.date} time={item.time} sem={item.sem} branch={item.branch} slot={item.slot} subcode={item.subcode} handleDelete={handleDelete} />)}
+                            {loading ? (<ThreeCircles
+                                height="100"
+                                width="100"
+                                color="#4fa94d"
+                                wrapperStyle={{
+                                    "display": "flex",
+                                    "justify-content": "center",
+                                    "align-items": "center",
+                                    "position": "relative",
+                                    "left": "450px",
+                                    "top": "90px"
+                                }}
+                                visible={true}
+                            />) : (exams.map(item => <UeRow key={item._id} id={item._id} date={item.date} time={item.time} sem={item.sem} branch={item.branch} slot={item.slot} subcode={item.subcode} handleDelete={handleDelete} />))
+                            }
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div className="px-8 py-4 mt-2">
+            <div className="px-8 py-4 mt-3">
                 <div className="flex flex-row justify-between items-center">
                     <div>
                         <p className="font-Outfit-Regular">No of Exams scheduled : {exams.length}</p>

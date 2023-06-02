@@ -4,10 +4,12 @@ import { useState, useRef, useEffect } from 'react';
 import Row from './Row';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { useNavigate } from 'react-router-dom';
+import { ThreeCircles } from 'react-loader-spinner'
 
 const url = '/manage-room';
 
 export default function ManageRoom() {
+    const [loading, setLoading] = useState(true);
     const [rows, setRows] = useState([]);
     const axiosPrivate = useAxiosPrivate();
     const formRef = useRef();
@@ -17,25 +19,23 @@ export default function ManageRoom() {
     const capacityRef = useRef();
     const navigate = useNavigate();
     let totalCapacity = rows.reduce((total, obj) => total + obj.capacity, 0);
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-    window.addEventListener("resize", () => setWindowWidth(window.innerWidth));
-
-    const isHalfWidth = (windowWidth <= 1384);
 
     const handleRoom = (e) => {
         e.preventDefault();
+        setLoading(true);
         const newRoom = { room_no: roomNoRef.current.value, floor_no: Number(floorNoRef.current.options[floorNoRef.current.selectedIndex].value), block: blockRef.current.options[blockRef.current.selectedIndex].value, capacity: Number(capacityRef.current.value) };
 
         let isMounted = true;
         const controller = new AbortController();
 
         const postRooms = async () => {
+            setLoading(true);
             try {
                 await axiosPrivate.post(url, newRoom, {
                     signal: controller.signal
                 });
                 isMounted && setRows(prev => [...prev, newRoom]);
+                setLoading(false);
             } catch (error) {
                 console.log(error);
             }
@@ -62,6 +62,7 @@ export default function ManageRoom() {
                     signal: controller.signal
                 });
                 isMounted && setRows(response.data);
+                setLoading(false);
             } catch (error) {
                 console.log(error);
             }
@@ -76,6 +77,7 @@ export default function ManageRoom() {
     }, [axiosPrivate]);
 
     const handleDelete = (room) => {
+        setLoading(true);
         let isMounted = true;
         const controller = new AbortController();
 
@@ -85,6 +87,7 @@ export default function ManageRoom() {
                     signal: controller.signal
                 });
                 isMounted && setRows(prev => prev.filter(item => item.room_no !== room));
+                setLoading(false);
             } catch (error) {
                 console.log(error);
             }
@@ -115,7 +118,7 @@ export default function ManageRoom() {
         <div className="bg-background flex flex-col flex-grow md:w-5/6">
             <div className="px-8 pt-4 mt-6">
                 <h2 className="text-xl font-Outfit-Bold mb-3">ADD ROOM</h2>
-                <form ref={formRef} className={`flex ${isHalfWidth ? "flex-col" : "flex-row"} justify-between`} onSubmit={handleRoom}>
+                <form ref={formRef} className="flex hw:flex-col flex-row justify-between" onSubmit={handleRoom}>
                     <Input input_id="room-no" title="Room No" inputRef={roomNoRef} type="text" placeholder="M101" required />
                     <DropDownInput id="branch" title="Floor No" inputRef={floorNoRef} options={['1', '2', '3', '4', '5']} required />
                     <DropDownInput id="slot" title="Block" inputRef={blockRef} options={['M-George', 'Ramanujan']} required />
@@ -187,8 +190,22 @@ export default function ManageRoom() {
                             </tr>
                         </thead>
                         <tbody>
-                            {rows.map(item => <Row key={item._id} room={item.room_no} floor={item.floor_no} block={item.block}
-                                available={item.capacity} handleDelete={handleDelete} />)}
+                            {loading ? (<ThreeCircles
+                                height="100"
+                                width="100"
+                                color="#4fa94d"
+                                wrapperStyle={{
+                                    "display": "flex",
+                                    "justify-content": "center",
+                                    "align-items": "center",
+                                    "position": "relative",
+                                    "left": "450px",
+                                    "top": "90px"
+                                }}
+                                visible={true}
+                            />) : (rows.map(item => <Row key={item._id} room={item.room_no} floor={item.floor_no} block={item.block}
+                                available={item.capacity} handleDelete={handleDelete} />))
+                            }
                         </tbody>
                     </table>
                 </div>
