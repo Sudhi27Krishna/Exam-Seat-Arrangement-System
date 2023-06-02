@@ -268,7 +268,7 @@ export default function SeatAllocation() {
           <div className="border border-black border-opacity-50 h-full min-w-[300px] self-center rounded-lg flex flex-col ml-5 hw:w-full hw:mx-4 hw:mt-2">
             {/* room for exam statistics */}
             <h1 className="p-6 font-Outfit-Bold text-xl"> STATISTICS </h1>
-            <hr class="border-t border-black border-opacity-50 ml-5 mr-7"></hr>
+            <hr className="border-t border-black border-opacity-50 ml-5 mr-7"></hr>
             <ul className="pl-3 hw:pb-5 mt-4 font-Outfit-Regular">
               <li className="p-3">Total Rooms : {rooms.length}</li>
               <li className="p-3">Available Seats : {bookedRooms.length > 0 ? 0 : totalCapacity - seatSelected}</li>
