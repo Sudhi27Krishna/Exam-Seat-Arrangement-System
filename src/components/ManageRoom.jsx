@@ -196,7 +196,7 @@ export default function ManageRoom() {
                                 color="#23ca85"
                                 wrapperStyle={{
                                     "position": "absolute",
-                                    "left": "48%",
+                                    "left": "47%",
                                     "top": "48%"
                                 }}
                                 visible={true}
