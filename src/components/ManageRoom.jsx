@@ -50,7 +50,6 @@ export default function ManageRoom() {
                 list = list.sort((a, b) => b.floor_no - a.floor_no);
             }
         }
-
         return list;
     }, [sortTerm, filteredRows]);
 
@@ -181,14 +180,14 @@ export default function ManageRoom() {
                             type="text"
                             placeholder="Search"
                             onChange={(e) => setSearchTerm(e.target.value)}
-                            className="w-full p-2 mx-2 my-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
+                            className="w-full p-2 mx-2 my-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login text-gray-600"
                         />
                     </div>
                     <div className="flex-grow flex flex-row">
                         {/* Sort By Dropdown */}
                         <div className="flex-grow flex flex-row items-center ">
                             <p className="ml-2 mr-1 whitespace-nowrap">Sort By :</p>
-                            <select className="w-full p-[10.4px] m-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
+                            <select className="w-full p-[10.4px] m-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login text-gray-600"
                                 defaultValue="" onChange={(e) => setSortTerm(e.target.value)}>
                                 <option value="">Enteries</option>
                                 <option value="asc">Floor(0 - 5)</option>
@@ -199,7 +198,7 @@ export default function ManageRoom() {
                         {/* Filter By Dropdown */}
                         <div className="flex-grow flex flex-row items-center">
                             <p className="ml-2 mr-1 whitespace-nowrap">Filter By :</p>
-                            <select className="w-full p-[10.4px] m-1 mr-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
+                            <select className="w-full p-[10.4px] m-1 mr-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login text-gray-600"
                                 defaultValue="nil" onChange={(e) => setFilterTerm(e.target.value)}>
                                 <option value="nil" >-</option>
                                 <option value="Ramanujan">Ramanujan Block</option>

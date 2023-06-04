@@ -247,19 +247,19 @@ export default function SeatAllocation() {
                   type="text"
                   id="search"
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="p-2 ml-2 flex-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
+                  className="p-2 ml-2 flex-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login text-gray-600"
                   placeholder="Search"
                 />
               </div>
               {/* Sort By Dropdown */}
               <div className="flex-grow flex flex-row items-center ">
                 <p className="ml-2 whitespace-nowrap">Sort By :</p>
-                <select className="min-w-[156px] p-[10.4px] m-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
+                <select className="min-w-[156px] p-[10.4px] m-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login text-gray-600"
                   defaultValue="min" onChange={(e) => setSortTerm(e.target.value)}>
-                  <option value="min">Inc capacity</option>
-                  <option value="max">Dec capacity</option>
-                  <option value="asc">Inc Floor(0 - 5)</option>
-                  <option value="desc">Dec Floor(5 - 0)</option>
+                  <option value="min">Increasing capacity</option>
+                  <option value="max">Decreasing capacity</option>
+                  <option value="asc">Increasing Floor(0 - 5)</option>
+                  <option value="desc">Decreasing Floor(5 - 0)</option>
                 </select>
               </div>
             </div>
