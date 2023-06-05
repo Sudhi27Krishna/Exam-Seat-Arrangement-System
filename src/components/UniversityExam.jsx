@@ -1,5 +1,5 @@
 import DropDownInput from './DropDownInput';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import Input from './Input';
 import { ThreeCircles } from 'react-loader-spinner'
 import UeRow from './UeRow';
@@ -11,6 +11,7 @@ const url = '/university-exam';
 export default function UniversityExam() {
     const [loading, setLoading] = useState(true);
     const [exams, setExams] = useState([]);
+    const [toggle, setToggle] = useState(false);
     const axiosPrivate = useAxiosPrivate();
     const semRef = useRef();
     const formRef = useRef();
@@ -21,6 +22,17 @@ export default function UniversityExam() {
     const subRef = useRef();
     const [subArray, setSubArray] = useState([]);
     const navigate = useNavigate();
+
+    const handleToggle = () => {
+        setToggle(!toggle);
+    }
+
+    const sortedExams = useMemo(() => {
+        let list = exams.sort((a, b) => { return a.date.split("/").join("") - b.date.split("/").join("") });
+        if (list.length > 0 && toggle)
+            list = list.sort((a, b) => { if (a.branch < b.branch) { return -1; } if (a.branch > b.branch) { return 1; } return 0; });
+        return list;
+    }, [toggle, exams]);
 
     const handleFiles = () => {
         setLoading(true);
@@ -255,7 +267,14 @@ export default function UniversityExam() {
                                 <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Branch</span></th>
                                 <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Slot</span></th>
                                 <th className="text-center px-4 py-2"><span className="whitespace-nowrap">Subject</span></th>
-                                <th className="px-4 py-2 rounded-tr-2xl rounded-br-2xl"></th>
+                                <th className="text-center pt-2 rounded-tr-2xl rounded-br-2xl ">
+                                    <div class="flex items-center justify-center mb-2">
+                                        <div className={`w-9 h-5 rounded-full cursor-pointer flex ${toggle ? "bg-green-600 p-1 pl-2" : "bg-gray-600 p-1"}`}
+                                            onClick={handleToggle} title={`${toggle ? "Sort By Date" : "Sort By Branch"}`}>
+                                            <div className={`w-3 h-3 rounded-full bg-white ${toggle ? "translate-x-full" : ""}`}></div>
+                                        </div>
+                                    </div>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -269,7 +288,7 @@ export default function UniversityExam() {
                                     "top": "48%"
                                 }}
                                 visible={true}
-                            />) : (exams.map(item => <UeRow key={item._id} id={item._id} date={item.date} time={item.time} sem={item.sem} branch={item.branch} slot={item.slot} subcode={item.subcode} handleDelete={handleDelete} />))
+                            />) : (sortedExams.map(item => <UeRow key={item._id} id={item._id} date={item.date} time={item.time} sem={item.sem} branch={item.branch} slot={item.slot} subcode={item.subcode} handleDelete={handleDelete} />))
                             }
                         </tbody>
                     </table>
