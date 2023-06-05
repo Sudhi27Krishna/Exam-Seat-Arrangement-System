@@ -1,11 +1,12 @@
 import { useRef, useState, useEffect } from "react";
-import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faTimes, faInfoCircle, faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from '../api/axios';
 import { Link, useNavigate } from "react-router-dom";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const MAIL_REGEX = /^[A-Za-z0-9]+@mgits\.ac\.in$/;
 const REGISTER_URL = '/register';
 
 const Register = () => {
@@ -26,7 +27,19 @@ const Register = () => {
     const [validMatch, setValidMatch] = useState(false);
     const [matchFocus, setMatchFocus] = useState(false);
 
+    const [mail, setMail] = useState('');
+    const [validMail, setValidMail] = useState(false);
+    const [mailFocus, setMailFocus] = useState(false);
+
     const [errMsg, setErrMsg] = useState('');
+
+    useEffect(() => {
+        emailRef.current.focus();
+    }, [])
+
+    useEffect(() => {
+        setValidMail(MAIL_REGEX.test(mail));
+    }, [mail])
 
     useEffect(() => {
         userRef.current.focus();
@@ -71,11 +84,11 @@ const Register = () => {
             setMatchPwd('');
         } catch (err) {
             if (!err?.response) {
-                setErrMsg('No Server Response');
+                setErrMsg('No server response');
             } else if (err.response?.status === 409) {
-                setErrMsg('Username Taken');
+                setErrMsg('Username already taken');
             } else {
-                setErrMsg('Registration Failed')
+                setErrMsg('Registration failed')
             }
             errRef.current.focus();
         }
@@ -85,8 +98,9 @@ const Register = () => {
         <div className="flex items-center justify-center h-screen bg-login-signup">
             <div className="py-12 px-12 shadow-2xl w-[25rem] bg-green-login rounded-[20px]">
                 <h1 className="text-3xl text-center font-normal mb-10 font-Outfit-Medium">REGISTER</h1>
-                <div className="flex items-center justify-center">
-                    <p ref={errRef} className={errMsg ? "text-red-600 font-Outfit-SemiBold mb-2" : "absolute left-[-9999px]"} aria-live="assertive">{errMsg}</p>
+                <div className={errMsg ? "flex flex-rows items-center p-2 h-10 w-full border border-red-600 rounded-[10px] bg-red-200 text-red-600  mb-2" : "h-0 w-0 absolute left-[-9999px]"}>
+                    <FontAwesomeIcon icon={faExclamationCircle} className="h-4 p-2" />
+                    <p ref={errRef} className="font-Outfit-Regular text-sm pl-1" aria-live="assertive">{errMsg}</p>
                 </div>
                 <form onSubmit={(e) => handleSubmit(e)} className="space-y-3">
                     <div>
@@ -109,8 +123,8 @@ const Register = () => {
                             onBlur={() => setUserFocus(false)}
                             className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                         />
-                        <p id="uidnote" className={userFocus && user && !validName ? "text-xs rounded-lg bg-black text-white p-1 my-1 relative" : "absolute left-[-9999px]"}>
-                            <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
+                        <p id="uidnote" className={userFocus && user && !validName ? "text-xs rounded-lg bg-red-200 text-red-600 p-1 mt-[5px] relative" : "absolute left-[-9999px]"}>
+                            <FontAwesomeIcon icon={faInfoCircle} className="mr-1 text-red-600" />
                             4 to 24 characters.<br />
                             Must begin with a letter.<br />
                             Letters, numbers, underscores, hyphens allowed.
@@ -118,17 +132,30 @@ const Register = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="username" className="block text-gray-700 font-Outfit-Light mb-2">
+                        <label htmlFor="email" className="block text-gray-700 font-Outfit-Light mb-2">
                             Email:
+                            <FontAwesomeIcon icon={faCheck} className={validMail ? "text-green-500 ml-3" : "collapse"} />
+                            <FontAwesomeIcon icon={faTimes} className={validMail || !mail ? "collapse" : "text-red-500"} />
                         </label>
                         <input
-                            type="email"
+                            type="text"
                             id="email"
                             ref={emailRef}
                             autoComplete="off"
+                            onChange={(e) => setMail(e.target.value)}
+                            value={mail}
                             required
+                            aria-invalid={validMail ? "false" : "true"}
+                            aria-describedby="mailnote"
+                            onFocus={() => setMailFocus(true)}
+                            onBlur={() => setMailFocus(false)}
                             className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+
                         />
+                        <p id="mailnote" className={mailFocus && mail && !validMail ? "text-xs rounded-lg bg-red-200 text-red-600 p-1 mt-[5px] relative" : "absolute left-[-9999px]"}>
+                            <FontAwesomeIcon icon={faInfoCircle} className="mr-1 text-red-600" />
+                            Use mgits mail id.
+                        </p>
                     </div>
 
                     <div>
@@ -149,8 +176,8 @@ const Register = () => {
                             onBlur={() => setPwdFocus(false)}
                             className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                         />
-                        <p id="pwdnote" className={pwdFocus && !validPwd ? "text-xs rounded-lg bg-black text-white p-1 my-1 relative" : "absolute left-[-9999px]"}>
-                            <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
+                        <p id="pwdnote" className={pwdFocus && !validPwd ? "text-xs rounded-lg bg-red-200 text-red-600 p-1 mt-[5px] relative" : "absolute left-[-9999px]"}>
+                            <FontAwesomeIcon icon={faInfoCircle} className="mr-1 text-red-600" />
                             8 to 24 characters.<br />
                             Must include uppercase and lowercase letters, a number and a special character.<br />
                             Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
@@ -175,8 +202,8 @@ const Register = () => {
                             onBlur={() => setMatchFocus(false)}
                             className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                         />
-                        <p id="confirmnote" className={matchFocus && !validMatch ? "text-xs rounded-lg bg-black text-white p-1 my-1 relative" : "absolute left-[-9999px]"}>
-                            <FontAwesomeIcon icon={faInfoCircle} className="mr-1" />
+                        <p id="confirmnote" className={matchFocus && !validMatch ? "text-xs rounded-lg bg-red-200 text-red-600 p-1 mt-[5px] relative" : "absolute left-[-9999px]"}>
+                            <FontAwesomeIcon icon={faInfoCircle} className="mr-1 text-red-600" />
                             Must match the first password input field.
                         </p>
                     </div>
