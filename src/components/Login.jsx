@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { faExclamationCircle, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from '../api/axios';
 import useAuth from "../hooks/useAuth";
@@ -14,10 +14,11 @@ export default function Login() {
     const { setAuth } = useAuth();
     const userRef = useRef();
     const errRef = useRef();
-
+    const [showPwd, setShowPwd] = useState(false);
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
     const [errMsg, setErrMsg] = useState('');
+    const [pwdFocus, setPwdFocus] = useState(false);
 
     useEffect(() => {
         userRef.current.focus();
@@ -26,6 +27,10 @@ export default function Login() {
     useEffect(() => {
         setErrMsg('');
     }, [user, pwd])
+
+    const toggleShowPwd = () => {
+        setShowPwd(!showPwd);
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -84,18 +89,25 @@ export default function Login() {
                     </div>
                     <div>
                         <label className="block text-gray-700 font-Outfit-Light mb-2" htmlFor="password">Password</label>
-                        <input
-                            className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                            type="password"
-                            id="password"
-                            onChange={(e) => setPwd(e.target.value)}
-                            value={pwd}
-                            required
-                            placeholder="Enter your password" />
+                        <div className={`flex flex-row items-center w-full h-12 rounded-[10px] shadow-sm ${pwdFocus ? " border-blue-500 ring ring-blue-500 ring-opacity-50" : "border-gray-300"}`}>
+                            <input
+                                className="h-12 w-full px-3 py-2 rounded-l-[10px] outline-none"
+                                type={showPwd ? 'text' : 'password'}
+                                id="password"
+                                onChange={(e) => setPwd(e.target.value)}
+                                onFocus={() => setPwdFocus(true)}
+                                onBlur={() => setPwdFocus(false)}
+                                value={pwd}
+                                required
+                                placeholder="Enter your password" />
+                            <div className="flex bg-white w-10 h-12 rounded-r-[10px] items-center justify-center">
+                                <FontAwesomeIcon icon={showPwd ? faEyeSlash : faEye} className="text-gray-400 cursor-pointer border-gray-300" onClick={toggleShowPwd} />
+                            </div>
+                        </div>
                     </div>
                     <div className="flex justify-center items-center pt-5 ">
                         <button
-                            className="bg-green-medium hover:bg-green-light text-white font-Outfit-Bold py-2 px-4 rounded-[20px] focus:outline-none focus:shadow-outline"
+                            className="bg-green-medium hover:bg-green-light text-white font-Outfit-Bold py-2 px-4 rounded-[20px] focus:outline-none focus:shadow-outline select-none"
                             type="submit">
                             Sign In
                         </button>

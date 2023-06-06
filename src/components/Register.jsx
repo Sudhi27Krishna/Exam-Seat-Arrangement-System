@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { faCheck, faTimes, faInfoCircle, faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { faCheck, faTimes, faInfoCircle, faExclamationCircle, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from '../api/axios';
 import { Link, useNavigate } from "react-router-dom";
@@ -14,6 +14,8 @@ const Register = () => {
     const userRef = useRef();
     const errRef = useRef();
     const emailRef = useRef();
+    const [showPwd, setShowPwd] = useState(false);
+    const [showConfirmPwd, setShowConfirmPwd] = useState(false);
 
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
@@ -57,6 +59,15 @@ const Register = () => {
     useEffect(() => {
         setErrMsg('');
     }, [user, pwd, matchPwd])
+
+    const toggleShowPwd = () => {
+        setShowPwd(!showPwd);
+    };
+
+    const toggleShowConfirmPwd = () => {
+        setShowConfirmPwd(!showConfirmPwd);
+    };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -164,18 +175,23 @@ const Register = () => {
                             <FontAwesomeIcon icon={faCheck} className={validPwd ? "text-green-500 ml-3" : "collapse"} />
                             <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "collapse" : "text-red-500 ml-1"} />
                         </label>
-                        <input
-                            type="password"
-                            id="password"
-                            onChange={(e) => setPwd(e.target.value)}
-                            value={pwd}
-                            required
-                            aria-invalid={validPwd ? "false" : "true"}
-                            aria-describedby="pwdnote"
-                            onFocus={() => setPwdFocus(true)}
-                            onBlur={() => setPwdFocus(false)}
-                            className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                        />
+                        <div className={`flex flex-row items-center w-full h-12 rounded-[10px] shadow-sm ${pwdFocus ? " border-blue-500 ring ring-blue-500 ring-opacity-50" : "border-gray-300"}`}>
+                            <input
+                                className="h-12 w-full px-3 py-2 rounded-l-[10px] outline-none"
+                                type={showPwd ? 'text' : 'password'}
+                                id="password"
+                                onChange={(e) => setPwd(e.target.value)}
+                                value={pwd}
+                                required
+                                aria-invalid={validPwd ? "false" : "true"}
+                                aria-describedby="pwdnote"
+                                onFocus={() => setPwdFocus(true)}
+                                onBlur={() => setPwdFocus(false)}
+                            />
+                            <div className="flex bg-white w-10 h-12 rounded-r-[10px] items-center justify-center">
+                                <FontAwesomeIcon icon={showPwd ? faEyeSlash : faEye} className="text-gray-400 cursor-pointer border-gray-300" onClick={toggleShowPwd} />
+                            </div>
+                        </div>
                         <p id="pwdnote" className={pwdFocus && !validPwd ? "text-xs rounded-lg bg-red-200 text-red-600 p-1 mt-[5px] relative" : "absolute left-[-9999px]"}>
                             <FontAwesomeIcon icon={faInfoCircle} className="mr-1 text-red-600" />
                             8 to 24 characters.<br />
@@ -190,18 +206,23 @@ const Register = () => {
                             <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "text-green-500 ml-3" : "collapse"} />
                             <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "collapse" : "text-red-500 ml-1"} />
                         </label>
-                        <input
-                            type="password"
-                            id="confirm_pwd"
-                            onChange={(e) => setMatchPwd(e.target.value)}
-                            value={matchPwd}
-                            required
-                            aria-invalid={validMatch ? "false" : "true"}
-                            aria-describedby="confirmnote"
-                            onFocus={() => setMatchFocus(true)}
-                            onBlur={() => setMatchFocus(false)}
-                            className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                        />
+                        <div className={`flex flex-row items-center w-full h-12 rounded-[10px] shadow-sm ${matchFocus ? " border-blue-500 ring ring-blue-500 ring-opacity-50" : "border-gray-300"}`}>
+                            <input
+                                className="h-12 w-full px-3 py-2 rounded-l-[10px] outline-none"
+                                type={showConfirmPwd ? 'text' : 'password'}
+                                id="confirm_pwd"
+                                onChange={(e) => setMatchPwd(e.target.value)}
+                                value={matchPwd}
+                                required
+                                aria-invalid={validMatch ? "false" : "true"}
+                                aria-describedby="confirmnote"
+                                onFocus={() => setMatchFocus(true)}
+                                onBlur={() => setMatchFocus(false)}
+                            />
+                            <div className="flex bg-white w-10 h-12 rounded-r-[10px] items-center justify-center">
+                                <FontAwesomeIcon icon={showConfirmPwd ? faEyeSlash : faEye} className="text-gray-400 cursor-pointer border-gray-300" onClick={toggleShowConfirmPwd} />
+                            </div>
+                        </div>
                         <p id="confirmnote" className={matchFocus && !validMatch ? "text-xs rounded-lg bg-red-200 text-red-600 p-1 mt-[5px] relative" : "absolute left-[-9999px]"}>
                             <FontAwesomeIcon icon={faInfoCircle} className="mr-1 text-red-600" />
                             Must match the first password input field.
