@@ -75,7 +75,7 @@ export default function Login() {
                 </div>
                 <form className="space-y-6" onSubmit={handleSubmit}>
                     <div>
-                        <label className="block text-gray-700 font-Outfit-Light mb-2 " htmlFor="username">Username</label>
+                        <label className="block text-gray-700 font-Outfit-Light mb-2 select-none" htmlFor="username">Username</label>
                         <input
                             className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
                             type="text"
@@ -88,7 +88,7 @@ export default function Login() {
                             placeholder="Enter your username" />
                     </div>
                     <div>
-                        <label className="block text-gray-700 font-Outfit-Light mb-2" htmlFor="password">Password</label>
+                        <label className="block text-gray-700 font-Outfit-Light mb-2 select-none" htmlFor="password">Password</label>
                         <div className={`flex flex-row items-center w-full h-12 rounded-[10px] shadow-sm ${pwdFocus ? " border-blue-500 ring ring-blue-500 ring-opacity-50" : "border-gray-300"}`}>
                             <input
                                 className="h-12 w-full px-3 py-2 rounded-l-[10px] outline-none"
@@ -113,7 +113,7 @@ export default function Login() {
                         </button>
                     </div>
                 </form>
-                <div className="flex items-center justify-center mt-3 gap-2">
+                <div className="flex items-center justify-center mt-3 gap-2 select-none">
                     <p>
                         Don't have an account?
                     </p>
