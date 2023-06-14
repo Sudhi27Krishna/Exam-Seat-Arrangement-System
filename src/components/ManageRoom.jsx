@@ -1,6 +1,6 @@
 import Input from './Input';
 import DropDownInput from './DropDownInput';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import Row from './Row';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,9 @@ const url = '/manage-room';
 export default function ManageRoom() {
     const [loading, setLoading] = useState(true);
     const [rows, setRows] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [filterTerm, setFilterTerm] = useState("");
+    const [sortTerm, setSortTerm] = useState("");
     const axiosPrivate = useAxiosPrivate();
     const formRef = useRef();
     const roomNoRef = useRef();
@@ -19,6 +22,38 @@ export default function ManageRoom() {
     const capacityRef = useRef();
     const navigate = useNavigate();
     let totalCapacity = rows.reduce((total, obj) => total + obj.capacity, 0);
+
+    const filteredRows = useMemo(() => {
+        let list = rows;
+        if (list.length > 0 && searchTerm) {
+            list = list.filter(
+                (item) =>
+                    item.room_no.slice(0, searchTerm.length) === searchTerm.toUpperCase()
+            );
+        }
+        if (list.length > 0 && filterTerm) {
+            if (filterTerm === 'Ramanujan' || filterTerm === 'M-George') {
+                list = list.filter((item) => item.block === filterTerm);
+            } else if (filterTerm !== 'nil') {
+                list = list.filter((item) => item.floor_no.toString() === filterTerm);
+            }
+        }
+        return list;
+    }, [searchTerm, filterTerm, rows]);
+
+    const sortedRows = useMemo(() => {
+        let list = [...filteredRows]; // Create a copy of filteredRows
+        if (list.length > 0 && sortTerm) {
+            if (sortTerm === 'asc') {
+                list = list.sort((a, b) => a.floor_no - b.floor_no);
+            } else if (sortTerm === 'desc') {
+                list = list.sort((a, b) => b.floor_no - a.floor_no);
+            }
+        }
+        return list;
+    }, [sortTerm, filteredRows]);
+
+    const list = sortTerm && sortTerm !== 'asc' && sortTerm !== 'desc' ? filteredRows : sortedRows;
 
     const handleRoom = (e) => {
         e.preventDefault();
@@ -144,36 +179,36 @@ export default function ManageRoom() {
                         <input
                             type="text"
                             placeholder="Search"
-                            className="w-full p-2 mx-2 my-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="w-full p-2 mx-2 my-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login text-gray-600"
                         />
                     </div>
                     <div className="flex-grow flex flex-row">
                         {/* Sort By Dropdown */}
                         <div className="flex-grow flex flex-row items-center ">
-                            <p className="ml-2 whitespace-nowrap">Sort By :</p>
-                            <select className="w-full p-[10.4px] m-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
-                                defaultValue="">
-                                <option value="" disabled hidden></option>
-                                <option value="floor_asc">Floor (0 - 5)</option>
-                                <option value="floor_desc">Floor (5 - 0)</option>
-                                <option value="latest">Latest (New - Old)</option>
-                                <option value="Oldest">Oldest (Old - New)</option>
+                            <p className="ml-2 mr-1 whitespace-nowrap">Sort By :</p>
+                            <select className="w-full p-[10.4px] m-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login text-gray-600"
+                                defaultValue="" onChange={(e) => setSortTerm(e.target.value)}>
+                                <option value="">Enteries</option>
+                                <option value="asc">Floor(0 - 5)</option>
+                                <option value="desc">Floor(5 - 0)</option>
                             </select>
                         </div>
 
                         {/* Filter By Dropdown */}
                         <div className="flex-grow flex flex-row items-center">
-                            <p className="ml-2 whitespace-nowrap">Filter By :</p>
-                            <select className="w-full p-[10.4px] m-1 mr-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login" defaultValue="">
-                                <option value="" disabled hidden></option>
-                                <option value="category_R">Ramanujan Block</option>
-                                <option value="category_M">M-George Block</option>
-                                <option value="category_0">Ground Floor</option>
-                                <option value="category_1">First Floor</option>
-                                <option value="category_2">Second Floor</option>
-                                <option value="category_3">Third Floor</option>
-                                <option value="category_4">Fourth Floor</option>
-                                <option value="category_5">Fifth Floor</option>
+                            <p className="ml-2 mr-1 whitespace-nowrap">Filter By :</p>
+                            <select className="w-full p-[10.4px] m-1 mr-2 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login text-gray-600"
+                                defaultValue="nil" onChange={(e) => setFilterTerm(e.target.value)}>
+                                <option value="nil" >-</option>
+                                <option value="Ramanujan">Ramanujan Block</option>
+                                <option value="M-George">M-George Block</option>
+                                <option value="0">Ground Floor</option>
+                                <option value="1">First Floor</option>
+                                <option value="2">Second Floor</option>
+                                <option value="3">Third Floor</option>
+                                <option value="4">Fourth Floor</option>
+                                <option value="5">Fifth Floor</option>
                             </select>
                         </div>
                     </div>
@@ -200,7 +235,7 @@ export default function ManageRoom() {
                                     "top": "48%"
                                 }}
                                 visible={true}
-                            />) : (rows.map(item => <Row key={item._id} room={item.room_no} floor={item.floor_no} block={item.block}
+                            />) : (list.map(item => <Row key={item._id} room={item.room_no} floor={item.floor_no} block={item.block}
                                 available={item.capacity} handleDelete={handleDelete} />))
                             }
                         </tbody>

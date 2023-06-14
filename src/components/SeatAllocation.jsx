@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import SeatBox from './SeatBox';
 import useAxiosPrivate from '../hooks/useAxiosPrivate';
 import { ThreeCircles } from 'react-loader-spinner'
@@ -16,11 +16,27 @@ export default function SeatAllocation() {
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [bookedRooms, setBookedRooms] = useState([]);
   const [studentsCount, setStudentsCount] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortTerm, setSortTerm] = useState("");
   const dateRef = useRef();
   const timeRef = useRef();
   const examRef = useRef();
   const [seatSelected, setSeatSelected] = useState(0);
   let totalCapacity = rooms.reduce((total, obj) => total + obj.capacity, 0);
+
+  const filteredRooms = useMemo(() => {
+    let list = rooms;
+    if (list.length > 0 && searchTerm) {
+      list = list.filter((item) => item.room_no.slice(0, searchTerm.length) === searchTerm.toUpperCase());
+    }
+    if (list.length > 0 && sortTerm) {
+      if (sortTerm === "min") list = list.sort((a, b) => { return a.capacity - b.capacity });
+      if (sortTerm === "max") list = list.sort((a, b) => { return b.capacity - a.capacity });
+      if (sortTerm === "asc") list = list.sort((a, b) => { return a.room_no.slice(-3) - b.room_no.slice(-3) });
+      if (sortTerm === "desc") list = list.sort((a, b) => { return b.room_no.slice(-3) - a.room_no.slice(-3) });
+    }
+    return list;
+  }, [searchTerm, sortTerm, rooms]);
 
   const handleExcels = async () => {
     setLoading(true);
@@ -230,21 +246,20 @@ export default function SeatAllocation() {
                 <input
                   type="text"
                   id="search"
-                  className="p-2 ml-2 flex-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="p-2 ml-2 flex-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login text-gray-600"
                   placeholder="Search"
                 />
               </div>
               {/* Sort By Dropdown */}
               <div className="flex-grow flex flex-row items-center ">
                 <p className="ml-2 whitespace-nowrap">Sort By :</p>
-                <select className="min-w-[156px] p-[10.4px] m-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login"
-                  defaultValue="">
-                  <option value="" disabled hidden></option>
-                  <option value="leastrooms">Least Rooms</option>
-                  <option value="mostrooms">Most Rooms</option>
-                  <option value="floor_asc">Floor (0 - 5)</option>
-                  <option value="floor_desc">Floor (5 - 0)</option>
-                  <option value="rblockfirst">R-Block First</option>
+                <select className="min-w-[156px] p-[10.4px] m-1 rounded-md focus:outline-none focus:ring-2 focus:ring-green-login text-gray-600"
+                  defaultValue="min" onChange={(e) => setSortTerm(e.target.value)}>
+                  <option value="min">Increasing capacity</option>
+                  <option value="max">Decreasing capacity</option>
+                  <option value="asc">Increasing Floor(0 - 5)</option>
+                  <option value="desc">Decreasing Floor(5 - 0)</option>
                 </select>
               </div>
             </div>
@@ -259,7 +274,7 @@ export default function SeatAllocation() {
                   "top": "40%"
                 }}
                 visible={true}
-              />) : (rooms.map(item => <SeatBox key={item.room_no} room={item.room_no} capacity={item.capacity} setSelectedRooms={setSelectedRooms} setSeatSelected={setSeatSelected} bookedRooms={bookedRooms} />))
+              />) : (filteredRooms.map(item => <SeatBox key={item.room_no} room={item.room_no} capacity={item.capacity} setSelectedRooms={setSelectedRooms} setSeatSelected={setSeatSelected} bookedRooms={bookedRooms} />))
               }
             </div>
           </div>
@@ -270,8 +285,8 @@ export default function SeatAllocation() {
             <ul className="pl-3 hw:pb-5 mt-4 font-Outfit-Regular">
               <li className="p-3">Total Rooms : {rooms.length}</li>
               <li className="p-3">Available Seats : {bookedRooms.length > 0 ? 0 : totalCapacity - seatSelected}</li>
-              <li className={`p-3 ${seatSelected < studentsCount && seatSelected !== 0 ? "text-red-500" : ""} ${seatSelected < studentsCount ? "" : "text-green-save"}`}>Rooms Selected : {bookedRooms.length > 0 ? bookedRooms.length : selectedRooms.length}</li>
-              <li className={`p-3 ${seatSelected < studentsCount && seatSelected !== 0 ? "text-red-500" : ""} ${seatSelected < studentsCount ? "" : "text-green-save"}`}>Seats Selected : {seatSelected}</li>
+              <li className={`p-3 ${seatSelected < studentsCount && seatSelected !== 0 ? "text-red-500" : ""} ${seatSelected < studentsCount ? "" : "text-green-save"} `}>Rooms Selected : {bookedRooms.length > 0 ? bookedRooms.length : selectedRooms.length}</li>
+              <li className={`p-3 ${seatSelected < studentsCount && seatSelected !== 0 ? "text-red-500" : ""} ${seatSelected < studentsCount ? "" : "text-green-save"} `}>Seats Selected : {seatSelected} </li>
               <li className="p-3">Total Participants : {studentsCount}</li>
             </ul>
           </div>
