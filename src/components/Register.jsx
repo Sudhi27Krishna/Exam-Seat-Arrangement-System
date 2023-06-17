@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { faCheck, faTimes, faInfoCircle, faExclamationCircle, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faInfoCircle, faExclamationCircle, faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from '../api/axios';
 import { Link, useNavigate } from "react-router-dom";
@@ -116,9 +116,7 @@ const Register = () => {
                 <form onSubmit={(e) => handleSubmit(e)} className="space-y-3">
                     <div>
                         <label htmlFor="username" className="block text-gray-700 font-Outfit-Light mb-2">
-                            Username:
-                            <FontAwesomeIcon icon={faCheck} className={validName ? "text-green-500 ml-3" : "collapse"} />
-                            <FontAwesomeIcon icon={faTimes} className={validName || !user ? "collapse" : "text-red-500 "} />
+                            Username :
                         </label>
                         <input
                             type="text"
@@ -132,7 +130,9 @@ const Register = () => {
                             aria-describedby="uidnote"
                             onFocus={() => setUserFocus(true)}
                             onBlur={() => setUserFocus(false)}
-                            className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                            className={`block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm focus:outline-none focus:ring 
+                            ${validName ? "border-[3px] border-green-500 focus:border focus:ring-green-500 focus:ring-opacity-50" : "focus:ring-blue-500 focus:ring-opacity-50"} 
+                            ${!validName && user ? "border-[3px] border-red-500 focus:border focus:border-red-500 focus:ring-red-500 focus:ring-opacity-70" : ""}`}
                         />
                         <p id="uidnote" className={userFocus && user && !validName ? "text-xs rounded-lg bg-red-200 text-red-600 p-1 mt-[5px] relative" : "absolute left-[-9999px]"}>
                             <FontAwesomeIcon icon={faInfoCircle} className="mr-1 text-red-600" />
@@ -144,9 +144,7 @@ const Register = () => {
 
                     <div>
                         <label htmlFor="email" className="block text-gray-700 font-Outfit-Light mb-2">
-                            Email:
-                            <FontAwesomeIcon icon={faCheck} className={validMail ? "text-green-500 ml-3" : "collapse"} />
-                            <FontAwesomeIcon icon={faTimes} className={validMail || !mail ? "collapse" : "text-red-500"} />
+                            Email :
                         </label>
                         <input
                             type="text"
@@ -160,7 +158,9 @@ const Register = () => {
                             aria-describedby="mailnote"
                             onFocus={() => setMailFocus(true)}
                             onBlur={() => setMailFocus(false)}
-                            className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
+                            className={`block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm focus:outline-none focus:ring 
+                            ${validMail ? "border-[3px] border-green-500 focus:border focus:ring-green-500 focus:ring-opacity-50" : "focus:ring-blue-500 focus:ring-opacity-50"} 
+                            ${!validMail && mail ? "border-[3px] border-red-500 focus:border focus:border-red-500 focus:ring-red-500 focus:ring-opacity-70" : ""}`}
 
                         />
                         <p id="mailnote" className={mailFocus && mail && !validMail ? "text-xs rounded-lg bg-red-200 text-red-600 p-1 mt-[5px] relative" : "absolute left-[-9999px]"}>
@@ -171,13 +171,13 @@ const Register = () => {
 
                     <div>
                         <label htmlFor="password" className="block text-gray-700 font-Outfit-Light mb-2">
-                            Password:
-                            <FontAwesomeIcon icon={faCheck} className={validPwd ? "text-green-500 ml-3" : "collapse"} />
-                            <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "collapse" : "text-red-500 ml-1"} />
+                            Password :
                         </label>
-                        <div className={`flex flex-row items-center w-full h-12 rounded-[10px] shadow-sm ${pwdFocus ? " border-blue-500 ring ring-blue-500 ring-opacity-50" : "border-gray-300"}`}>
+                        <div className={`flex flex-row items-center w-full h-12 rounded-[10px] shadow-sm ${pwdFocus && !pwd ? "ring ring-blue-500 ring-opacity-50" : ""} 
+                        ${pwdFocus && validPwd ? "ring ring-green-500 ring-opacity-50" : ""} ${pwdFocus && !validPwd && pwd ? "ring ring-red-500 ring-opacity-70" : ""}`}>
                             <input
-                                className="h-12 w-full px-3 py-2 rounded-l-[10px] outline-none"
+                                className={`h-12 w-full px-3 py-2 rounded-l-[10px] outline-none ${!pwdFocus && validPwd ? "border-y-[3px] border-l-[3px] border-green-500 " : ""} 
+                                ${!pwdFocus && !validPwd && pwd ? "border-y-[3px] border-l-[3px] border-red-500" : ""}`}
                                 type={showPwd ? 'text' : 'password'}
                                 id="password"
                                 onChange={(e) => setPwd(e.target.value)}
@@ -188,7 +188,8 @@ const Register = () => {
                                 onFocus={() => setPwdFocus(true)}
                                 onBlur={() => setPwdFocus(false)}
                             />
-                            <div className="flex bg-white w-10 h-12 rounded-r-[10px] items-center justify-center">
+                            <div className={`flex bg-white w-10 h-12 rounded-r-[10px] items-center justify-center ${!pwdFocus && validPwd ? "border-y-[3px] border-r-[3px] border-green-500" : ""} 
+                            ${!pwdFocus && !validPwd && pwd ? "border-y-[3px] border-r-[3px] border-red-500" : ""}`}>
                                 <FontAwesomeIcon icon={showPwd ? faEyeSlash : faEye} className="text-gray-400 cursor-pointer border-gray-300" onClick={toggleShowPwd} />
                             </div>
                         </div>
@@ -202,13 +203,13 @@ const Register = () => {
 
                     <div>
                         <label htmlFor="confirm_pwd" className="block text-gray-700 font-Outfit-Light mb-2">
-                            Confirm Password:
-                            <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "text-green-500 ml-3" : "collapse"} />
-                            <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "collapse" : "text-red-500 ml-1"} />
+                            Confirm Password :
                         </label>
-                        <div className={`flex flex-row items-center w-full h-12 rounded-[10px] shadow-sm ${matchFocus ? " border-blue-500 ring ring-blue-500 ring-opacity-50" : "border-gray-300"}`}>
+                        <div className={`flex flex-row items-center w-full h-12 rounded-[10px] shadow-sm ${matchFocus && !matchPwd ? "ring ring-blue-500 ring-opacity-50" : ""} 
+                        ${matchFocus && validMatch && matchPwd ? "ring ring-green-500 ring-opacity-50" : ""} ${matchFocus && !validMatch && matchPwd ? "ring ring-red-500 ring-opacity-70 " : ""}`}>
                             <input
-                                className="h-12 w-full px-3 py-2 rounded-l-[10px] outline-none"
+                                className={`h-12 w-full px-3 py-2 rounded-l-[10px] outline-none ${!matchFocus && validMatch && matchPwd ? "border-y-[3px] border-l-[3px] border-green-500" : ""} 
+                                ${!matchFocus && !validMatch && matchPwd ? "border-y-[3px] border-l-[3px] border-red-500" : ""}`}
                                 type={showConfirmPwd ? 'text' : 'password'}
                                 id="confirm_pwd"
                                 onChange={(e) => setMatchPwd(e.target.value)}
@@ -219,7 +220,8 @@ const Register = () => {
                                 onFocus={() => setMatchFocus(true)}
                                 onBlur={() => setMatchFocus(false)}
                             />
-                            <div className="flex bg-white w-10 h-12 rounded-r-[10px] items-center justify-center">
+                            <div className={`flex bg-white w-10 h-12 rounded-r-[10px] items-center justify-center ${!matchFocus && validMatch && matchPwd ? "border-y-[3px] border-r-[3px] border-green-500" : ""} 
+                            ${!matchFocus && !validMatch && matchPwd ? "border-y-[3px] border-r-[3px] border-red-500" : ""}`}>
                                 <FontAwesomeIcon icon={showConfirmPwd ? faEyeSlash : faEye} className="text-gray-400 cursor-pointer border-gray-300" onClick={toggleShowConfirmPwd} />
                             </div>
                         </div>

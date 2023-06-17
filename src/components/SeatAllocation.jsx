@@ -263,7 +263,7 @@ export default function SeatAllocation() {
                 </select>
               </div>
             </div>
-            <div className={`bg-gray-100 h-[21.5rem] overflow-y-auto rounded-b-2xl p-4 w-full ${studentsCount == 0 && "pointer-events-none"}`}>
+            <div className={`bg-gray-100 h-[21.5rem] overflow-y-auto rounded-b-2xl p-4 w-full ${studentsCount === 0 && "pointer-events-none"}`}>
               {loading ? (<ThreeCircles
                 height="65"
                 width="65"
