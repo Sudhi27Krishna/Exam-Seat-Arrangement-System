@@ -37,7 +37,7 @@ module.exports = {
       },
 
       backgroundImage: {
-        'login-signup': "url('/src/assets/bgimage.jpg')",
+        'login-signup': "url('/src/assets/bgimage.png')",
       }
     },
   },
