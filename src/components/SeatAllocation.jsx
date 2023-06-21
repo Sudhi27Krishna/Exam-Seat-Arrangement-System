@@ -108,20 +108,16 @@ export default function SeatAllocation() {
           setStudentsCount(totalStudents);
         }
 
-        const bookedRoomsResponse = await axiosPrivate.get(url.concat('/get-booked-rooms'), {
+        const bookedRoomsResponse = await axiosPrivate.get(url.concat('/get-allocation'), {
           params: { date, time },
           signal: controller.signal
         });
 
         if (isMounted) {
-          if (bookedRooms !== undefined) {
-            setBookedRooms(bookedRoomsResponse.data);
-            // console.log(bookedRooms);
-            setLoading(false);
-          }
-          else {
-            setBookedRooms([]);
-          }
+          setBookedRooms(bookedRoomsResponse.data.rooms);
+          setSelectedRooms([]);
+          setSeatSelected(bookedRoomsResponse.data.seats);
+          setLoading(false);
         }
       }
       catch (error) {
@@ -173,20 +169,16 @@ export default function SeatAllocation() {
           setStudentsCount(totalStudents);
         }
 
-        const bookedRoomsResponse = await axiosPrivate.get(url.concat('/get-booked-rooms'), {
+        const bookedRoomsResponse = await axiosPrivate.get(url.concat('/get-allocation'), {
           params: { date: init_date, time: "FN" },
           signal: controller.signal
         });
 
         if (isMounted) {
-          if (bookedRooms !== undefined) {
-            setBookedRooms(bookedRoomsResponse.data);
-            // console.log(bookedRooms);
-            setLoading(false);
-          }
-          else {
-            setBookedRooms([]);
-          }
+          setBookedRooms(bookedRoomsResponse.data.rooms);
+          setSelectedRooms([]);
+          setSeatSelected(bookedRoomsResponse.data.seats);
+          setLoading(false);
         }
       } catch (error) {
         console.log(error);
@@ -286,7 +278,7 @@ export default function SeatAllocation() {
               <li className="p-3">Total Rooms : {rooms.length}</li>
               <li className="p-3">Available Seats : {bookedRooms.length > 0 ? 0 : totalCapacity - seatSelected}</li>
               <li className={`p-3 ${seatSelected < studentsCount && seatSelected !== 0 ? "text-red-500" : ""} ${seatSelected < studentsCount ? "" : "text-green-save"} `}>Rooms Selected : {bookedRooms.length > 0 ? bookedRooms.length : selectedRooms.length}</li>
-              <li className={`p-3 ${seatSelected < studentsCount && seatSelected !== 0 ? "text-red-500" : ""} ${seatSelected < studentsCount ? "" : "text-green-save"} `}>Seats Selected : {bookedRooms.length > 0 ? 0 :seatSelected} </li>
+              <li className={`p-3 ${seatSelected < studentsCount && seatSelected !== 0 ? "text-red-500" : ""} ${seatSelected < studentsCount ? "" : "text-green-save"} `}>Seats Selected : {seatSelected} </li>
               <li className="p-3">Total Participants : {studentsCount}</li>
             </ul>
           </div>
