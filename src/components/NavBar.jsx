@@ -54,7 +54,7 @@ export default function NavBar() {
                     <img src="https://i1.sndcdn.com/avatars-1izkebM3cqeF0hcO-uo8bjQ-t500x500.jpg" alt="giga-chad" className={`${expand ? "rounded-full w-12 h-12 m-4 self-center" : "rounded-full w-8 h-8 ml-1 mr-4 my-1 self-center"}`} />
                     <p className={`${expand ? "mr-7 text-white font-Outfit-Medium tracking-needed self-center uppercase truncate ... " : " absolute left-[-999px]"}`}>{auth.user}</p>
                 </div>
-                <hr class="border-t border-green-light ml-5 mr-7"></hr>
+                <hr className="border-t border-green-light ml-5 mr-7"></hr>
             </div>
 
             <div className="flex flex-col h-full py-5">

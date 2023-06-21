@@ -66,54 +66,60 @@ export default function Login() {
 
 
     return (
-        <div className="flex items-center justify-center h-screen bg-login-signup">
-            <div className="py-12 px-12 shadow-2xl w-[23rem] bg-green-login rounded-[20px]">
-                <h1 className="text-3xl text-center font-normal mb-10 font-Outfit-Medium">LOG IN</h1>
-                <div className={errMsg ? "flex flex-rows items-center p-2 h-10 w-full border border-red-600 rounded-[10px] bg-red-200 text-red-600  mb-2" : "h-0 w-0 absolute left-[-9999px]"}>
-                    <FontAwesomeIcon icon={faExclamationCircle} className="h-4 p-2" />
-                    <p ref={errRef} className="font-Outfit-Regular text-sm pl-1" aria-live="assertive">{errMsg}</p>
-                </div>
-                <form className="space-y-6" onSubmit={handleSubmit}>
-                    <div>
-                        <label className="block text-gray-700 font-Outfit-Light mb-2 select-none" htmlFor="username">Username</label>
-                        <input
-                            className="block w-full h-12 px-3 py-2 rounded-[10px] shadow-sm border-gray-300 focus:outline-none focus:border-blue-500 focus:ring focus:ring-blue-500 focus:ring-opacity-50"
-                            type="text"
-                            id="username"
-                            ref={userRef}
-                            autoComplete="off"
-                            onChange={(e) => setUser(e.target.value)}
-                            value={user}
-                            required
-                            placeholder="Enter your username" />
+        <div className="flex flex-row items-center justify-between h-screen bg-login-signup">
+            <div>
+                <h1>.</h1>
+            </div>
+            <div className="flex flex-col items-center justify-between h-screen w-[25rem] px-14 bg-[#D9D9D9]">
+                <div className="flex flex-col items-center justify-center h-screen w-full">
+                    <h1 className="text-3xl text-center text-green-medium tracking-wide font-normal mb-10 font-Outfit-Medium">LOG IN</h1>
+                    <div className={errMsg ? "flex flex-rows items-center p-2 h-10 w-full border border-red-600 rounded-[10px] bg-red-200 text-red-600  mb-2" : "h-0 w-0 absolute left-[-9999px]"}>
+                        <FontAwesomeIcon icon={faExclamationCircle} className="h-4 p-2" />
+                        <p ref={errRef} className="font-Outfit-Regular text-sm pl-1" aria-live="assertive">{errMsg}</p>
                     </div>
-                    <div>
-                        <label className="block text-gray-700 font-Outfit-Light mb-2 select-none" htmlFor="password">Password</label>
-                        <div className={`flex flex-row items-center w-full h-12 rounded-[10px] shadow-sm ${pwdFocus ? " border-blue-500 ring ring-blue-500 ring-opacity-50" : "border-gray-300"}`}>
+                    <form className="space-y-6 w-full" onSubmit={handleSubmit}>
+                        <div>
+                            <label className="text-green-medium tracking-wide font-Outfit-Light select-none" htmlFor="username">username</label>
                             <input
-                                className="h-12 w-full px-3 py-2 rounded-l-[10px] outline-none"
-                                type={showPwd ? 'text' : 'password'}
-                                id="password"
-                                onChange={(e) => setPwd(e.target.value)}
-                                onFocus={() => setPwdFocus(true)}
-                                onBlur={() => setPwdFocus(false)}
-                                value={pwd}
+                                className="mt-2 w-full h-12 px-3 py-2 rounded-[10px] shadow-sm focus:outline-none focus:ring focus:ring-black focus:ring-opacity-40"
+                                type="text"
+                                id="username"
+                                ref={userRef}
+                                autoComplete="off"
+                                onChange={(e) => setUser(e.target.value)}
+                                value={user}
                                 required
-                                placeholder="Enter your password" />
-                            <div className="flex bg-white w-10 h-12 rounded-r-[10px] items-center justify-center">
-                                <FontAwesomeIcon icon={showPwd ? faEyeSlash : faEye} className="text-gray-400 cursor-pointer border-gray-300" onClick={toggleShowPwd} />
+                                placeholder="Enter your username"
+                                spellcheck="false" />
+                        </div>
+                        <div>
+                            <label className=" text-green-medium tracking-wide font-Outfit-Light select-none" htmlFor="password">password</label>
+                            <div className={`mt-2 flex flex-row items-center w-full h-12 rounded-[10px] shadow-sm ${pwdFocus ? "ring ring-black ring-opacity-40" : ""}`}>
+                                <input
+                                    className="h-12 w-full px-3 py-2 rounded-l-[10px] outline-none"
+                                    type={showPwd ? 'text' : 'password'}
+                                    id="password"
+                                    onChange={(e) => setPwd(e.target.value)}
+                                    onFocus={() => setPwdFocus(true)}
+                                    onBlur={() => setPwdFocus(false)}
+                                    value={pwd}
+                                    required
+                                    placeholder="Enter your password" />
+                                <div className="flex bg-white w-10 h-12 rounded-r-[10px] items-center justify-center">
+                                    <FontAwesomeIcon icon={showPwd ? faEyeSlash : faEye} className="text-gray-400 cursor-pointer border-gray-300" onClick={toggleShowPwd} />
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="flex justify-center items-center pt-5 ">
-                        <button
-                            className="bg-green-medium hover:bg-green-light text-white font-Outfit-Bold py-2 px-4 rounded-[20px] focus:outline-none focus:shadow-outline select-none"
-                            type="submit">
-                            Sign In
-                        </button>
-                    </div>
-                </form>
-                <div className="flex items-center justify-center mt-3 gap-2 select-none">
+                        <div className="flex justify-center items-center pt-3 ">
+                            <button
+                                className="border bg-green-medium tracking-wider hover:bg-opacity-25 hover:text-green-medium hover:border-green-medium  text-white font-Outfit-Bold py-3 px-7 rounded-[30px] focus:outline-none focus:shadow-outline select-none"
+                                type="submit">
+                                Sign In
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div className="flex items-center justify-center mb-10 gap-2 select-none">
                     <p>
                         Don't have an account?
                     </p>

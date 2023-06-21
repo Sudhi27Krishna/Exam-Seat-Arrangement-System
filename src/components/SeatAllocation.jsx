@@ -15,7 +15,7 @@ export default function SeatAllocation() {
   const [rooms, setRooms] = useState([]);
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [bookedRooms, setBookedRooms] = useState([]);
-  const [studentsCount, setStudentsCount] = useState();
+  const [studentsCount, setStudentsCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [sortTerm, setSortTerm] = useState("");
   const dateRef = useRef();
@@ -108,20 +108,16 @@ export default function SeatAllocation() {
           setStudentsCount(totalStudents);
         }
 
-        const bookedRoomsResponse = await axiosPrivate.get(url.concat('/get-booked-rooms'), {
+        const bookedRoomsResponse = await axiosPrivate.get(url.concat('/get-allocation'), {
           params: { date, time },
           signal: controller.signal
         });
 
         if (isMounted) {
-          if (bookedRooms !== undefined) {
-            setBookedRooms(bookedRoomsResponse.data);
-            console.log(bookedRooms);
-            setLoading(false);
-          }
-          else {
-            setBookedRooms([]);
-          }
+          setBookedRooms(bookedRoomsResponse.data.rooms);
+          setSelectedRooms([]);
+          setSeatSelected(bookedRoomsResponse.data.seats);
+          setLoading(false);
         }
       }
       catch (error) {
@@ -173,20 +169,16 @@ export default function SeatAllocation() {
           setStudentsCount(totalStudents);
         }
 
-        const bookedRoomsResponse = await axiosPrivate.get(url.concat('/get-booked-rooms'), {
+        const bookedRoomsResponse = await axiosPrivate.get(url.concat('/get-allocation'), {
           params: { date: init_date, time: "FN" },
           signal: controller.signal
         });
 
         if (isMounted) {
-          if (bookedRooms !== undefined) {
-            setBookedRooms(bookedRoomsResponse.data);
-            // console.log(bookedRooms);
-            setLoading(false);
-          }
-          else {
-            setBookedRooms([]);
-          }
+          setBookedRooms(bookedRoomsResponse.data.rooms);
+          setSelectedRooms([]);
+          setSeatSelected(bookedRoomsResponse.data.seats);
+          setLoading(false);
         }
       } catch (error) {
         console.log(error);
@@ -263,7 +255,7 @@ export default function SeatAllocation() {
                 </select>
               </div>
             </div>
-            <div className="bg-gray-100 h-[21.5rem] overflow-y-auto rounded-b-2xl p-4 w-full">
+            <div className={`bg-gray-100 h-[21.5rem] overflow-y-auto rounded-b-2xl p-4 w-full ${studentsCount === 0 && "pointer-events-none"}`}>
               {loading ? (<ThreeCircles
                 height="65"
                 width="65"
