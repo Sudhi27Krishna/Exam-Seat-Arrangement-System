@@ -71,10 +71,7 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // if button enabled with JS hack
-        const v1 = USER_REGEX.test(user);
-        const v2 = PWD_REGEX.test(pwd);
-        if (!v1 || !v2) {
+        if (!validName || !validPwd || !validMail || !validMatch) {
             setErrMsg("Invalid Entry");
             return;
         }
@@ -130,7 +127,6 @@ const Register = () => {
                                 autoComplete="off"
                                 onChange={(e) => setUser(e.target.value)}
                                 value={user}
-                                required
                                 aria-invalid={validName ? "false" : "true"}
                                 aria-describedby="uidnote"
                                 onFocus={() => setUserFocus(true)}
@@ -161,7 +157,6 @@ const Register = () => {
                                 spellCheck="false"
                                 onChange={(e) => setMail(e.target.value)}
                                 value={mail}
-                                required
                                 aria-invalid={validMail ? "false" : "true"}
                                 aria-describedby="mailnote"
                                 onFocus={() => setMailFocus(true)}
@@ -190,7 +185,6 @@ const Register = () => {
                                     id="password"
                                     onChange={(e) => setPwd(e.target.value)}
                                     value={pwd}
-                                    required
                                     aria-invalid={validPwd ? "false" : "true"}
                                     aria-describedby="pwdnote"
                                     onFocus={() => setPwdFocus(true)}
@@ -224,7 +218,6 @@ const Register = () => {
                                     id="confirm_pwd"
                                     onChange={(e) => setMatchPwd(e.target.value)}
                                     value={matchPwd}
-                                    required
                                     aria-invalid={validMatch ? "false" : "true"}
                                     aria-describedby="confirmnote"
                                     onFocus={() => setMatchFocus(true)}
@@ -244,7 +237,7 @@ const Register = () => {
                         <div className="flex items-center justify-center pt-5">
                             <button type="submit"
                                 className="border bg-green-medium tracking-wider hover:bg-opacity-25 hover:text-green-medium hover:border-green-medium  text-white font-Outfit-Bold py-3 px-7 rounded-[30px] focus:outline-none focus:shadow-outline select-none"
-                                disabled={!validName || !validPwd || !validMatch || !validMail ? true : false}>Sign Up
+                            >Sign Up
                             </button>
                         </div>
                     </form>
