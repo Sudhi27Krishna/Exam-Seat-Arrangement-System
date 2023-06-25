@@ -117,7 +117,7 @@ const Register = () => {
                     <form onSubmit={(e) => handleSubmit(e)} className="space-y-3 w-full">
                         <div className="flex flex-col">
                             <label htmlFor="username" className="text-green-medium tracking-wide font-Outfit-Light mb-2">
-                                username :
+                                Username
                             </label>
                             <input
                                 type="text"
@@ -131,6 +131,7 @@ const Register = () => {
                                 aria-describedby="uidnote"
                                 onFocus={() => setUserFocus(true)}
                                 onBlur={() => setUserFocus(false)}
+                                placeholder="Enter your username"
                                 className={`w-full h-12 px-3 py-2 rounded-[10px] shadow-sm focus:outline-none focus:ring 
                             ${validName ? "border-2 border-green-500 focus:border focus:ring-green-500 focus:ring-opacity-50" : "focus:ring-black focus:ring-opacity-40"} 
                             ${!validName && user ? "border-2 border-red-500 focus:border focus:border-red-500 focus:ring-red-500 focus:ring-opacity-70" : ""}`}
@@ -147,7 +148,7 @@ const Register = () => {
 
                         <div className="flex flex-col">
                             <label htmlFor="email" className="text-green-medium tracking-wide font-Outfit-Light mb-2">
-                                email :
+                                Email
                             </label>
                             <input
                                 type="text"
@@ -161,6 +162,7 @@ const Register = () => {
                                 aria-describedby="mailnote"
                                 onFocus={() => setMailFocus(true)}
                                 onBlur={() => setMailFocus(false)}
+                                placeholder="Enter your email"
                                 className={`w-full h-12 px-3 py-2 rounded-[10px] shadow-sm focus:outline-none focus:ring 
                             ${validMail ? "border-2 border-green-500 focus:border focus:ring-green-500 focus:ring-opacity-50" : "focus:ring-black focus:ring-opacity-40"} 
                             ${!validMail && mail ? "border-2 border-red-500 focus:border focus:border-red-500 focus:ring-red-500 focus:ring-opacity-70" : ""}`}
@@ -174,7 +176,7 @@ const Register = () => {
 
                         <div className="flex flex-col">
                             <label htmlFor="password" className="text-green-medium tracking-wide font-Outfit-Light mb-2">
-                                password :
+                                Password
                             </label>
                             <div className={`flex flex-row items-center w-full h-12 rounded-[10px] shadow-sm ${pwdFocus && !pwd ? "ring ring-black ring-opacity-40" : ""} 
                         ${pwdFocus && validPwd ? "ring ring-green-500 ring-opacity-50" : ""} ${pwdFocus && !validPwd && pwd ? "ring ring-red-500 ring-opacity-70" : ""}`}>
@@ -189,6 +191,7 @@ const Register = () => {
                                     aria-describedby="pwdnote"
                                     onFocus={() => setPwdFocus(true)}
                                     onBlur={() => setPwdFocus(false)}
+                                    placeholder="Enter your password"
                                 />
                                 <div className={`flex bg-white w-10 h-12 rounded-r-[10px] items-center justify-center ${!pwdFocus && validPwd ? "border-y-2 border-r-2 border-green-500" : ""} 
                             ${!pwdFocus && !validPwd && pwd ? "border-y-2 border-r-2 border-red-500" : ""}`}>
@@ -207,7 +210,7 @@ const Register = () => {
 
                         <div className="flex flex-col">
                             <label htmlFor="confirm_pwd" className="text-green-medium tracking-wide font-Outfit-Light mb-2">
-                                confirm password :
+                                Confirm Password
                             </label>
                             <div className={`flex flex-row items-center w-full h-12 rounded-[10px] shadow-sm ${matchFocus && !matchPwd ? "ring ring-black ring-opacity-40" : ""} 
                         ${matchFocus && validMatch && matchPwd ? "ring ring-green-500 ring-opacity-50" : ""} ${matchFocus && !validMatch && matchPwd ? "ring ring-red-500 ring-opacity-70 " : ""}`}>
@@ -222,6 +225,7 @@ const Register = () => {
                                     aria-describedby="confirmnote"
                                     onFocus={() => setMatchFocus(true)}
                                     onBlur={() => setMatchFocus(false)}
+                                    placeholder="Re-enter your password"
                                 />
                                 <div className={`flex bg-white w-10 h-12 rounded-r-[10px] items-center justify-center ${!matchFocus && validMatch && matchPwd ? "border-y-2 border-r-2 border-green-500" : ""} 
                             ${!matchFocus && !validMatch && matchPwd ? "border-y-2 border-r-2 border-red-500" : ""}`}>
