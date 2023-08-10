@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useRefreshToken from "../hooks/useRefreshToken";
+import { ThreeCircles } from "react-loader-spinner";
 
 const PersistLogin = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -20,7 +21,7 @@ const PersistLogin = () => {
                 setIsLoading(false);
             }
         }
-        
+
         !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
     }, []);
 
@@ -32,7 +33,10 @@ const PersistLogin = () => {
     return (
         <>
             {isLoading
-                ? <p>Loading...</p>
+
+                ? <div className="h-screen flex items-center justify-center ">
+                    <ThreeCircles height="65" width="65" color="#23ca85" />
+                </div>
                 : <Outlet />
             }
         </>

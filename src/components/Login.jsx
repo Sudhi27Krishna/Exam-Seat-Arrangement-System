@@ -79,7 +79,7 @@ export default function Login() {
                     </div>
                     <form className="space-y-6 w-full" onSubmit={handleSubmit}>
                         <div>
-                            <label className="text-green-medium tracking-wide font-Outfit-Light select-none" htmlFor="username">username</label>
+                            <label className="text-green-medium tracking-wide font-Outfit-Light select-none" htmlFor="username">Username</label>
                             <input
                                 className="mt-2 w-full h-12 px-3 py-2 rounded-[10px] shadow-sm focus:outline-none focus:ring focus:ring-black focus:ring-opacity-40"
                                 type="text"
@@ -93,7 +93,7 @@ export default function Login() {
                                 spellcheck="false" />
                         </div>
                         <div>
-                            <label className=" text-green-medium tracking-wide font-Outfit-Light select-none" htmlFor="password">password</label>
+                            <label className=" text-green-medium tracking-wide font-Outfit-Light select-none" htmlFor="password">Password</label>
                             <div className={`mt-2 flex flex-row items-center w-full h-12 rounded-[10px] shadow-sm ${pwdFocus ? "ring ring-black ring-opacity-40" : ""}`}>
                                 <input
                                     className="h-12 w-full px-3 py-2 rounded-l-[10px] outline-none"

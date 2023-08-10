@@ -71,10 +71,7 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // if button enabled with JS hack
-        const v1 = USER_REGEX.test(user);
-        const v2 = PWD_REGEX.test(pwd);
-        if (!v1 || !v2) {
+        if (!validName || !validPwd || !validMail || !validMatch) {
             setErrMsg("Invalid Entry");
             return;
         }
@@ -120,7 +117,7 @@ const Register = () => {
                     <form onSubmit={(e) => handleSubmit(e)} className="space-y-3 w-full">
                         <div className="flex flex-col">
                             <label htmlFor="username" className="text-green-medium tracking-wide font-Outfit-Light mb-2">
-                                username :
+                                Username
                             </label>
                             <input
                                 type="text"
@@ -130,11 +127,11 @@ const Register = () => {
                                 autoComplete="off"
                                 onChange={(e) => setUser(e.target.value)}
                                 value={user}
-                                required
                                 aria-invalid={validName ? "false" : "true"}
                                 aria-describedby="uidnote"
                                 onFocus={() => setUserFocus(true)}
                                 onBlur={() => setUserFocus(false)}
+                                placeholder="Enter your username"
                                 className={`w-full h-12 px-3 py-2 rounded-[10px] shadow-sm focus:outline-none focus:ring 
                             ${validName ? "border-2 border-green-500 focus:border focus:ring-green-500 focus:ring-opacity-50" : "focus:ring-black focus:ring-opacity-40"} 
                             ${!validName && user ? "border-2 border-red-500 focus:border focus:border-red-500 focus:ring-red-500 focus:ring-opacity-70" : ""}`}
@@ -151,7 +148,7 @@ const Register = () => {
 
                         <div className="flex flex-col">
                             <label htmlFor="email" className="text-green-medium tracking-wide font-Outfit-Light mb-2">
-                                email :
+                                Email
                             </label>
                             <input
                                 type="text"
@@ -161,11 +158,11 @@ const Register = () => {
                                 spellCheck="false"
                                 onChange={(e) => setMail(e.target.value)}
                                 value={mail}
-                                required
                                 aria-invalid={validMail ? "false" : "true"}
                                 aria-describedby="mailnote"
                                 onFocus={() => setMailFocus(true)}
                                 onBlur={() => setMailFocus(false)}
+                                placeholder="Enter your email"
                                 className={`w-full h-12 px-3 py-2 rounded-[10px] shadow-sm focus:outline-none focus:ring 
                             ${validMail ? "border-2 border-green-500 focus:border focus:ring-green-500 focus:ring-opacity-50" : "focus:ring-black focus:ring-opacity-40"} 
                             ${!validMail && mail ? "border-2 border-red-500 focus:border focus:border-red-500 focus:ring-red-500 focus:ring-opacity-70" : ""}`}
@@ -179,7 +176,7 @@ const Register = () => {
 
                         <div className="flex flex-col">
                             <label htmlFor="password" className="text-green-medium tracking-wide font-Outfit-Light mb-2">
-                                password :
+                                Password
                             </label>
                             <div className={`flex flex-row items-center w-full h-12 rounded-[10px] shadow-sm ${pwdFocus && !pwd ? "ring ring-black ring-opacity-40" : ""} 
                         ${pwdFocus && validPwd ? "ring ring-green-500 ring-opacity-50" : ""} ${pwdFocus && !validPwd && pwd ? "ring ring-red-500 ring-opacity-70" : ""}`}>
@@ -190,11 +187,11 @@ const Register = () => {
                                     id="password"
                                     onChange={(e) => setPwd(e.target.value)}
                                     value={pwd}
-                                    required
                                     aria-invalid={validPwd ? "false" : "true"}
                                     aria-describedby="pwdnote"
                                     onFocus={() => setPwdFocus(true)}
                                     onBlur={() => setPwdFocus(false)}
+                                    placeholder="Enter your password"
                                 />
                                 <div className={`flex bg-white w-10 h-12 rounded-r-[10px] items-center justify-center ${!pwdFocus && validPwd ? "border-y-2 border-r-2 border-green-500" : ""} 
                             ${!pwdFocus && !validPwd && pwd ? "border-y-2 border-r-2 border-red-500" : ""}`}>
@@ -213,7 +210,7 @@ const Register = () => {
 
                         <div className="flex flex-col">
                             <label htmlFor="confirm_pwd" className="text-green-medium tracking-wide font-Outfit-Light mb-2">
-                                confirm password :
+                                Confirm Password
                             </label>
                             <div className={`flex flex-row items-center w-full h-12 rounded-[10px] shadow-sm ${matchFocus && !matchPwd ? "ring ring-black ring-opacity-40" : ""} 
                         ${matchFocus && validMatch && matchPwd ? "ring ring-green-500 ring-opacity-50" : ""} ${matchFocus && !validMatch && matchPwd ? "ring ring-red-500 ring-opacity-70 " : ""}`}>
@@ -224,11 +221,11 @@ const Register = () => {
                                     id="confirm_pwd"
                                     onChange={(e) => setMatchPwd(e.target.value)}
                                     value={matchPwd}
-                                    required
                                     aria-invalid={validMatch ? "false" : "true"}
                                     aria-describedby="confirmnote"
                                     onFocus={() => setMatchFocus(true)}
                                     onBlur={() => setMatchFocus(false)}
+                                    placeholder="Re-enter your password"
                                 />
                                 <div className={`flex bg-white w-10 h-12 rounded-r-[10px] items-center justify-center ${!matchFocus && validMatch && matchPwd ? "border-y-2 border-r-2 border-green-500" : ""} 
                             ${!matchFocus && !validMatch && matchPwd ? "border-y-2 border-r-2 border-red-500" : ""}`}>
@@ -244,7 +241,7 @@ const Register = () => {
                         <div className="flex items-center justify-center pt-5">
                             <button type="submit"
                                 className="border bg-green-medium tracking-wider hover:bg-opacity-25 hover:text-green-medium hover:border-green-medium  text-white font-Outfit-Bold py-3 px-7 rounded-[30px] focus:outline-none focus:shadow-outline select-none"
-                                disabled={!validName || !validPwd || !validMatch || !validMail ? true : false}>Sign Up
+                            >Sign Up
                             </button>
                         </div>
                     </form>
